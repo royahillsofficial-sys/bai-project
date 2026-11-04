@@ -1,0 +1,260 @@
+{
+  "_comment": "One object per county. 'services' lists the IDs switched ON. Anything not listed is hidden. Labels override default text. Phase 3 employee package will edit this later.",
+  "defaults": {
+    "cardFeePercent": 2,
+    "cardFee": {
+      "percent": 2,
+      "flat": 0
+    },
+    "eCheckFee": 0,
+    "returnedCheckFee": 35,
+    "processor": "Payflow",
+    "humanCheckBeforeCheckout": true,
+    "allowRemoveNonDelinquent": false,
+    "eCheckNameOnCheck": true,
+    "validateRouting": true,
+    "checkoutNotices": [],
+    "helpPages": [],
+    "ebillTermsUrl": "",
+    "homeHtml": "<p>Pay a bill, look up a balance, or choose how you get your bills.</p>",
+    "petLicenseTypes": [
+      {
+        "id": "1",
+        "label": "1-year tag",
+        "cents": 1000
+      },
+      {
+        "id": "2",
+        "label": "2-year tag",
+        "cents": 1800
+      },
+      {
+        "id": "3",
+        "label": "3-year tag",
+        "cents": 2500
+      }
+    ],
+    "flexTypes": {
+      "RZP": {
+        "title": "Residential zoning permit",
+        "mode": "T",
+        "intro": [
+          "Choose the residential zoning charge, then enter the site details on the permit."
+        ]
+      }
+    },
+    "aliases": {
+      "util-inq": "util"
+    },
+    "inquiryOnly": [
+      "min-inq"
+    ],
+    "access": {
+      "re-tax": "public",
+      "pre-re": "public",
+      "re-inq": "public",
+      "yr-re": "public",
+      "min-inq": "public",
+      "util": "verified",
+      "util-inq": "verified",
+      "pets": "verified",
+      "pp-tax": "private",
+      "pre-pp": "private",
+      "pp-inquiry": "private",
+      "yr-pp": "private",
+      "biz": "private",
+      "cons": "private",
+      "ebill": "verified",
+      "park": "public"
+    },
+    "search": {
+      "re-tax": [
+        "name",
+        "account",
+        "parcel",
+        "deptTicket"
+      ],
+      "pre-re": [
+        "name",
+        "account",
+        "mapId",
+        "street"
+      ],
+      "re-inq": [
+        "name",
+        "account",
+        "mapId",
+        "street"
+      ],
+      "min-inq": [
+        "name",
+        "account",
+        "mapId",
+        "street"
+      ],
+      "yr-re": [
+        "nameYear"
+      ],
+      "yr-pp": [
+        "nameYear"
+      ],
+      "pp-tax": [
+        "password",
+        "deptTicket",
+        "account"
+      ],
+      "pre-pp": [
+        "password"
+      ],
+      "biz": [
+        "password",
+        "account"
+      ],
+      "cons": [
+        "businessId",
+        "password"
+      ],
+      "util": [
+        "ticketOrCustomer"
+      ],
+      "util-inq": [
+        "ticketOrCustomer"
+      ],
+      "pets": [
+        "ownerLastName"
+      ],
+      "park": [
+        "citation"
+      ]
+    },
+    "projectedDate": [
+      "re-inq",
+      "min-inq",
+      "pp-inquiry"
+    ]
+  },
+  "counties": {
+    "demo": {
+      "name": "Demo County, Virginia",
+      "treasurer": "Penny Pincher, Treasurer",
+      "services": [
+        "re-tax",
+        "pp-tax",
+        "pre-re",
+        "pre-pp",
+        "biz",
+        "util",
+        "cons",
+        "pets",
+        "park",
+        "re-inq",
+        "pp-inquiry",
+        "yr-re",
+        "yr-pp",
+        "util-inq",
+        "min-inq",
+        "ebill",
+        "register",
+        "forgot"
+      ],
+      "links": [
+        "home-t",
+        "home-c",
+        "legal"
+      ],
+      "labels": {}
+    },
+    "culpeper": {
+      "name": "Culpeper County, Virginia",
+      "treasurer": "Missy N. White, County Treasurer",
+      "services": [
+        "re-tax",
+        "pp-tax",
+        "pre-re",
+        "pre-pp",
+        "util",
+        "re-inq",
+        "pp-inquiry",
+        "yr-re",
+        "yr-pp",
+        "util-inq",
+        "register",
+        "forgot"
+      ],
+      "links": [
+        "home-a",
+        "addr",
+        "home-t",
+        "home-c",
+        "county",
+        "contact"
+      ],
+      "labels": {
+        "yr-re": "RE Taxes Paid",
+        "yr-pp": "PP Taxes Paid",
+        "pre-re": "Prepay RE Tax",
+        "pre-pp": "Prepay PP Tax",
+        "addr": "CO-Address Change Request"
+      },
+      "refundPolicy": "Refunds are not typically allowed. For an error or overpayment, contact the Treasurer at (540) 727-3442. The convenience fee is not refundable.",
+      "homeHtml": "<p>Culpeper County bills can be paid here. Call the Treasurer about a refund.</p>",
+      "checkoutNotices": [
+        "The convenience fee is not refundable."
+      ],
+      "helpPages": [
+        {
+          "id": "how-to-pay",
+          "title": "How to pay",
+          "body": "Use the account or ticket number printed on your bill. For a refund question, call the Treasurer at (540) 727-3442."
+        }
+      ]
+    },
+    "mecklenburg": {
+      "name": "Mecklenburg County, Virginia",
+      "treasurer": "Marsha C. Seamans, Treasurer",
+      "services": [
+        "pp-tax",
+        "re-tax",
+        "pre-pp",
+        "pre-re",
+        "re-inq",
+        "pp-inquiry",
+        "yr-re",
+        "yr-pp",
+        "register",
+        "forgot"
+      ],
+      "links": [
+        "county",
+        "home-t",
+        "contact"
+      ],
+      "labels": {
+        "re-inq": "Unpaid Real Estate Tax",
+        "pp-inquiry": "Unpaid Personal Property Tax",
+        "yr-re": "Paid Real Estate Tax",
+        "yr-pp": "Paid Personal Property Tax"
+      }
+    },
+    "marion": {
+      "name": "Town of Marion, Virginia",
+      "treasurer": "Town Treasurer",
+      "services": [
+        "re-tax",
+        "pp-tax",
+        "re-inq",
+        "pp-inquiry",
+        "register",
+        "forgot"
+      ],
+      "links": [
+        "home-t",
+        "contact"
+      ],
+      "flex": [
+        "RZP"
+      ],
+      "labels": {}
+    }
+  }
+}

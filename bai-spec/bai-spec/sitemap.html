@@ -1,0 +1,220 @@
+<title>e-Treasurer Phase 1 Blueprint</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap">
+<style>
+/* Layout: single reading column; sitemap as module grid, flows as horizontal step chains that scroll inside their own box */
+:root{
+  --bg:#F7F6F2; --card:#FFFFFF; --line:#E6E3DC; --text:#1B1F2E; --muted:#6A6F80;
+  --ink:#1E2750; --ink-soft:#E8EAF6; --action:#0E7A68; --action-soft:#E3F6F2; --action-text:#0C6B5C;
+  --calm-soft:#E3F6F2; --calm-text:#0C6B5C; --due-bg:#FFF4DE; --due-text:#7A5208; --off-bg:#F1EFEA; --off-text:#8A8E9C;
+  --head:"Plus Jakarta Sans",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1324; --card:#171C33; --line:#2C3354; --text:#E7EAF6; --muted:#B4BAD0;
+  --ink:#D5DAF0; --ink-soft:#222846; --action:#0E7A68; --action-soft:#14352E; --action-text:#8EEBD4;
+  --calm-soft:#14352E; --calm-text:#8EEBD4; --due-bg:#3A2E16; --due-text:#F6D48A; --off-bg:#1D2238; --off-text:#8C92AA; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1324; --card:#171C33; --line:#2C3354; --text:#E7EAF6; --muted:#B4BAD0;
+  --ink:#D5DAF0; --ink-soft:#222846; --action:#0E7A68; --action-soft:#14352E; --action-text:#8EEBD4;
+  --calm-soft:#14352E; --calm-text:#8EEBD4; --due-bg:#3A2E16; --due-text:#F6D48A; --off-bg:#1D2238; --off-text:#8C92AA; color-scheme:dark}
+body{background:var(--bg);color:var(--text);font:15px/1.55 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:1080px;margin:0 auto;padding-block:40px 64px;display:grid;gap:44px}
+h1,h2,h3{font-family:var(--head);color:var(--ink);text-wrap:balance;margin:0}
+h1{font-size:clamp(26px,4vw,36px);line-height:1.15}
+h2{font-size:21px;margin-bottom:6px}
+h3{font-size:15px}
+p{margin:0}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--action-text);font-weight:600;margin-bottom:8px}
+.lead{color:var(--muted);max-width:68ch;margin-top:10px}
+.sub{color:var(--muted);max-width:68ch;margin-bottom:16px}
+.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.phase{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--card)}
+.phase.on{border-color:var(--action);box-shadow:0 0 0 1px var(--action) inset}
+.phase b{display:block;font-family:var(--head);color:var(--ink)}
+.phase span{color:var(--muted);font-size:13px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;font-size:13px;color:var(--muted);align-items:center}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.public{background:var(--calm-soft);color:var(--calm-text)}
+.verified{background:var(--due-bg);color:var(--due-text)}
+.private{background:var(--action-soft);color:var(--action-text)}
+.done{background:var(--ink-soft);color:var(--ink)}
+.mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.mod h3{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.mod h3 small{font:500 12px var(--body);color:var(--muted)}
+.mod ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.mod li{display:flex;justify-content:space-between;gap:10px;font-size:14px;align-items:center}
+.mod.shared{background:var(--ink-soft);border-color:transparent}
+.flow{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:12px}
+.flow h3{margin-bottom:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chain-wrap{overflow-x:auto}
+.chain{display:flex;align-items:stretch;gap:0;min-width:max-content}
+.step{border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13.5px;background:var(--bg);max-width:190px}
+.step small{display:block;color:var(--muted);font-size:12px}
+.step.co{background:var(--action-soft);border-color:transparent;color:var(--action-text);font-weight:600}
+.arrow{align-self:center;color:var(--muted);padding:0 8px}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--head);color:var(--ink);font-size:13px}
+td:first-child{color:var(--muted)}
+.tbl{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow-x:auto}
+.off ul{columns:2;column-gap:20px;margin:0;padding-left:18px;color:var(--off-text);font-size:14px}
+.stats{display:flex;flex-wrap:wrap;gap:28px;margin-top:22px}
+.stats div{font-variant-numeric:tabular-nums}
+.stats b{font:700 28px var(--head);color:var(--ink);display:block}
+.stats span{font-size:13px;color:var(--muted)}
+@media (max-width:640px){.phases{grid-template-columns:1fr}.off ul{columns:1}}
+</style>
+
+<main>
+<header>
+  <div class="kicker">BAI · e-Treasurer modernization</div>
+  <h1>Phase 1 citizen app: structure and journeys</h1>
+  <p class="lead">How the 35 legacy screens map onto one modern product. Every payment service shares the same checkout, and each county chooses which services appear in its menu.</p>
+  <div class="stats">
+    <div><b>14</b><span>citizen services in scope</span></div>
+    <div><b>8</b><span>page templates</span></div>
+    <div><b>1</b><span>shared cart and checkout</span></div>
+    <div><b>26</b><span>reusable components</span></div>
+  </div>
+  <div class="phases">
+    <div class="phase on"><b>Phase 1 · Citizen</b><span>Look up and pay tickets. This blueprint.</span></div>
+    <div class="phase"><b>Phase 2 · e-Commissioner</b><span>Staff create the tickets citizens see.</span></div>
+    <div class="phase"><b>Phase 3 · Employee package</b><span>Settings, including each county's menu.</span></div>
+  </div>
+</header>
+
+<section>
+  <h2>Sitemap</h2>
+  <p class="sub">The full menu as it exists in code. A county config switches each item on or off and can rename it, for example Mecklenburg's "Unpaid Real Estate Tax".</p>
+  <div class="legend">
+    <span class="tag public">Public</span> search by name, account, parcel or street
+    <span class="tag verified">Verified</span> bill number + last name
+    <span class="tag private">Private</span> sign in once per session
+    <span class="tag done">Approved</span> already designed
+  </div>
+  <div class="mods">
+    <div class="mod"><h3>Pay <small>8 services</small></h3><ul>
+      <li>Real Estate Tax <span class="tag public">Public</span></li>
+      <li>Personal Property Tax <span class="tag private">Private</span></li>
+      <li>Prepay Real Estate Tax <span class="tag public">Public</span></li>
+      <li>Prepay Personal Property Tax <span class="tag private">Private</span></li>
+      <li>Business License <span class="tag private">Private</span></li>
+      <li>Utilities <span class="tag verified">Verified</span></li>
+      <li>Consumer Tax <span class="tag private">Private</span></li>
+      <li>Pet Tags <span class="tag verified">Verified</span></li>
+    </ul></div>
+    <div class="mod"><h3>Look up <small>6 services</small></h3><ul>
+      <li>Real Estate Public Inquiry <span class="tag public">Public</span></li>
+      <li>Personal Property Inquiry <span class="tag done">Approved</span></li>
+      <li>Real Estate Taxes Paid by Year <span class="tag public">Public</span></li>
+      <li>Personal Property Taxes Paid by Year <span class="tag private">Private</span></li>
+      <li>Utility Inquiry <span class="tag verified">Verified</span></li>
+      <li>Mineral Inquiry <span class="tag public">Public</span></li>
+    </ul></div>
+    <div class="mod"><h3>Account <small>preferences</small></h3><ul>
+      <li>e-Bill Options (RE · PP · Utilities) <span class="tag verified">Verified</span></li>
+      <li>Sign in <span class="tag done">Approved</span></li>
+      <li>Create account <span class="tag done">Approved</span></li>
+      <li>Forgot password <span class="tag done">Approved</span></li>
+      <li>Terms, once per session <span class="tag done">Approved</span></li>
+    </ul></div>
+    <div class="mod shared"><h3>Shared by every Pay service</h3><ul>
+      <li>Cart, available from the top bar</li>
+      <li>Review and human check</li>
+      <li>Choose eCheck (no fee) or card (2%)</li>
+      <li>eCheck with live check preview</li>
+      <li>Receipt with print and email</li>
+    </ul></div>
+  </div>
+</section>
+
+<section>
+  <h2>Key journeys</h2>
+  <p class="sub">Each service changes only its first two steps. Everything from "Add to cart" onward is the same screen set.</p>
+
+  <div class="flow"><h3>Pay real estate tax <span class="tag public">Public</span></h3>
+    <div class="chain-wrap"><div class="chain">
+      <div class="step">Find property<small>Name · Account · Parcel · Ticket</small></div><span class="arrow">→</span>
+      <div class="step">Matching owners<small>Select one record</small></div><span class="arrow">→</span>
+      <div class="step">Bills for this property<small>Full or partial amount</small></div><span class="arrow">→</span>
+      <div class="step co">Add to cart</div><span class="arrow">→</span>
+      <div class="step co">Checkout</div>
+    </div></div>
+  </div>
+
+  <div class="flow"><h3>Pay personal property tax <span class="tag private">Private</span></h3>
+    <div class="chain-wrap"><div class="chain">
+      <div class="step">Access records<small>Signed in · Dept + Ticket · Account</small></div><span class="arrow">→</span>
+      <div class="step">Your bills<small>One row per vehicle or item</small></div><span class="arrow">→</span>
+      <div class="step co">Add to cart</div><span class="arrow">→</span>
+      <div class="step co">Checkout</div>
+    </div></div>
+  </div>
+
+  <div class="flow"><h3>Shared checkout</h3>
+    <div class="chain-wrap"><div class="chain">
+      <div class="step co">Review cart<small>Mixed taxes allowed · human check</small></div><span class="arrow">→</span>
+      <div class="step co">Choose how to pay<small>eCheck $0 · Card 2%</small></div><span class="arrow">→</span>
+      <div class="step co">Bank details or card summary</div><span class="arrow">→</span>
+      <div class="step">Secure processor<small>Hosted by Payflow</small></div><span class="arrow">→</span>
+      <div class="step co">Receipt<small>Print · Email · Pay another</small></div>
+    </div></div>
+    <p class="note">The CAPTCHA moves onto the review screen instead of a separate page. A failed payment returns to "Choose how to pay" with the cart kept.</p>
+  </div>
+
+  <div class="flow"><h3>Renew a pet tag <span class="tag verified">Verified</span></h3>
+    <div class="chain-wrap"><div class="chain">
+      <div class="step">Renew or license new pet</div><span class="arrow">→</span>
+      <div class="step">Your pets<small>Status: active · expiring · expired</small></div><span class="arrow">→</span>
+      <div class="step">Verify details<small>Rabies date unlocks license type</small></div><span class="arrow">→</span>
+      <div class="step co">Add to cart</div><span class="arrow">→</span>
+      <div class="step co">Checkout</div>
+    </div></div>
+  </div>
+
+  <div class="flow"><h3>Prepay real estate tax <span class="tag public">Public</span></h3>
+    <div class="chain-wrap"><div class="chain">
+      <div class="step">Find property</div><span class="arrow">→</span>
+      <div class="step">Select owner</div><span class="arrow">→</span>
+      <div class="step">Prepay amount<small>If a balance is due: "Pay the balance" instead</small></div><span class="arrow">→</span>
+      <div class="step co">Checkout</div>
+    </div></div>
+  </div>
+
+  <div class="flow"><h3>Go paperless (e-Bill)</h3>
+    <div class="chain-wrap"><div class="chain">
+      <div class="step">Choose RE · PP · Utilities</div><span class="arrow">→</span>
+      <div class="step">Find account</div><span class="arrow">→</span>
+      <div class="step">Paper or email bill<small>Email + confirm</small></div><span class="arrow">→</span>
+      <div class="step">Saved</div>
+    </div></div>
+  </div>
+</section>
+
+<section>
+  <h2>What changes from the legacy screens</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Legacy</th><th>Modernized</th></tr></thead>
+    <tbody>
+      <tr><td>"Payment Options – OLD / NEW" plus separate Help menus</td><td>One menu driven by county config. Help moves into a "How this works" panel on each page.</td></tr>
+      <tr><td>"Multiple Payments" menu item</td><td>A global cart in the top bar that works across every tax type</td></tr>
+      <tr><td>"Error on Page" pop-ups in red capitals</td><td>Inline messages that explain the problem and offer the next action, such as "Pay the balance"</td></tr>
+      <tr><td>CAPTCHA on its own page before checkout</td><td>A human check inside the cart review step</td></tr>
+      <tr><td>eCheck form with static check images</td><td>A live check preview that highlights each number as it is typed</td></tr>
+      <tr><td>Different search screen for every service</td><td>One search component configured per service</td></tr>
+      <tr><td>"Show 25 entries / First Previous Next Last" tables</td><td>Responsive tables that become cards on phones</td></tr>
+      <tr><td>Terms repeated per service</td><td>Shown once per session</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="off">
+  <h2>Out of scope for Phase 1</h2>
+  <p class="sub">These stay in the menu config, switched off, so they can be enabled later without a redesign.</p>
+  <ul>
+    <li>Decals</li><li>Parking Fines</li><li>Building Permit</li><li>Landfill Fees</li><li>Airport Fee</li><li>Public Service</li><li>Zoning and sign permits</li><li>Legal statement start page</li><li>Processor-hosted card page</li><li>e-Commissioner and Employee package</li>
+  </ul>
+</section>
+</main>
