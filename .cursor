@@ -1,0 +1,8 @@
+---
+alwaysApply: true
+---
+This project is the BAI e-Treasurer citizen app. index.html is the approved design.
+Before any change, follow /bai-spec/00-design-system.md and /bai-spec/03-component-library.md.
+Reuse existing CSS tokens, classes and components. Never add new colours, fonts, radii or button styles.
+Add new screens as <section class="screen" data-screen="..."> inside the existing #app shell.
+The sidebar menu comes from /bai-spec/county.config.json.

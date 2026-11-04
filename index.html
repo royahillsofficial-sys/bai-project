@@ -333,18 +333,18 @@ html.terms-done .app.is-gate #collapse-btn{display:inline-flex !important}
 #reg-step-1 .hint{font-size:12px; margin-top:2px; min-height:0; line-height:1.3}
 #reg-step-1 .hint:empty{display:none}
 #reg-step-1 .meter{height:5px; margin-top:4px}
-.seg{position:relative; display:flex; flex-direction:row; gap:0; background:transparent; border-radius:0; padding:0; margin:16px 0 18px; border-bottom:1px solid var(--line)}
-.seg::after{content:""; position:absolute; left:0; bottom:-1px; width:50%; height:6px; background:#1e2750; transform:translateX(0); transition:transform .32s cubic-bezier(.4,0,.2,1)}
-.seg[data-method="ssn"]::after{transform:translateX(100%)}
-.seg button{flex:1 1 0; border:0; background:transparent; border-radius:0; min-height:44px; padding:8px 8px 10px; font-weight:700; font-size:14px; color:var(--text-muted); white-space:nowrap; transition:color .32s ease}
-.seg button[aria-pressed="true"]{background:transparent; color:#1e2750; box-shadow:none}
-:root[data-theme="dark"] .seg::after{background:#fff}
-:root[data-theme="dark"] .seg button[aria-pressed="true"]{color:#fff}
+.seg,.tabs{display:flex; flex-direction:row; gap:0; background:transparent; border-radius:0; padding:0; margin:8px 0 16px; border-bottom:1px solid var(--line); overflow-x:auto; overflow-y:hidden; scrollbar-width:none}
+.seg::-webkit-scrollbar,.tabs::-webkit-scrollbar{display:none}
+.seg button,.tabs button{flex:0 0 auto; border:0; background:transparent; border-radius:0; min-height:44px; padding:10px 16px 12px; font-weight:600; font-size:14px; color:var(--text-muted); white-space:nowrap; border-bottom:3px solid transparent; margin-bottom:-1px}
+.seg button[aria-pressed="true"],.tabs button[aria-pressed="true"]{background:transparent; color:#0E7A68; border-bottom-color:#0E7A68; box-shadow:none}
+:root[data-theme="dark"] .seg button[aria-pressed="true"],
+:root[data-theme="dark"] .tabs button[aria-pressed="true"]{color:#8EEBD4; border-bottom-color:#0E7A68}
 .field{margin-bottom:8px}
 .field label{display:flex; font-weight:600; font-size:13px; margin-bottom:3px}
 .control{position:relative}
 .control input,.field textarea,select.input{
-  width:100%; min-height:36px; border-radius:12px; border:1px solid var(--line); background:var(--card); padding:0 12px;
+  width:100%; min-height:44px; border-radius:12px; border:1px solid var(--ink-700); background:var(--card);
+  padding:0 12px; box-shadow:var(--shadow-sm);
 }
 .form-grid,#svc-form,#co-form,#form-forgot,#form-password,#form-email{
   display:grid; grid-template-columns:1fr 1fr; column-gap:12px; row-gap:8px; align-items:start;
@@ -360,6 +360,7 @@ html.terms-done .app.is-gate #collapse-btn{display:inline-flex !important}
 @media (max-width:720px){
   .form-grid,#svc-form,#co-form,#form-forgot,#form-password,#form-email{grid-template-columns:1fr}
 }
+#svc-form{grid-template-columns:1fr}
 .control input{padding-right:44px}
 .field.is-invalid input,.field.is-invalid .code-box{border-color:var(--danger); background:var(--danger-bg)}
 .hint{font-size:12px; color:var(--text-muted); margin-top:2px; min-height:0}
@@ -871,6 +872,21 @@ dialog::backdrop{background:rgba(15,19,36,.5)}
           <div class="signin-only">
               <form class="card panel" id="form-signin" novalidate>
                 <h1 tabindex="-1">Sign in</h1>
+                <div class="seg" role="radiogroup" aria-label="Sign-in method" data-method="email">
+                  <button type="button" id="method-email" role="radio" aria-checked="true" aria-pressed="true">Email</button>
+                  <button type="button" id="method-ssn" role="radio" aria-checked="false" aria-pressed="false">Social Security Number</button>
+                </div>
+                <div class="field">
+                  <label id="id-label" for="login-id">Email</label>
+                  <div class="control"><input id="login-id" name="id" type="text" autocomplete="username" inputmode="email"></div>
+                </div>
+                <div class="field">
+                  <label for="login-pw">Password</label>
+                  <div class="control">
+                    <input id="login-pw" name="password" type="password" autocomplete="current-password">
+                    <button type="button" class="eye" data-eye="login-pw" aria-label="Show password" aria-pressed="false"><span data-icon="eye"></span></button>
+                  </div>
+                </div>
                 <button type="submit" class="btn btn-accept btn-block">Sign in</button>
                 <div class="links">
                   <button type="button" data-go="forgot">Forgot password?</button>
@@ -1149,7 +1165,7 @@ const COUNTY_CONFIG = {
       "re-tax": "public", "pre-re": "public", "re-inq": "public", "yr-re": "public", "min-inq": "public",
       "util": "verified", "util-inq": "verified", "pets": "verified",
       "pp-tax": "private", "pre-pp": "private", "pp-inquiry": "private", "yr-pp": "private",
-      "biz": "private", "cons": "private", "ebill": "verified"
+      "biz": "private", "cons": "private", "ebill": "verified", "park": "public"
     },
     "search": {
       "re-tax": ["name", "account", "parcel", "deptTicket"],
@@ -1162,14 +1178,15 @@ const COUNTY_CONFIG = {
       "biz": ["password", "account"],
       "cons": ["businessId", "password"],
       "util": ["ticketOrCustomer"], "util-inq": ["ticketOrCustomer"],
-      "pets": ["ownerLastName"]
+      "pets": ["ownerLastName"],
+      "park": ["citation"]
     },
     "projectedDate": ["re-inq", "min-inq", "pp-inquiry"]
   },
   "counties": {
     "demo": {
       "name": "Demo County, Virginia", "treasurer": "Penny Pincher, Treasurer",
-      "services": ["re-tax","pp-tax","pre-re","pre-pp","biz","util","cons","pets","re-inq","pp-inquiry","yr-re","yr-pp","util-inq","min-inq","ebill","register","forgot"],
+      "services": ["re-tax","pp-tax","pre-re","pre-pp","biz","util","cons","pets","park","re-inq","pp-inquiry","yr-re","yr-pp","util-inq","min-inq","ebill","register","forgot"],
       "links": ["home-t","home-c","legal"],
       "labels": {}
     },
@@ -1656,7 +1673,8 @@ const HINTS={
   'util-inq':'Demo: customer 44021, last name Coleman.',
   'cons':'Demo: meals tax, business ID 12-3456789 and name Coleman. Lodging: 98-7654321 and Lovelace.',
   'pets':'Demo: last name Morrow. Rabies date 06/30/2026 is expired. 06/30/2027 is valid.',
-  'ebill':'Demo: real estate account 43110001. Utilities: customer 44021 and last name Coleman.'
+  'ebill':'Demo: real estate account 43110001. Utilities: customer 44021 and last name Coleman.',
+  'park':'Demo: vehicle tag ABC-1842, citation P-44102. Email can be left blank.'
 };
 const RE_RECORDS=[
   {id:'coleman', name:'COLEMAN, AMANDA L', name2:'', mapId:'45-12', parcel:'45-12', account:'43110001', street:'Clark Lane', address:'Clark Lane', acres:'2.40', mortgage:'First Example Bank', land:8420000, impr:12650000, desc:'CLARK LAND',
@@ -1704,6 +1722,13 @@ const PETS=[
   {id:'clover', ownerLast:'morrow', owner:'Helen Morrow', address:'8 Maple Ave', phone:'(555) 010-2044', name:'Clover', breed:'Beagle', color:'Tri-color', gender:'Female', tag:'T-1044', expiry:'01/31/2027', status:'Active'},
   {id:'brick', ownerLast:'morrow', owner:'Helen Morrow', address:'8 Maple Ave', phone:'(555) 010-2044', name:'Brick', breed:'Mixed', color:'Brindle', gender:'Male', tag:'T-1045', expiry:'01/31/2026', status:'Expiring'}
 ];
+const PARK=[
+  {id:'park1', tag:'ABC-1842', name:'Jane Keaton', email:'jane.keaton@example.com', account:'ABC-1842', desc:'Parking citations',
+    bills:[
+      {id:'pk1', dept:'PARK', ticket:'P-44102', half:'', due:'08/14/2026', location:'Main Street at Court', desc:'Expired meter', amount:2500, status:'due'},
+      {id:'pk2', dept:'PARK', ticket:'P-44188', half:'', due:'09/02/2026', location:'200 Church Street', desc:'Overtime parking', amount:4000, status:'due'}
+    ]}
+];
 
 function norm(s){return String(s==null?'':s).trim().toLowerCase();}
 function isoMDY(iso){
@@ -1724,7 +1749,7 @@ function dollarsToCents(v){
   return Math.round(parseFloat(s)*100);
 }
 function kindOf(id){
-  const map={'re-tax':'re','pre-re':'pre-re','re-inq':'re-inq','min-inq':'min','yr-re':'year','pp-tax':'pp','pre-pp':'pre-pp','yr-pp':'year-pp','biz':'biz','util':'util','util-inq':'util-inq','cons':'cons','pets':'pets','ebill':'ebill'};
+  const map={'re-tax':'re','pre-re':'pre-re','re-inq':'re-inq','min-inq':'min','yr-re':'year','pp-tax':'pp','pre-pp':'pre-pp','yr-pp':'year-pp','biz':'biz','util':'util','util-inq':'util-inq','cons':'cons','pets':'pets','ebill':'ebill','park':'park'};
   if(String(id).indexOf('flex:')===0) return 'flex';
   if(String(id).indexOf('help:')===0) return 'help';
   return map[id]||'link';
@@ -1777,7 +1802,7 @@ function ppPeople(){
 function recById(id){
   id=id||state.recordId;
   if(!id) return null;
-  const lists=[RE_RECORDS, MINERAL, BIZ, UTIL, CONS, PETS, ppPeople()];
+  const lists=[RE_RECORDS, MINERAL, BIZ, UTIL, CONS, PETS, PARK, ppPeople()];
   for(let i=0;i<lists.length;i++){
     const hit=lists[i].find(r=>r.id===id);
     if(hit) return hit;
@@ -1795,7 +1820,7 @@ function chip(status){
   return statusChip(status);
 }
 function taxTypeFor(id){
-  const map={'re-tax':'Real estate','pre-re':'Real estate prepay','min-inq':'Mineral','pp-tax':'Personal property','pre-pp':'Personal property prepay','biz':'Business license','util':'Utilities','util-inq':'Utilities','cons':'Consumer tax','pets':'Pet tag'};
+  const map={'re-tax':'Real estate','pre-re':'Real estate prepay','min-inq':'Mineral','pp-tax':'Personal property','pre-pp':'Personal property prepay','biz':'Business license','util':'Utilities','util-inq':'Utilities','cons':'Consumer tax','pets':'Pet tag','park':'Parking fine'};
   return map[id]||itemText(id);
 }
 function consLabel(id){
@@ -1827,7 +1852,7 @@ function pwField(){
 }
 function methodChips(methods){
   if(!methods||methods.length<2) return '';
-  return `<div class="filters" role="radiogroup" aria-label="Search method">${methods.map(m=>`<button type="button" class="chip-btn" data-act="method" data-method="${esc(m)}" aria-pressed="${state.svcMethod===m?'true':'false'}">${esc(METHOD_LABEL[m]||m)}</button>`).join('')}</div>`;
+  return `<div class="tabs" role="tablist" aria-label="Search method">${methods.map(m=>`<button type="button" role="tab" data-act="method" data-method="${esc(m)}" aria-pressed="${state.svcMethod===m?'true':'false'}">${esc(METHOD_LABEL[m]||m)}</button>`).join('')}</div>`;
 }
 function processingNote(){
   return '<p class="fine">Payments made in the last 10 business days may not show returned items yet.</p>';
@@ -1845,7 +1870,8 @@ function helpFold(kind){
     year:'Use the last name and the calendar year you need for your filing.',
     ebill:'Use the account, the street, or the ticket printed on the bill.',
     min:'Use the business name or the federal ID on the mineral account.',
-    're-inq':'Name, account, map ID, and street are public. A projected date estimates penalty after the due date.'
+    're-inq':'Name, account, map ID, and street are public. A projected date estimates penalty after the due date.',
+    park:'The citation number and vehicle tag are printed on the parking ticket.'
   }[kind]||'Use a number printed on the bill.';
   return `<details class="short-fold"><summary>Where to find these numbers</summary><div class="point"><p>${esc(text)}</p></div></details>`;
 }
@@ -1863,6 +1889,7 @@ function againLabel(){
   if(id==='util') return 'Pay another utility bill';
   if(id==='cons') return 'Pay another period';
   if(id==='pets') return 'License another pet';
+  if(id==='park') return 'Pay another ticket';
   return 'Start another search';
 }
 function checkoutBtn(){
@@ -1935,6 +1962,7 @@ function readForm(form){
   return o;
 }
 function stepAfter(kind){
+  if(kind==='park') return 'citations';
   if(kind==='pre-re'||kind==='pre-pp') return 'prepay';
   if(kind==='year'||kind==='year-pp') return 'paid';
   if(kind==='ebill') return 'prefer';
@@ -1946,6 +1974,7 @@ function stepAfter(kind){
 function emptyMsg(kind){
   if(kind==='biz') return 'No outstanding license fees for this account. Check the spelling, or contact the treasurer.';
   if(kind==='pets') return 'No pets found for that last name.';
+  if(kind==='park') return 'No parking citation matches that number or vehicle tag.';
   if(kind==='util'||kind==='util-inq') return 'No utility account matches that ticket and name.';
   if(kind==='cons') return 'No outstanding consumer tax for this business.';
   if(kind==='year'||kind==='year-pp') return 'No payments found for that name and year.';
@@ -1997,6 +2026,19 @@ function searchCons(method, q){
   if(method==='password') return state.signedIn ? pool : [];
   return pool.filter(c=>norm(c.businessId)===norm(q.businessId) && (norm(c.last)===norm(q.name) || norm(c.name).includes(norm(q.name))));
 }
+function plateKey(s){return norm(s).replace(/[^a-z0-9]/g,'');}
+function searchPark(q){
+  const cite=plateKey(q.citation);
+  const tag=plateKey(q.tag);
+  return PARK.filter(p=>{
+    const byTag=!!tag && plateKey(p.tag)===tag;
+    const byCite=!!cite && dueRows(p).some(b=>plateKey(b.ticket)===cite);
+    if(cite&&tag) return byTag||byCite;
+    if(cite) return byCite;
+    if(tag) return byTag;
+    return false;
+  });
+}
 function runQuery(kind, method, q){
   if(kind==='re'||kind==='pre-re'||kind==='re-inq') return searchPool(RE_RECORDS, method, q);
   if(kind==='year') return RE_RECORDS.filter(r=>nameMatch(r, q.name) && (r.paid||[]).some(p=>String(p.year)===String(q.year)));
@@ -2006,6 +2048,7 @@ function runQuery(kind, method, q){
   if(kind==='util'||kind==='util-inq') return searchUtil(q);
   if(kind==='cons') return searchCons(method, q);
   if(kind==='pets') return PETS.filter(p=>p.ownerLast===norm(q.last));
+  if(kind==='park') return searchPark(q);
   if(kind==='ebill'){
     if(state.ebillTab==='re') return searchPool(RE_RECORDS, method, q);
     if(state.ebillTab==='pp') return searchPP(method, q);
@@ -2014,6 +2057,7 @@ function runQuery(kind, method, q){
   return [];
 }
 function missingSearch(kind, method, q){
+  if(kind==='park') return '';
   if(method==='password') return '';
   if(method==='deptTicket'){
     if(!norm(q.dept)||!norm(q.ticket)) return 'Enter the department and ticket number.';
@@ -2078,12 +2122,19 @@ function openService(id){
 function searchFields(kind, method){
   const q=state.q||{};
   let html='';
+  if(kind==='park'){
+    return field('email','Email address', q.email||'','type="email" autocomplete="email"')
+      +'<p class="hint">Please enter your email address to continue.</p>'
+      +field('citation','Citation no.', q.citation||'','autocomplete="off"')
+      +field('tag','Vehicle tag', q.tag||'','autocomplete="off"');
+  }
   if(method==='password'){
     if(state.signedIn){
       const a=account();
       html=`<p>Signed in as ${esc(a.name)}, account <span class="mono">${esc(a.account)}</span>.</p>`;
     } else {
-      html='<p class="links"><button type="button" data-go="register">Create account</button><button type="button" data-go="forgot">Forgot password</button></p>';
+      html=field('email','Email address', q.email||'','type="email" autocomplete="username"')
+        +pwField();
     }
   } else if(method==='deptTicket'){
     html=field('dept','Department', q.dept||'','autocomplete="off"')
@@ -2131,15 +2182,21 @@ function drawFind(){
   const hint=HINTS[id]?'<p class="hint">'+esc(HINTS[id])+'</p>':'';
   const extra=kind==='cons'?'<button type="button" class="btn btn-ghost" data-act="typeback">Change tax type</button>':'';
   const petNew=kind==='pets'?'<button type="button" class="btn btn-ghost" data-act="newpet">License a new pet</button>':'';
+  const accountLinks=(state.svcMethod==='password' && !state.signedIn)
+    ? '<p class="links"><button type="button" data-go="register">Create account</button><button type="button" data-go="forgot">Forgot password</button></p>'
+    : '';
+  const parkActions=kind==='park'
+    ? '<button type="submit" class="btn btn-primary">OK</button><button type="submit" class="btn btn-primary">Search</button><button type="button" class="btn btn-primary" data-go="checkout">Checkout</button>'
+    : '';
   return pageHead(id, lead)+ebillTabs()+errBox()+okBox()+methodChips(methods)
-    +`<form id="svc-form" novalidate>${searchFields(kind, state.svcMethod)}${hint}<div class="actions"><button type="submit" class="btn btn-primary">${submitWord()}</button>${petNew}${extra}</div></form>`
+    +`<form id="svc-form" novalidate>${searchFields(kind, state.svcMethod)}${hint}<div class="actions">${parkActions||`<button type="submit" class="btn btn-primary">${submitWord()}</button>${petNew}${extra}`}</div>${accountLinks}</form>`
     +helpFold(kind==='year'||kind==='year-pp'?'year':kind);
 }
 function ebillTabs(){
   if(kindOf(state.svc)!=='ebill') return '';
   if(state.step==='saved') return '';
   const tabs=[['re','Real estate'],['pp','Personal property'],['util','Utilities']];
-  return `<div class="filters" role="tablist" aria-label="Bill type">${tabs.map(([tid,lab])=>`<button type="button" class="chip-btn" data-act="ebtab" data-tab="${tid}" aria-pressed="${state.ebillTab===tid?'true':'false'}">${lab}</button>`).join('')}</div>`;
+  return `<div class="tabs" role="tablist" aria-label="Bill type">${tabs.map(([tid,lab])=>`<button type="button" role="tab" data-act="ebtab" data-tab="${tid}" aria-pressed="${state.ebillTab===tid?'true':'false'}">${lab}</button>`).join('')}</div>`;
 }
 function drawTypes(){
   const cards=CONS_TYPES.map(([tid,lab,desc])=>`<button type="button" class="card short" data-act="constype" data-type="${tid}" style="text-align:left;width:100%;font:inherit;cursor:pointer"><h2>${esc(lab)}</h2><p class="fine">${esc(desc)}</p></button>`).join('');
@@ -2194,6 +2251,17 @@ function recSummary(rec){
     ['Address', esc(rec.address||rec.street||'')],
     ['Description', esc(rec.desc||'')]
   ]);
+}
+function drawPark(){
+  const rec=recById();
+  if(!rec) return drawFind();
+  const rows=dueRows(rec);
+  const total=rows.reduce((s,b)=>s+(Number(b.amount)||0),0);
+  const body=rows.map(b=>`<tr data-ticket="${esc(b.id)}"><td data-label=""><button type="button" class="btn btn-primary" data-act="detail" data-bill="${esc(b.id)}">Details</button></td><td data-label="Citation no." class="mono">${esc(b.ticket)}</td><td data-label="Citation date">${esc(b.due||'')}</td><td data-label="Citation location">${esc(b.location||'')}</td><td data-label="Description">${esc(b.desc)}</td><td data-label="Amount" class="mono">${money(b.amount)}</td><td data-label="Cart"><button type="button" class="btn btn-primary" data-act="add-one" data-bill="${esc(b.id)}">Add to cart</button></td></tr>`).join('');
+  return pageHead(state.svc)+errBox()+okBox()+summaryGrid([['Vehicle license no.', esc(rec.tag||'')],['Name', esc(rec.name)]])
+    +`<div class="table-scroll"><table class="tickets"><thead><tr><th></th><th>Citation no.</th><th>Citation date</th><th>Citation location</th><th>Description</th><th>Amount</th><th>Cart</th></tr></thead><tbody>${body}</tbody></table></div>`
+    +`<p>Total due <strong class="mono">${money(total)}</strong></p>`
+    +`<div class="actions"><button type="button" class="btn btn-ghost" data-act="back">Previous</button><button type="button" class="btn btn-ghost" data-act="again">Pay another ticket</button><button type="button" class="btn btn-primary" data-go="checkout">Checkout</button></div>`;
 }
 function drawBills(){
   const rec=recById();
@@ -2335,6 +2403,18 @@ function drawDetail(){
   const rec=recById();
   const rows=dueRows(rec);
   const b=rows.find(x=>x.id===state.detailId) || (rec&&(rec.paid||[]).find(x=>x.ticket===state.detailId));
+  if(kindOf(state.svc)==='park'){
+    if(!rec||!b) return drawPark();
+    return pageHead(state.svc)+errBox()+okBox()+summaryGrid([
+      ['Citation no.', esc(b.ticket||'')],
+      ['Citation date', esc(b.due||'')],
+      ['Citation location', esc(b.location||'')],
+      ['Description', esc(b.desc||'')],
+      ['Amount', b.amount!=null?money(b.amount):''],
+      ['Vehicle license no.', esc(rec.tag||'')],
+      ['Name', esc(rec.name)]
+    ])+`<div class="actions"><button type="button" class="btn btn-primary" data-act="add-one" data-bill="${esc(b.id)}">Add to cart</button>${backBtn()}</div>`;
+  }
   if(!rec||!b) return drawBills();
   const veh=b.vehicle&&VEH[b.vehicle];
   const vehTxt=veh?[veh.year, veh.make, veh.model].filter(x=>x&&x!=='—').join(' '):'';
@@ -2412,6 +2492,7 @@ function renderSvc(){
   else if(state.step==='pets') html=drawPetList();
   else if(state.step==='renew'||state.step==='newpet') html=drawPetForm();
   else if(state.step==='detail') html=drawDetail();
+  else if(state.step==='citations') html=drawPark();
   else html=drawFind();
   host.innerHTML=html;
   hydrate(host);
@@ -2559,6 +2640,7 @@ function fillDemoQuery(kind, method){
   if(kind==='biz'){ out.last='Coleman'; out.account='BL-2201'; }
   if(kind==='cons'){ out.businessId='12-3456789'; out.name='Coleman'; }
   if(kind==='pets'){ out.last='Morrow'; }
+  if(kind==='park'){ out.email='jane.keaton@example.com'; out.citation='P-44102'; out.tag='ABC-1842'; }
   if(kind==='min'){ out.name='Rivanna'; out.account='54-1234567'; out.mapId='9-3'; out.street='Mill'; }
   if(kind==='year'){ out.name='Coleman'; out.year='2025'; }
   if(kind==='re'||kind==='pre-re'||kind==='re-inq'||ebill==='re'||(!out.name && method==='name')){
@@ -2600,7 +2682,8 @@ function svcSearch(){
     const skip=(method==='deptTicket' && hits.length===1 && (kind==='re'||kind==='pp'||kind==='pre-pp'))
       || (method==='password' && hits.length===1)
       || ((kind==='biz'||kind==='util'||kind==='cons'||kind==='util-inq') && hits.length===1)
-      || (kind==='ebill' && state.ebillTab!=='re' && hits.length===1);
+      || (kind==='ebill' && state.ebillTab!=='re' && hits.length===1)
+      || (kind==='park' && hits.length===1);
     if(skip){
       state.recordId=hits[0].id;
       state.step=stepAfter(kind);
@@ -2620,6 +2703,7 @@ function goBack(){
   state.svcErr='';
   state.svcMsg='';
   if(step==='detail'){ state.step=state.back||'bills'; renderSvc(); return; }
+  if(step==='citations'){ state.step='find'; renderSvc(); return; }
   if(step==='renew'||step==='newpet'){ state.step=state.hits&&state.hits.length?'pets':'find'; renderSvc(); return; }
   if(step==='pets'){ state.step='find'; renderSvc(); return; }
   if(step==='results'){ state.step=kind==='cons'?'type':'find'; renderSvc(); return; }
