@@ -69,6 +69,7 @@
     },
     "search": {
       "re-tax": [
+        "password",
         "name",
         "account",
         "parcel",
