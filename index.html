@@ -87,16 +87,27 @@ html.terms-done .app.is-gate #collapse-btn{display:inline-flex !important}
 [data-screen="svc"] .signin-only{min-height:calc(100vh - 220px); padding:8px 16px}
 .signin-only .panel,.auth-center .panel{width:min(400px,100%)}
 .signin-only #svc-form{display:block; width:min(400px,100%); margin-inline:auto}
-.signin-stack #svc-form{width:100%}
+.signin-only .signin-stack #svc-form,.signin-only .signin-stack #lookup-form{width:100%}
 .svc-head{
   position:sticky; top:var(--top); z-index:12; background:var(--canvas);
   padding:4px 0 10px; margin-bottom:4px;
 }
 .svc-head .kicker{margin:0 0 4px}
 .svc-head h1{margin:0}
-.signin-stack{width:min(520px,100%); margin-inline:auto}
+.signin-stack{width:min(560px,100%); margin-inline:auto; display:flex; flex-direction:column; gap:16px}
 .signin-stack .panel{width:100%}
 .signin-stack .tabs{flex-wrap:wrap; overflow:visible}
+.signin-stack h2{font-size:20px; margin:0 0 10px}
+#lookup-form{display:block; width:100%}
+.lookup-fields{display:grid; grid-template-columns:1fr 1fr; column-gap:12px; row-gap:8px}
+.lookup-fields > .field{margin:0}
+.lookup-fields > .hint,.lookup-fields > p{grid-column:1 / -1; margin:0}
+.lookup-types{border:0; margin:0 0 12px; padding:0}
+.lookup-types legend{font-weight:600; font-size:13px; margin-bottom:6px}
+.radio-row{display:flex; flex-wrap:wrap; gap:8px 16px}
+@media (max-width:720px){
+  .lookup-fields{grid-template-columns:1fr}
+}
 .sidebar{
   width:280px; flex:none; background:var(--sidebar); color:var(--sidebar-text);
   display:flex; flex-direction:column; position:sticky; top:0; height:100vh; z-index:40;
@@ -154,20 +165,8 @@ html.terms-done .app.is-gate #collapse-btn{display:inline-flex !important}
 .app.is-collapsed #collapse-btn{left:88px}
 .version{font-size:12px; color:var(--sidebar-muted); padding:0 8px; line-height:1.4}
 .scrim{position:fixed; inset:0; background:rgba(15,19,36,.48); z-index:35; border:0; padding:0}
-#cart-drawer{
-  position:fixed; top:0; right:0; z-index:45; width:min(400px,100%); height:100%;
-  background:var(--card); color:var(--text); border-left:1px solid var(--line); box-shadow:var(--shadow);
-  display:flex; flex-direction:column;
-}
-#cart-drawer[hidden]{display:none !important}
-#cart-drawer .card-h{padding:16px 16px 0; margin:0}
-#cart-drawer .card-h .icon-btn{margin-left:auto}
-#cart-body{flex:1; overflow:auto; padding:0 16px 16px}
-#cart-body .point > :first-child{min-width:0}
-#cart-body .point > :last-child{margin-left:auto; text-align:right; flex:none}
-#cart-foot{padding:14px 16px 16px; border-top:1px solid var(--line)}
-#cart-foot[hidden]{display:none !important}
 #cart-btn{position:relative}
+#cart-btn[hidden]{display:none !important}
 #cart-btn .badge{position:absolute; top:2px; right:2px; background:var(--action); color:#fff; padding:0 5px; opacity:1}
 #cart-btn .badge[hidden]{display:none !important}
 #service-refund{margin-top:16px}
@@ -361,6 +360,9 @@ html.terms-done .app.is-gate #collapse-btn{display:inline-flex !important}
 :root[data-theme="dark"] .tabs button[aria-pressed="true"]{color:#8EEBD4; border-bottom-color:#0E7A68}
 .field{margin-bottom:8px}
 .field label{display:flex; font-weight:600; font-size:13px; margin-bottom:3px}
+.pw-row{display:flex; align-items:flex-end; gap:8px; margin:0 0 8px; flex-wrap:wrap}
+.pw-row .field{flex:1; margin:0; min-width:0}
+.pw-row .btn{flex:none; min-height:44px; white-space:nowrap}
 .control{position:relative}
 .control input,.field textarea,select.input{
   width:100%; min-height:44px; border-radius:12px; border:1px solid var(--ink-700); background:var(--card);
@@ -747,7 +749,7 @@ dialog::backdrop{background:rgba(15,19,36,.5)}
 ::view-transition-new(screen){animation:view-in .22s ease-out both}
 @keyframes fall{to{transform:translateY(220px) rotate(160deg); opacity:0}}
 @media print{
-  .sidebar,.main-head,.accept,.guide-launch,#guide,#toasts,.scrim,#cart-drawer,.no-print,.actions{display:none !important}
+  .sidebar,.main-head,.accept,.guide-launch,#guide,#toasts,.scrim,.no-print,.actions{display:none !important}
   .app{display:block}
   body{background:#fff; color:#000}
   .amount-card,.hero{background:#fff !important; color:#000 !important; box-shadow:none !important}
@@ -777,14 +779,6 @@ dialog::backdrop{background:rgba(15,19,36,.5)}
   </aside>
   <button type="button" id="collapse-btn" aria-pressed="false" aria-label="Shrink menu"></button>
   <button type="button" class="scrim" id="scrim" hidden aria-label="Close menu"></button>
-  <aside id="cart-drawer" hidden role="dialog" aria-modal="true" aria-labelledby="cart-title">
-    <div class="card-h">
-      <h2 id="cart-title">Cart</h2>
-      <button type="button" class="icon-btn" id="cart-close" aria-label="Close cart"><span data-icon="x"></span></button>
-    </div>
-    <div id="cart-body" aria-live="polite"></div>
-    <div id="cart-foot" hidden></div>
-  </aside>
   <div class="main">
     <div class="main-head">
       <header class="topbar">
@@ -795,7 +789,7 @@ dialog::backdrop{background:rgba(15,19,36,.5)}
         <span class="chip" id="county-office" title="Penny Pincher, Treasurer"><span class="long" id="county-treasurer">Penny Pincher, Treasurer</span></span>
         <span class="place" id="county-name">Demo County, Virginia</span>
         <div class="top-actions">
-          <button type="button" class="icon-btn" id="cart-btn" aria-expanded="false" aria-controls="cart-drawer" aria-label="Cart, empty"><span data-icon="wallet"></span><span class="badge count" id="cart-count" hidden>0</span></button>
+          <button type="button" class="icon-btn" id="cart-btn" aria-label="Cart, empty"><span data-icon="wallet"></span><span class="badge count" id="cart-count" hidden>0</span></button>
           <div class="a11y">
             <button type="button" class="icon-btn" id="a11y-btn" aria-expanded="false" aria-controls="text-size" aria-label="Text size"><span data-icon="access"></span></button>
             <div class="text-size" id="text-size" role="group" aria-label="Text size" hidden>
@@ -1083,6 +1077,9 @@ dialog::backdrop{background:rgba(15,19,36,.5)}
         <section class="screen" data-screen="checkout" hidden>
           <div class="wrap" id="checkout-root"></div>
         </section>
+        <section class="screen" data-screen="cart" hidden>
+          <div class="wrap" id="cart-root"></div>
+        </section>
         <section class="screen" data-screen="placeholder" hidden>
           <div class="wrap" style="max-width:720px">
             <p class="kicker">Coming later</p>
@@ -1277,16 +1274,12 @@ const MASTER_MENU = [
     ['yr-re','Real Estate Taxes Paid'],['yr-pp','Personal Property Taxes Paid'],
     ['util-inq','Utility Inquiry'],['min-inq','Mineral Inquiry']
   ]},
-  {id:'account', label:'Account', icon:'key', items:[
+  {id:'account', label:'Other Options', icon:'key', items:[
     ['ebill','e-Bill Options'],['register','Create account'],['forgot','Forgot password']
   ]},
   {id:'ecomm', label:'e-Commissioner', icon:'landmark', items:[
     ['file-biz','File business license'],['file-cons','File consumer taxes'],['cards','BAI property cards'],
     ['vehicle','Add or remove vehicle'],['req-pp','Request personal property'],['addr','Address change']
-  ]},
-  {id:'links', label:'County links', icon:'dots', items:[
-    ['home-t','e-Treasurer home'],['home-c','e-Commissioner home'],['home-a','e-Assessor home'],
-    ['county','County main page'],['contact','Contact treasurer'],['legal','Terms and conditions']
   ]}
 ];
 const MENU = MASTER_MENU;
@@ -1335,34 +1328,35 @@ const ACCOUNTS = {
   harold:{id:'harold',name:'Harold Lee Stanfield Jr',short:'Harold Stanfield',first:'Harold',email:'harold.stanfield@example.com',initials:'HS',account:'187290',address:'7 Beaverpond Road, Amelia VA 23002-4408',zip:'23002-4408',tickets:[],collections:576782}
 };
 const state = {
-  screen:'terms', accountId:'jane',   menuQ:'', openGroup:'pay', collapsed:false, drawer:false, cartOpen:false, clearAsk:false,
+  screen:'terms', accountId:'jane',   menuQ:'', openGroup:'pay', collapsed:false, drawer:false, clearAsk:false,
   theme:null, text:[90,100,110,120,130,140,150], textIdx:1, dateChosen:false,
   asOf:ymd(DEMO_TODAY), filter:'all', query:'', sortKey:'status', sortDir:'asc', page:1, pageSize:10,
   txFilter:'all', txSort:'date:asc',
   loading:false, ticketId:'j1', placeholder:'', menuCurrent:'pp-inquiry',
   method:'email', regStep:1, force:{}, formError:null, codeTries:0, codeExp:0, resendAt:0,
   emailCode:false, emailTries:0, emailExp:0, emailResend:0, signedIn:false, emailOverride:null,
+  signMode:'password', otpSent:false, lookupMethod:'', entry:'sign',
   calMonth:new Date(2026,8,1), countyKey:'demo',
   svc:'', step:'find', svcMethod:'', hits:[], recordId:'', svcMsg:'', svcErr:'', q:{},
   co:'review', payBy:'echeck', receipt:null, coMsg:'', coClear:false, humanOk:false,
   consType:'meals', ebillTab:'re', showAddr:false, svcToken:0, coToken:0, busy:false,
   lookupOther:false, back:'bills', petId:'', detailId:'', linkSent:false, linkRef:'', savedEmail:'',
-  cartRestored:false, receiptEmail:'', emailEdit:false, emailErr:'',
+  cartRestored:false,
   reSort:'due', rePage:1, rePick:{}, reAmt:'', reAmtEdited:false
 };
 const cart = {
   items:[],
+  has(id){
+    return this.items.some(it=>it.id===id);
+  },
   add(item){
-    if(!item||item.id==null) return;
-    const was=this.items.length;
+    if(!item||item.id==null) return false;
     const next=normalizeCartItem(item);
-    this.items=this.items.filter(it=>it.id!==next.id);
+    if(this.has(next.id)) return false;
     this.items.push(next);
     saveCart();
-    if(was===0 && !state.receiptEmail){
-      state.emailEdit=true;
-      openCart();
-    }
+    if(state.screen==='cart') renderCart();
+    return true;
   },
   remove(id){
     this.items=this.items.filter(it=>it.id!==id);
@@ -1391,27 +1385,12 @@ function loadCart(){
     }
   }catch(e){}
 }
-function loadReceiptEmail(){
-  let v='';
-  try{ v=sessionStorage.getItem('bai-receipt-email')||''; }catch(e){}
-  if(!v){
-    try{
-      const m=document.cookie.match(/(?:^|; )bai-receipt-email=([^;]*)/);
-      if(m) v=decodeURIComponent(m[1]);
-    }catch(e){}
-  }
-  state.receiptEmail=v||'';
-}
-function saveReceiptEmail(email){
-  state.receiptEmail=email;
-  try{ sessionStorage.setItem('bai-receipt-email', email); }catch(e){}
-  try{ document.cookie='bai-receipt-email='+encodeURIComponent(email)+'; path=/; max-age=2592000; SameSite=Lax'; }catch(e){}
-}
 function normalizeCartItem(item){
   const dept=item.dept||'';
   const year=item.year || ((String(dept).match(/\d{4}/)||[''])[0]);
   const recordKey=item.recordKey || (dept+'-'+(item.account||item.ticket||item.id||''));
-  return Object.assign({}, item, {year:year, delinquent:item.delinquent===true, recordKey:recordKey});
+  const balance=item.balance!=null?Number(item.balance):Number(item.amount)||0;
+  return Object.assign({}, item, {year:year, delinquent:item.delinquent===true, recordKey:recordKey, balance:balance});
 }
 function setting(name){
   const c=county();
@@ -1473,7 +1452,7 @@ function reduceMotion(){return matchMedia('(prefers-reduced-motion: reduce)').ma
 
 function show(name, opts){
   opts=opts||{};
-  const known=['terms','service','inquiry','signin','owe','ticket','register','forgot','password','email','placeholder','svc','checkout'];
+  const known=['terms','service','inquiry','signin','owe','ticket','register','forgot','password','email','placeholder','svc','checkout','cart'];
   if(!known.includes(name)) name='placeholder';
   const run=()=>applyScreen(name, opts);
   const view=document.getElementById('view');
@@ -1513,6 +1492,7 @@ function applyScreen(name, opts){
   if(name==='service') renderService();
   if(name==='svc') renderSvc();
   if(name==='checkout') renderCheckout();
+  if(name==='cart') renderCart();
   if(name==='owe') renderOwe();
   if(name==='ticket') renderTicket();
   if(name==='register') renderRegister();
@@ -1536,7 +1516,6 @@ function closeTransient(){
     if(b) b.setAttribute('aria-expanded','false');
     if(panel) panel.hidden=true;
   });
-  if(state.cartOpen) closeCart(false);
   if(window.innerWidth<=860) closeDrawer();
 }
 function currentTicket(){return account().tickets.find(t=>t.id===state.ticketId)||null;}
@@ -1676,13 +1655,13 @@ function paintSurfaces(){
     el.style.backgroundColor=el.classList.contains('is-live')?soft:card;
     el.style.color=text;
   });
-  document.querySelectorAll('.icon-btn, #cart-drawer .text-btn').forEach(el=>{
+  document.querySelectorAll('.icon-btn').forEach(el=>{
     el.style.backgroundColor=card;
     el.style.color=text;
   });
 }
 const METHOD_LABEL={
-  name:'Name', account:'Account no.', parcel:'Parcel no.', deptTicket:'Dept. / ticket no.',
+  name:'Last Name', account:'Account No.', parcel:'Parcel No.', deptTicket:'Department/Ticket No.',
   mapId:'Map ID', street:'Street', nameYear:'Name and year', password:'Sign in',
   businessId:'Business ID', ticketOrCustomer:'Ticket or customer no.', ownerLastName:'Owner last name'
 };
@@ -1752,6 +1731,12 @@ const RE_RECORDS=[
     ]},
   {id:'babbage', name:'BABBAGE, CHARLES', name2:'', mapId:'9-3', parcel:'9-3', account:'090003', street:'Mill Road', address:'9 Mill Road', acres:'12.00', mortgage:'County Farm Credit', land:12000000, impr:800000, desc:'MILL ROAD',
     bills:[{id:'re-b1', dept:'RE2024', ticket:'090003', half:'1', due:'06/05/2024', desc:'MILL ROAD', amount:24110, status:'overdue'}],
+    paid:[]},
+  {id:'keaton', name:'KEATON, JANE GOODWIN', name2:'', mapId:'41-8', parcel:'41-8', account:'180624', street:'Wexford Row', address:'418 Wexford Row, Amelia VA 23002-1140', acres:'0.35', mortgage:'None', land:1800000, impr:2400000, desc:'WEXFORD ROW',
+    bills:[
+      {id:'re-k1', dept:'RE2026', ticket:'180624', half:'1', due:'06/05/2026', desc:'WEXFORD ROW', amount:15200, status:'due'},
+      {id:'re-k2', dept:'RE2026', ticket:'180624', half:'2', due:'12/05/2026', desc:'WEXFORD ROW', amount:15200, status:'due'}
+    ],
     paid:[]}
 ];
 const MINERAL=[
@@ -2166,10 +2151,19 @@ function openService(id){
   if(!state.ebillTab) state.ebillTab='re';
   const kind=kindOf(id);
   state.svcMethod=(methodsFor(id)[0])||'name';
+  state.signMode='password';
+  state.otpSent=false;
+  state.lookupMethod='';
+  state.entry='sign';
   if(kind==='link') state.step='link';
   else if(kind==='cons') state.step='type';
-  else if(state.signedIn && (kind==='pp'||kind==='pre-pp')){
+  else if(state.signedIn && (kind==='re'||kind==='pre-re')){
+    state.recordId='keaton';
+    if(kind==='re') resetReBillView();
+    state.step=kind==='pre-re'?'prepay':'bills';
+  } else if(state.signedIn && (kind==='pp'||kind==='pre-pp')){
     state.recordId=ppPeople().some(p=>p.id===state.accountId)?state.accountId:'jane';
+    if(kind==='pp') resetReBillView();
     state.step=kind==='pre-pp'?'prepay':'bills';
   } else if(state.signedIn && kind==='biz'){
     state.recordId='bl1';
@@ -2214,7 +2208,7 @@ function searchFields(kind, method){
       +field('account','Account number', q.account||'','autocomplete="off"')
       +(kind==='biz'?'<p class="hint">If this is a business, enter the business name.</p>':'');
   } else if(method==='name'){
-    html=field('name','Name', q.name||'')+'<p class="hint">For a business, enter the business name. For a person, enter the last name only.</p>';
+    html=field('name','Last Name', q.name||'')+'<p class="hint">For a business, enter the business name. For a person, enter the last name only.</p>';
   } else if(method==='account') html=field('account','Account number', q.account||'','autocomplete="off"');
   else if(method==='parcel') html=field('parcel','Parcel number', q.parcel||'');
   else if(method==='mapId') html=field('mapId','Map ID', q.mapId||'');
@@ -2238,13 +2232,56 @@ function resetReBillView(){
   state.reAmt='';
   state.reAmtEdited=false;
 }
-function reIsChecked(id){
-  if(!state.rePick || !Object.prototype.hasOwnProperty.call(state.rePick, id)) return true;
-  return !!state.rePick[id];
-}
 function reDueKey(b){
   const n=parseMDY(b.due||'');
   return n||99999999;
+}
+function lookupChoices(methods){
+  return (methods||[]).filter(m=>m!=='password');
+}
+function signBody(){
+  const q=state.q||{};
+  if(state.signMode==='otp'){
+    return `<div class="field"><label for="f-email">Email</label><div class="control"><input id="f-email" name="email" type="email" autocomplete="username" value="${esc(q.email||'')}"></div></div>
+      ${state.otpSent?'<p class="hint">We sent a 6-digit code. In this demo the code is 246810.</p><div class="code-row" role="group" aria-label="Email code" id="svc-otp"></div>':''}
+      <div class="actions">
+        <button type="button" class="btn btn-ghost" data-act="send-otp">${state.otpSent?'Resend code':'Send code'}</button>
+        <button type="submit" class="btn btn-accept"${state.otpSent?'':' disabled'}>Sign in</button>
+        <button type="button" class="btn btn-ghost" data-act="sign-mode" data-mode="password">Use password</button>
+      </div>`;
+  }
+  return `<div class="seg" role="radiogroup" aria-label="Sign-in method">
+      <button type="button" data-idmethod="email" aria-pressed="${state.method==='ssn'?'false':'true'}">Email</button>
+      <button type="button" data-idmethod="ssn" aria-pressed="${state.method==='ssn'?'true':'false'}">Social Security Number</button>
+    </div>
+    <div class="field"><label id="svc-id-label" for="f-email">${state.method==='ssn'?'Social Security Number':'Email'}</label><div class="control"><input id="f-email" name="email" type="text" autocomplete="username" value="${esc(q.email||'')}"></div></div>
+    <div class="pw-row">${pwField()}<button type="button" class="btn btn-ghost" data-act="sign-mode" data-mode="otp">Sign in using OTP</button></div>
+    <button type="submit" class="btn btn-accept btn-block">Sign in</button>
+    <div class="links"><button type="button" data-go="forgot">Forgot password?</button><button type="button" data-go="register">Create New Account</button></div>`;
+}
+function searchBody(kind, lookups, hint, petNew, extra){
+  if(lookups.indexOf(state.lookupMethod)<0) state.lookupMethod=lookups[0];
+  const method=state.lookupMethod;
+  const options=lookups.map(m=>`<label class="check"><input type="radio" name="lookupType" value="${esc(m)}"${m===method?' checked':''}>${esc(METHOD_LABEL[m]||m)}</label>`).join('');
+  return `<fieldset class="lookup-types"><legend>Search by</legend><div class="radio-row" role="radiogroup" aria-label="Search by">${options}</div></fieldset>
+    <div class="lookup-fields">${searchFields(kind, method)}</div>
+    ${hint}
+    <div class="actions"><button type="submit" class="btn btn-primary btn-block">Search</button>${petNew}${extra}</div>`;
+}
+function accessCard(kind, lookups, hint, petNew, extra, hasSign){
+  const showSign=hasSign && !state.signedIn;
+  const showSearch=lookups.length>0;
+  if(!showSign) state.entry='search';
+  else if(state.entry!=='search') state.entry='sign';
+  const searching=state.entry==='search' && showSearch;
+  const choice=(showSign && showSearch)
+    ? `<div class="seg" role="radiogroup" aria-label="Sign in or search">
+        <button type="button" data-act="entry" data-entry="sign" aria-pressed="${searching?'false':'true'}">Sign in</button>
+        <button type="button" data-act="entry" data-entry="search" aria-pressed="${searching?'true':'false'}">Search</button>
+      </div>`
+    : '';
+  const body=searching ? searchBody(kind, lookups, hint, petNew, extra) : signBody();
+  return `<form class="card panel" id="svc-form"${searching?'':' data-signin="1"'} novalidate><h1 tabindex="-1">${searching?'Search':'Sign in'}</h1>${choice}${body}</form>`;
 }
 function drawFind(){
   const id=state.svc;
@@ -2252,6 +2289,7 @@ function drawFind(){
   let lead=LEADS[id]||'';
   if(kind==='cons') lead=consLabel(state.consType)+'. '+lead;
   const methods=methodsFor(id);
+  const lookups=lookupChoices(methods);
   const hint=HINTS[id]?'<p class="hint">'+esc(HINTS[id])+'</p>':'';
   const extra=kind==='cons'?'<button type="button" class="btn btn-ghost" data-act="typeback">Change tax type</button>':'';
   const petNew=kind==='pets'?'<button type="button" class="btn btn-ghost" data-act="newpet">License a new pet</button>':'';
@@ -2261,22 +2299,11 @@ function drawFind(){
   const parkActions=kind==='park'
     ? '<button type="submit" class="btn btn-primary">OK</button><button type="submit" class="btn btn-primary">Search</button><button type="button" class="btn btn-primary" data-go="checkout">Checkout</button>'
     : '';
-  if(methods.length>1 || state.svcMethod==='password'){
-    const signing=state.svcMethod==='password' && !state.signedIn;
-    const body=signing
-      ? `<h1 tabindex="-1">Sign in</h1>
-        <div class="seg" role="radiogroup" aria-label="Sign-in method" data-method="email">
-          <button type="button" data-idmethod="email" aria-pressed="true">Email</button>
-          <button type="button" data-idmethod="ssn" aria-pressed="false">Social Security Number</button>
-        </div>
-        <div class="field"><label id="svc-id-label" for="f-email">Email</label><div class="control"><input id="f-email" name="email" type="text" autocomplete="username" inputmode="email"></div></div>
-        ${pwField()}
-        <button type="submit" class="btn btn-accept btn-block">Sign in</button>
-        <div class="links"><button type="button" data-go="forgot">Forgot password?</button><button type="button" data-go="register">Create New Account</button></div>`
-      : `${searchFields(kind, state.svcMethod)}${hint}<div class="actions"><button type="submit" class="btn btn-primary btn-block">${submitWord()}</button>${petNew}${extra}</div>${accountLinks}`;
+  const hasSign=methods.includes('password');
+  if(hasSign || lookups.length>1){
     const fold=kind==='re'?'':helpFold(kind==='year'||kind==='year-pp'?'year':kind);
-    return pageHead(id)+`<div class="signin-only"><div class="signin-stack">${errBox()}${okBox()}${methodChips(methods)}
-      <form class="card panel" id="svc-form" novalidate>${body}</form>${fold}</div></div>`;
+    const card=(hasSign && !state.signedIn) || lookups.length ? accessCard(kind, lookups, hint, petNew, extra, hasSign) : '';
+    return pageHead(id)+`<div class="signin-only"><div class="signin-stack">${errBox()}${okBox()}${card}${fold}</div></div>`;
   }
   const fold=kind==='re'?'':helpFold(kind==='year'||kind==='year-pp'?'year':kind);
   const head=pageHead(id, lead)+ebillTabs()+errBox()+okBox()+methodChips(methods);
@@ -2305,13 +2332,19 @@ function drawResults(){
   let head, body;
   if(reLike){
     const nameOnly=kind==='re';
-    head=nameOnly?'<th>Name</th><th>Name 2</th><th>Map ID</th><th></th>':`<th>Name</th><th>Name 2</th><th>${addr?'Address':'Map ID'}</th><th></th>`;
-    body=rows.map(r=>`<tr data-ticket="${esc(r.id)}"><td data-label="Name">${esc(r.name)}</td><td data-label="Name 2">${esc(r.name2||'')}</td><td data-label="${nameOnly?'Map ID':(addr?'Address':'Map ID')}">${esc(nameOnly?(r.mapId||''):(addr?(r.address||r.street||''):(r.mapId||'')))}</td><td data-label=""><button type="button" class="btn btn-primary" data-act="pick" data-id="${esc(r.id)}">Select</button></td></tr>`).join('');
+    const prepay=kind==='pre-re';
+    head=prepay?'<th>Name</th><th>Name 2</th><th>Map ID</th><th>Address</th><th></th>':(nameOnly?'<th>Name</th><th>Name 2</th><th>Map ID</th><th></th>':`<th>Name</th><th>Name 2</th><th>${addr?'Address':'Map ID'}</th><th></th>`);
+    body=rows.map(r=>{
+      const third=nameOnly||prepay?(r.mapId||''):(addr?(r.address||r.street||''):(r.mapId||''));
+      const thirdLabel=nameOnly||prepay?'Map ID':(addr?'Address':'Map ID');
+      const address=prepay?`<td data-label="Address">${esc(r.address||r.street||'')}</td>`:'';
+      return `<tr data-ticket="${esc(r.id)}"><td data-label="Name">${esc(r.name)}</td><td data-label="Name 2">${esc(r.name2||'')}</td><td data-label="${thirdLabel}">${esc(third)}</td>${address}<td data-label=""><button type="button" class="btn btn-primary" data-act="pick" data-id="${esc(r.id)}">Select</button></td></tr>`;
+    }).join('');
   } else {
     head='<th>Name</th><th>Account</th><th>Address</th><th></th>';
     body=rows.map(r=>`<tr data-ticket="${esc(r.id)}"><td data-label="Name">${esc(r.name)}</td><td data-label="Account">${esc(r.account||r.businessId||'')}</td><td data-label="Address">${esc(r.address||'')}</td><td data-label=""><button type="button" class="btn btn-primary" data-act="pick" data-id="${esc(r.id)}">Select</button></td></tr>`).join('');
   }
-  const toggle=reLike && kind!=='re'?`<button type="button" class="btn btn-ghost" data-act="toggle-addr">${addr?'Show map ID':'Show address'}</button>`:'';
+  const toggle=reLike && kind!=='re' && kind!=='pre-re'?`<button type="button" class="btn btn-ghost" data-act="toggle-addr">${addr?'Show map ID':'Show address'}</button>`:'';
   const note=['re-inq','min','year','year-pp','util-inq'].includes(kind)?processingNote():'';
   return pageHead(state.svc, rows.length===1?'1 matching record.':rows.length+' matching records.')
     +ebillTabs()+note+errBox()
@@ -2349,58 +2382,56 @@ function reSorted(rows){
   const spec=state.reSort||'due';
   const desc=spec.endsWith(':desc');
   const key=spec.replace(':desc','');
+  const rank={overdue:0, due:1, paid:2};
   return rows.slice().sort((a,b)=>{
     let av, bv;
     if(key==='amount'){ av=a.amount; bv=b.amount; }
-    else if(key==='ticket'){ av=String(a.ticket)+a.half; bv=String(b.ticket)+b.half; }
+    else if(key==='ticket'){ av=String(a.ticket||''); bv=String(b.ticket||''); }
+    else if(key==='seq'){ av=Number(a.half)||0; bv=Number(b.half)||0; }
     else if(key==='dept'){ av=a.dept||''; bv=b.dept||''; }
+    else if(key==='desc'){ av=a.desc||''; bv=b.desc||''; }
+    else if(key==='status'){ av=rank[a.status]!=null?rank[a.status]:9; bv=rank[b.status]!=null?rank[b.status]:9; }
     else { av=reDueKey(a); bv=reDueKey(b); }
     if(av<bv) return desc?1:-1;
     if(av>bv) return desc?-1:1;
     return 0;
   });
 }
+function sortHead(key, label){
+  const spec=state.reSort||'due';
+  const desc=spec.endsWith(':desc');
+  const cur=spec.replace(':desc','');
+  const aria=cur===key?(desc?'descending':'ascending'):'none';
+  const mark=cur===key?(desc?'↓':'↑'):'';
+  return `<th scope="col" aria-sort="${aria}"><button type="button" data-act="col-sort" data-key="${key}">${label}${mark?' '+mark:''}</button></th>`;
+}
 function drawReBills(){
   const rec=recById();
   if(!rec) return drawFind();
   const rows=dueRows(rec);
   const sorted=reSorted(rows);
-  const pageSize=2;
-  const pages=Math.max(1, Math.ceil(sorted.length/pageSize));
-  if(state.rePage>pages) state.rePage=pages;
-  if(state.rePage<1) state.rePage=1;
-  const start=(state.rePage-1)*pageSize;
-  const view=sorted.slice(start, start+pageSize);
+  const view=sorted;
   const total=rows.reduce((s,b)=>s+(Number(b.amount)||0),0);
-  const selectedRows=rows.filter(b=>reIsChecked(b.id));
-  const selected=selectedRows.reduce((s,b)=>s+(Number(b.amount)||0),0);
-  const amt=state.reAmtEdited?state.reAmt:(selected/100).toFixed(2);
-  const sortVal=state.reSort||'due';
-  const opts=[['due','Due date'],['dept','Department'],['ticket','Ticket'],['amount','Amount low to high'],['amount:desc','Amount high to low']];
-  const sort=`<label class="tool">Sort <select id="re-sort" aria-label="Sort tickets">${opts.map(([v,l])=>`<option value="${v}"${sortVal===v?' selected':''}>${l}</option>`).join('')}</select></label>`;
+  const amt=state.reAmtEdited?state.reAmt:(total/100).toFixed(2);
   const body=view.map(b=>`<tr data-ticket="${esc(b.id)}">
-    <td data-label="Select"><input type="checkbox" data-pick="${esc(b.id)}" aria-label="Select ${esc(b.dept)} ${esc(ticketLabel(b))}"${reIsChecked(b.id)?' checked':''}></td>
     <td data-label="Dept">${esc(b.dept)}</td>
     <td data-label="Ticket">${esc(b.ticket)}</td>
-    <td data-label="Half">${esc(b.half||'—')}</td>
+    <td data-label="Seq">${esc(b.half||'—')}</td>
     <td data-label="Due">${esc(b.due||'—')}</td>
     <td data-label="Description">${esc(b.desc)}</td>
     <td data-label="Balance" class="mono">${money(b.amount)}</td>
     <td data-label="Status">${chip(b.status)}</td>
     <td data-label=""><button type="button" class="text-btn" data-act="detail" data-bill="${esc(b.id)}">Details</button></td>
   </tr>`).join('');
-  const table=rows.length?`<div class="table-scroll"><table class="tickets"><thead><tr><th>Select</th><th>Dept</th><th>Ticket</th><th>Half</th><th>Due</th><th>Description</th><th>Balance</th><th>Status</th><th></th></tr></thead><tbody>${body}</tbody></table></div>`:'<div class="empty"><p>Nothing is due on this record.</p></div>';
-  const pagesHtml=pages>1?`<div class="filters">${Array.from({length:pages},(_,i)=>`<button type="button" class="chip-btn" data-act="re-page" data-page="${i+1}" aria-current="${state.rePage===i+1?'page':'false'}">${i+1}</button>`).join('')}</div>`:'';
-  const payField=rows.length?`<div class="field"><label for="re-amt">Amount to pay</label><div class="control"><input id="re-amt" inputmode="decimal" value="${esc(amt)}"></div></div>`:'';
+  const heads=sortHead('dept','Dept')+sortHead('ticket','Ticket')+sortHead('seq','Seq')+sortHead('due','Due')+sortHead('desc','Description')+sortHead('amount','Balance')+sortHead('status','Status')+'<th scope="col"></th>';
+  const table=rows.length?`<div class="table-scroll"><table class="tickets"><thead><tr>${heads}</tr></thead><tbody>${body}</tbody></table></div>`:'<div class="empty"><p>Nothing is due on this record.</p></div>';
+  const payField=rows.length?`<div class="field"><label for="re-amt">Amount to pay</label><div class="control"><input id="re-amt" inputmode="decimal" value="${esc(amt)}"></div><p class="hint">This amount is applied to the oldest ticket first.</p></div>`:'';
   const who=state.signedIn?recSummary(rec):'';
-  const pay=state.signedIn && rows.length
-    ? `<div class="actions"><button type="submit" class="btn btn-primary">Add to cart</button>${checkoutBtn()}</div>`
-    : (rows.length?`<div class="actions"><button type="button" class="btn btn-ghost" data-act="re-login">Sign in</button></div>`:'');
+  const pay=rows.length?`<div class="actions"><button type="button" class="btn btn-primary" data-act="re-add">Add to cart</button><button type="button" class="btn btn-primary" data-act="re-checkout">Checkout</button></div>`:'';
   return pageHead(state.svc)+errBox()+okBox()+who
-    +`<form id="svc-form" novalidate><div class="filters">${sort}</div>${table}
+    +`<form id="svc-form" novalidate>${table}
     <p>Total due <strong class="mono">${money(total)}</strong></p>
-    <p>Selected <strong class="mono">${money(selected)}</strong></p>
-    ${payField}${pay}${pagesHtml}<div class="actions"><button type="button" class="btn btn-ghost" data-act="again">${esc(againLabel())}</button>${backBtn()}</div></form>`;
+    ${payField}${pay}<div class="actions"><button type="button" class="btn btn-ghost" data-act="again">${esc(againLabel())}</button>${backBtn()}</div></form>`;
 }
 function drawPark(){
   const rec=recById();
@@ -2414,7 +2445,7 @@ function drawPark(){
     +`<div class="actions"><button type="button" class="btn btn-ghost" data-act="back">Previous</button><button type="button" class="btn btn-ghost" data-act="again">Pay another ticket</button><button type="button" class="btn btn-primary" data-go="checkout">Checkout</button></div>`;
 }
 function drawBills(){
-  if(kindOf(state.svc)==='re') return drawReBills();
+  if(kindOf(state.svc)==='re' || kindOf(state.svc)==='pp') return drawReBills();
   const rec=recById();
   if(!rec) return drawFind();
   const rows=dueRows(rec);
@@ -2441,10 +2472,11 @@ function drawPrepay(){
     ['Land value', rec.land!=null?money(rec.land):''],
     ['Improvement value', rec.impr!=null?money(rec.impr):'']
   ];
-  const notice=blocked?`<div class="banner" role="alert"><span>This property has a balance due. Prepayments are only available when nothing is owed.</span></div>`:'';
+  const example=state.svc==='pre-re'?' To try a prepayment, search for Lovelace, account 188801. That property has nothing due.':'';
+  const notice=blocked?`<div class="banner" role="alert"><span>This property has a balance due. Prepayments are only available when nothing is owed.${esc(example)}</span></div>`:'';
   let form;
   if(blocked){
-    form=`<div class="field"><label for="prepay-amt">Amount to prepay</label><div class="control"><input id="prepay-amt" value="" disabled></div><p class="hint">Pay the balance first. Then prepay is available.</p></div><div class="actions"><button type="button" class="btn btn-primary" data-act="pay-balance">Pay the balance instead</button>${backBtn()}</div>`;
+    form=`<div class="actions"><button type="button" class="btn btn-primary" data-act="pay-balance">Pay the balance instead</button>${backBtn()}</div>`;
   } else {
     form=`<form id="svc-form" novalidate><div class="field"><label for="prepay-amt">Amount to prepay</label><div class="control"><input id="prepay-amt" name="prepay" inputmode="decimal" value="${esc((state.q&&state.q.prepay)||'')}"> </div><p class="hint">Enter at least $1.00.</p></div><div class="actions"><button type="submit" class="btn btn-primary">Add to cart</button>${checkoutBtn()}${backBtn()}</div></form>`;
   }
@@ -2681,6 +2713,7 @@ function renderSvc(){
   else html=drawFind();
   host.innerHTML=html;
   hydrate(host);
+  if(document.getElementById('svc-otp')) buildCodes('svc-otp');
   paintSurfaces();
   document.title=county().name+' Treasurer · '+screenTitle('svc');
 }
@@ -2688,16 +2721,48 @@ function snapshotAmounts(){
   state.amounts=state.amounts||{};
   document.querySelectorAll('[data-amt]').forEach(el=>{ state.amounts[el.dataset.amt]=el.value; });
 }
+function ensureSignedForCart(){
+  if(state.signedIn) return true;
+  state.svcErr='Sign in to add this to the cart.';
+  state.entry='sign';
+  state.signMode='password';
+  const methods=state.svc?methodsFor(state.svc):[];
+  if(state.svc && methods.includes('password')){
+    state.svcMethod='password';
+    state.step='find';
+    renderChrome();
+    if(state.screen!=='svc') show('svc');
+    else renderSvc();
+  } else show('signin');
+  return false;
+}
 function pushCart(b, cents, rec){
-  cart.add({
+  return cart.add({
     id:b.id, service:state.svc, dept:b.dept, ticket:ticketLabel(b),
-    name:rec.name, taxType:taxTypeFor(state.svc), description:b.desc, amount:cents,
+    name:rec.name, taxType:taxTypeFor(state.svc), description:b.desc,
+    balance:Number(b.amount)||0, amount:cents,
     delinquent:b.status==='overdue', year:(String(b.dept||'').match(/\d{4}/)||[''])[0],
     recordKey:(b.dept||'')+'-'+(rec.account||rec.id||'')
   });
 }
+function finishCartAdd(addedCents, duplicate){
+  if(!addedCents){
+    snapshotAmounts();
+    state.svcErr='Already added to cart';
+    state.svcMsg='';
+    renderSvc();
+    return;
+  }
+  state.amounts={};
+  state.svcErr=duplicate?'Already added to cart':'';
+  state.svcMsg='Added '+money(addedCents)+' to the cart.';
+  toast('Added '+money(addedCents));
+  renderChrome();
+  renderSvc();
+}
 function addFromTable(){
-  if(kindOf(state.svc)==='re') return addReToCart();
+  if(!ensureSignedForCart()) return;
+  if(kindOf(state.svc)==='re' || kindOf(state.svc)==='pp') return addReToCart();
   const rec=recById();
   if(!rec) return;
   const rows=dueRows(rec);
@@ -2719,42 +2784,55 @@ function addFromTable(){
     renderSvc();
     return;
   }
-  let sum=0;
-  picked.forEach(row=>{ pushCart(row.b, row.cents, rec); sum+=row.cents; });
-  state.amounts={};
-  state.svcErr='';
-  state.svcMsg='Added '+money(sum)+' to the cart.';
-  toast('Added '+money(sum));
-  renderChrome();
-  renderSvc();
+  let sum=0, duplicate=false;
+  picked.forEach(row=>{
+    if(cart.has(row.b.id)){ duplicate=true; return; }
+    if(pushCart(row.b, row.cents, rec)) sum+=row.cents;
+    else duplicate=true;
+  });
+  finishCartAdd(sum, duplicate);
 }
-function addReToCart(){
-  if(!state.signedIn) return;
+function addReToCart(goCheckout){
+  if(!goCheckout && !ensureSignedForCart()) return;
   const rec=recById();
   if(!rec) return;
-  const rows=dueRows(rec).filter(b=>reIsChecked(b.id)).sort((a,b)=>reDueKey(a)-reDueKey(b));
+  const rows=dueRows(rec).slice().sort((a,b)=>reDueKey(a)-reDueKey(b));
   const cap=rows.reduce((s,b)=>s+(Number(b.amount)||0),0);
   const el=document.getElementById('re-amt');
   let cents=dollarsToCents(el?el.value:'');
   if(cents==null || cents<=0 || cents>cap) cents=cap;
-  let left=cents, sum=0;
+  let left=cents, sum=0, duplicate=false;
   rows.forEach(b=>{
     if(left<=0) return;
+    if(cart.has(b.id)){ duplicate=true; return; }
     const take=Math.min(Number(b.amount)||0, left);
-    if(take>0){ pushCart(b, take, rec); sum+=take; left-=take; }
+    if(take>0 && pushCart(b, take, rec)){ sum+=take; left-=take; }
   });
-  if(!sum){
-    state.svcErr='Select a ticket to pay.';
+  if(goCheckout){
+    if(!sum && !cart.items.length){
+      state.svcErr='Enter an amount to pay.';
+      renderSvc();
+      return;
+    }
+    state.co='review';
+    state.coMsg='';
+    state.humanOk=false;
+    state.coClear=false;
+    state.busy=false;
+    state.svcErr='';
+    renderChrome();
+    show('checkout');
+    return;
+  }
+  if(!sum && !duplicate){
+    state.svcErr='Enter an amount to pay.';
     renderSvc();
     return;
   }
-  state.svcErr='';
-  state.svcMsg='Added '+money(sum)+' to the cart.';
-  toast('Added '+money(sum));
-  renderChrome();
-  renderSvc();
+  finishCartAdd(sum, duplicate);
 }
 function addOne(billId){
+  if(!ensureSignedForCart()) return;
   const rec=recById();
   const b=dueRows(rec).find(x=>x.id===billId);
   if(!rec||!b) return;
@@ -2762,14 +2840,14 @@ function addOne(billId){
   let cents=dollarsToCents(el?el.value:'');
   const cap=capFor(b);
   if(cents==null || cents<=0 || cents>cap) cents=cap;
-  pushCart(b, cents, rec);
-  state.svcErr='';
-  state.svcMsg='Added '+money(cents)+' to the cart.';
-  toast('Added '+money(cents));
-  renderChrome();
-  renderSvc();
+  if(cart.has(b.id) || !pushCart(b, cents, rec)){
+    finishCartAdd(0, true);
+    return;
+  }
+  finishCartAdd(cents, false);
 }
 function addPrepay(){
+  if(!ensureSignedForCart()) return;
   const rec=recById();
   if(!rec) return;
   const q=readForm(document.getElementById('svc-form'));
@@ -2781,18 +2859,15 @@ function addPrepay(){
   }
   let cents=dollarsToCents(q.prepay);
   if(cents==null || cents<100) cents=10000;
-  cart.add({
+  const added=cart.add({
     id:'prepay-'+rec.id, service:state.svc, dept:state.svc==='pre-re'?'REPRE':'PPPRE',
     ticket:rec.account||rec.mapId||'', name:rec.name,
-    taxType:taxTypeFor(state.svc), description:'Prepayment', amount:cents
+    taxType:taxTypeFor(state.svc), description:'Prepayment', balance:cents, amount:cents
   });
-  state.svcErr='';
-  state.svcMsg='Added '+money(cents)+' to the cart.';
-  toast('Added '+money(cents));
-  renderChrome();
-  renderSvc();
+  finishCartAdd(added?cents:0, !added);
 }
 function savePet(isNew){
+  if(!ensureSignedForCart()) return;
   const q=readForm(document.getElementById('svc-form'));
   state.q=q;
   const pet=isNew?null:PETS.find(p=>p.id===state.petId);
@@ -2805,16 +2880,12 @@ function savePet(isNew){
   const owner=pet?pet.owner:q.owner;
   const petName=pet?pet.name:q.pet;
   const tag=pet?pet.tag:'NEW';
-  cart.add({
+  const added=cart.add({
     id:'pet-'+(pet?pet.id:norm(q.pet))+'-'+q.license,
     service:'pets', dept:'PET2027', ticket:tag, name:owner, taxType:'Pet tag',
-    description:petName+' · '+fee[1], amount:fee[2]
+    description:petName+' · '+fee[1], balance:fee[2], amount:fee[2]
   });
-  state.svcErr='';
-  state.svcMsg='Added '+money(fee[2])+' to the cart.';
-  toast('Added '+money(fee[2]));
-  renderChrome();
-  renderSvc();
+  finishCartAdd(added?fee[2]:0, !added);
 }
 function saveEbill(){
   const q=readForm(document.getElementById('svc-form'));
@@ -2860,8 +2931,8 @@ function fillDemoQuery(kind, method){
   }
   return out;
 }
-function svcSearch(){
-  const form=document.getElementById('svc-form');
+function svcSearch(form){
+  form=form||document.getElementById('svc-form');
   if(!form) return;
   if(state.step==='renew'||state.step==='newpet') return savePet(state.step==='newpet');
   if(state.step==='prepay') return addPrepay();
@@ -2872,13 +2943,34 @@ function svcSearch(){
   state.svcMsg='';
   const kind=kindOf(state.svc);
   const method=state.svcMethod;
+  if(method==='password' && state.signMode==='otp' && !state.signedIn){
+    if(!state.otpSent){
+      state.svcErr='Send a code to your email, then enter it here.';
+      renderSvc();
+      return;
+    }
+    const code=readCode('svc-otp');
+    if(!code){
+      state.svcErr='Enter the 6-digit code from your email.';
+      renderSvc();
+      return;
+    }
+    if(code!=='246810'){
+      state.svcErr=ERRORS.ERR004;
+      renderSvc();
+      return;
+    }
+  }
   if(kind==='re' && method==='password'){
     setAccount('jane');
     state.signedIn=true;
-    state.svcMethod='name';
-    state.step='find';
+    state.signMode='password';
+    state.otpSent=false;
+    state.recordId='keaton';
+    resetReBillView();
+    state.step='bills';
     state.svcErr='';
-    state.svcMsg='Signed in as Jane Keaton.';
+    state.svcMsg='';
     renderChrome();
     renderSvc();
     return;
@@ -2910,7 +3002,7 @@ function svcSearch(){
       || (kind==='re' && method!=='name' && method!=='password' && hits.length>=1);
     if(skip){
       state.recordId=hits[0].id;
-      if(kind==='re') resetReBillView();
+      if(kind==='re' || kind==='pp') resetReBillView();
       state.step=stepAfter(kind);
     } else if(kind==='pets'){
       state.step='pets';
@@ -2959,10 +3051,38 @@ function onSvcAct(el){
     renderSvc();
     return;
   }
+  if(act==='entry'){
+    const form=document.getElementById('svc-form');
+    if(form) state.q=Object.assign({}, state.q, readForm(form));
+    state.entry=el.dataset.entry==='search'?'search':'sign';
+    state.svcErr='';
+    renderSvc();
+    return;
+  }
+  if(act==='sign-mode'){
+    const form=document.getElementById('svc-form');
+    if(form) state.q=Object.assign({}, state.q, readForm(form));
+    state.signMode=el.dataset.mode==='otp'?'otp':'password';
+    state.entry='sign';
+    state.svcErr='';
+    renderSvc();
+    return;
+  }
+  if(act==='send-otp'){
+    const form=document.getElementById('svc-form');
+    if(form) state.q=Object.assign({}, state.q, readForm(form));
+    if(!norm(state.q.email)) state.q.email='jane.keaton@example.com';
+    state.otpSent=true;
+    state.signMode='otp';
+    state.svcErr='';
+    state.svcMsg='Code sent to '+state.q.email+'. In this demo the code is 246810.';
+    renderSvc();
+    return;
+  }
   if(act==='pick'){
     cancelSearch();
     state.recordId=el.dataset.id;
-    if(kindOf(state.svc)==='re') resetReBillView();
+    if(kindOf(state.svc)==='re' || kindOf(state.svc)==='pp') resetReBillView();
     state.svcErr='';
     state.svcMsg='';
     state.amounts={};
@@ -2976,6 +3096,17 @@ function onSvcAct(el){
     renderSvc();
     return;
   }
+  if(act==='col-sort'){
+    const key=el.dataset.key||'due';
+    const spec=state.reSort||'due';
+    const desc=spec.endsWith(':desc');
+    const cur=spec.replace(':desc','');
+    state.reSort=cur===key ? (desc?key:key+':desc') : key;
+    renderSvc();
+    return;
+  }
+  if(act==='re-add'){ addReToCart(false); return; }
+  if(act==='re-checkout'){ addReToCart(true); return; }
   if(act==='re-login'){
     state.svcMethod='password';
     state.step='find';
@@ -3220,7 +3351,6 @@ function drawReview(){
     return coHead('Review your payments')+'<div class="empty"><p>Your cart is empty.</p></div><div class="actions"><button type="button" class="btn btn-primary" data-go="service">All services</button></div>';
   }
   const body=cart.items.map(it=>`<tr data-ticket="${esc(it.id)}">
-      <td data-label="Remove">${canRemoveCartItem(it)?`<button type="button" class="text-btn no-print" data-act="co-remove" data-id="${esc(it.id)}">Remove</button>`:''}</td>
       <td data-label="Dept">${esc(it.dept)}</td>
       <td data-label="Ticket">${esc(it.ticket)}</td>
       <td data-label="Name">${esc(it.name)}</td>
@@ -3232,11 +3362,9 @@ function drawReview(){
   const clear=ask
     ? '<p>Clear every item in the cart?</p><button type="button" class="btn btn-ghost" data-act="co-clear-yes">Clear cart</button><button type="button" class="btn btn-ghost" data-act="co-clear-no">Cancel</button>'
     : '<button type="button" class="btn btn-ghost" data-act="co-clear">Clear cart</button>';
-  const human=`<div class="field"><label class="hcaptcha"><span class="hcaptcha-main"><input type="checkbox" id="co-human"${state.humanOk?' checked':''}><span class="hcaptcha-box" aria-hidden="true"></span><span class="hcaptcha-label">I am human</span></span></label></div>`;
   return coHead('Review your payments', 'Check the lines, then continue. eCheck has no fee. A card adds '+pctLabel()+'.')
-    +`<div class="table-scroll"><table class="tickets"><thead><tr><th>Remove</th><th>Dept</th><th>Ticket</th><th>Name</th><th>Tax type</th><th>Description</th><th>Amount</th></tr></thead><tbody>${body}</tbody></table></div>`
+    +`<div class="table-scroll"><table class="tickets"><thead><tr><th>Dept</th><th>Ticket</th><th>Name</th><th>Tax type</th><th>Description</th><th>Amount</th></tr></thead><tbody>${body}</tbody></table></div>`
     +`<p class="amt"><span>Total </span><strong class="mono">${money(cart.total())}</strong></p>`
-    +human
     +`<div class="actions no-print">${clear}<button type="button" class="btn btn-ghost" data-go="${state.svc?'svc':'service'}">Back</button><button type="button" class="btn btn-primary" id="co-continue" data-act="co-next">Continue</button></div>`;
 }
 function drawPay(){
@@ -3428,76 +3556,42 @@ function goItem(id){
   if(ROUTES[id]){ show(ROUTES[id]); return; }
   openService(id);
 }
-function cartEmailBlock(){
-  if(state.receiptEmail && !state.emailEdit){
-    return `<p>Receipts go to ${esc(maskEmail(state.receiptEmail))} · <button type="button" class="text-btn" id="email-change">Change</button></p>`;
-  }
-  return `<div class="card short"><p>Used to save your cart and send your receipt.</p>
-    <div class="field"><label for="cart-email">Email</label><div class="control"><input id="cart-email" type="email" autocomplete="email" value="${esc(state.receiptEmail||'')}"></div></div>
-    <div class="field"><label for="cart-email2">Confirm email</label><div class="control"><input id="cart-email2" type="email" autocomplete="email"></div></div>
-    ${state.emailErr?`<p class="hint">${esc(state.emailErr)}</p>`:''}
-    <button type="button" class="btn btn-primary" id="email-save">Save email</button></div>`;
-}
 function renderCart(){
-  const body=document.getElementById('cart-body');
-  const foot=document.getElementById('cart-foot');
-  if(!body||!foot) return;
+  const host=document.getElementById('cart-root');
+  if(!host) return;
+  const back=`<button type="button" class="btn btn-ghost" data-go="${state.svc?'svc':'service'}">Back</button>`;
   if(!cart.items.length){
-    body.innerHTML='<div class="empty"><p>Your cart is empty.</p></div>';
-    foot.hidden=true;
-    foot.innerHTML='';
+    host.innerHTML=`<h1 tabindex="-1">Cart</h1><div class="empty"><p>Your cart is empty.</p></div><div class="actions">${back}</div>`;
     return;
   }
   const saved=state.cartRestored?'<div class="banner is-ok" role="status"><span>We saved your cart from your last visit.</span></div>':'';
   const notices=(county().checkoutNotices||[]).map(t=>`<div class="banner" role="status"><span>${esc(t)}</span></div>`).join('');
-  body.innerHTML=saved+cartEmailBlock()+notices+cart.items.map(it=>`<div class="point">
-      <div>
-        <h3>${esc(itemText(it.service)||it.taxType||'Item')}</h3>
-        <p>${esc(it.name)}</p>
-        <p>${esc(it.dept)} · ${esc(it.ticket)} · ${esc(it.taxType)}</p>
-        ${it.delinquent?`<p>${icon('shield')} Paid oldest first</p>`:''}
-        <p>${esc(it.description)}</p>
-      </div>
-      <div>
-        <div class="mono">${money(it.amount)}</div>
-        ${canRemoveCartItem(it)?`<button type="button" class="text-btn" data-cart-remove="${esc(it.id)}">Remove</button>`:''}
-      </div>
-    </div>`).join('');
+  const rows=cart.items.map(it=>`<tr>
+      <td data-label="Ticket" class="mono">${esc(it.ticket)}</td>
+      <td data-label="Name">${esc(it.name)}</td>
+      <td data-label="Description">${esc(it.description)}</td>
+      <td data-label="Balance" class="mono amt">${money(it.balance)}</td>
+      <td data-label="Amount to pay" class="mono amt">${money(it.amount)}</td>
+      <td data-label=""><button type="button" class="text-btn" data-cart-remove="${esc(it.id)}">Remove</button></td>
+    </tr>`).join('');
   const ask=state.clearAsk;
-  foot.hidden=false;
-  foot.innerHTML=`<p class="amt"><span>Total </span><strong class="mono">${money(cart.total())}</strong></p>
+  host.innerHTML=`<h1 tabindex="-1">Cart</h1>
+    <p class="lead">Tickets you are paying.</p>
+    ${saved}${notices}
+    <div class="table-scroll"><table class="tickets"><thead><tr><th>Ticket</th><th>Name</th><th>Description</th><th class="amt">Balance</th><th class="amt">Amount to pay</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="amt"><span>Total </span><strong class="mono">${money(cart.total())}</strong></p>
     ${ask?'<p>Clear every item in the cart?</p>':''}
     <div class="actions">
       ${ask
         ? '<button type="button" class="btn btn-ghost" id="cart-clear-yes">Clear cart</button><button type="button" class="btn btn-ghost" id="cart-clear-no">Cancel</button>'
         : '<button type="button" class="btn btn-ghost" id="cart-clear">Clear cart</button>'}
-      <button type="button" class="btn btn-primary btn-block" data-go="checkout">Checkout</button>
+      ${back}
+      <button type="button" class="btn btn-primary" data-go="checkout">Checkout</button>
     </div>`;
 }
 function onCartClick(e){
-  if(e.target.closest('#email-save')){
-    const a=(document.getElementById('cart-email')||{}).value||'';
-    const b=(document.getElementById('cart-email2')||{}).value||'';
-    let email=a.trim();
-    if(!email || email.indexOf('@')<1 || email!==b.trim()) email='jane@mail.com';
-    state.emailErr='';
-    state.emailEdit=false;
-    saveReceiptEmail(email);
-    renderCart();
-    return;
-  }
-  if(e.target.closest('#email-change')){
-    state.emailEdit=true;
-    state.emailErr='';
-    renderCart();
-    const again=document.getElementById('cart-email');
-    if(again) again.focus();
-    return;
-  }
   const rm=e.target.closest('[data-cart-remove]');
   if(rm){
-    const doomed=cart.items.find(x=>x.id===rm.dataset.cartRemove);
-    if(!doomed||!canRemoveCartItem(doomed)) return;
     cart.remove(rm.dataset.cartRemove);
     if(!cart.items.length) state.clearAsk=false;
     renderCart();
@@ -3545,6 +3639,7 @@ function pullConfig(){
       if(state.screen==='service') renderService();
       if(state.screen==='svc') renderSvc();
       if(state.screen==='checkout') renderCheckout();
+      if(state.screen==='cart') renderCart();
     }).catch(()=>tryAt(i+1));
   };
   try{ tryAt(0); }catch(e){}
@@ -3582,7 +3677,12 @@ function renderChrome(){
   const badge=document.getElementById('cart-count');
   if(badge){ badge.hidden=n===0; badge.textContent=String(n); }
   const cartBtn=document.getElementById('cart-btn');
-  if(cartBtn) cartBtn.setAttribute('aria-label', n?(n===1?'Cart, 1 item':'Cart, '+n+' items'):'Cart, empty');
+  if(cartBtn){
+    cartBtn.hidden=!state.signedIn;
+    cartBtn.setAttribute('aria-label', n?(n===1?'Cart, 1 item':'Cart, '+n+' items'):'Cart, empty');
+    if(state.screen==='cart') cartBtn.setAttribute('aria-current','page');
+    else cartBtn.removeAttribute('aria-current');
+  }
   document.title=c.name+' Treasurer · '+screenTitle(state.screen);
   paintSurfaces();
 }
@@ -4236,7 +4336,7 @@ function setAccount(id){
 function audit(){
   const issues=[];
   const labels=MENU.flatMap(g=>g.items.map(i=>i[1]));
-  const expected=['Real Estate Tax','Personal Property Tax','Prepay Real Estate Tax','Prepay Personal Property Tax','Business License','Utilities','Consumer Tax','Pet Tags','Decals','Parking Fines','Building Permit','Landfill Fees','Airport Fee','Public Service','Zoning / Sign / Special Use Permits','Real Estate Public Inquiry','Personal Property Inquiry','Real Estate Taxes Paid','Personal Property Taxes Paid','Utility Inquiry','Mineral Inquiry','e-Bill Options','Create account','Forgot password','File business license','File consumer taxes','BAI property cards','Add or remove vehicle','Request personal property','Address change','e-Treasurer home','e-Commissioner home','e-Assessor home','County main page','Contact treasurer','Terms and conditions'];
+  const expected=['Real Estate Tax','Personal Property Tax','Prepay Real Estate Tax','Prepay Personal Property Tax','Business License','Utilities','Consumer Tax','Pet Tags','Decals','Parking Fines','Building Permit','Landfill Fees','Airport Fee','Public Service','Zoning / Sign / Special Use Permits','Real Estate Public Inquiry','Personal Property Inquiry','Real Estate Taxes Paid','Personal Property Taxes Paid','Utility Inquiry','Mineral Inquiry','e-Bill Options','Create account','Forgot password','File business license','File consumer taxes','BAI property cards','Add or remove vehicle','Request personal property','Address change'];
   if(labels.join('|')!==expected.join('|')) issues.push('Menu order drifted.');
   const asOf=20260924;
   JANE_TICKETS.forEach(t=>{
@@ -4281,6 +4381,7 @@ function bind(){
     if(actEl) onSvcAct(actEl);
     const go=e.target.closest('[data-go]');
     if(go && !actEl && go.id!=='logout'){
+      if(go.dataset.go==='cart' && !ensureSignedForCart()) return;
       if(go.id==='accept-terms') acceptTerms();
       if(go.dataset.go==='checkout'){
         state.co='review'; state.coMsg=''; state.humanOk=false; state.coClear=false; state.busy=false;
@@ -4306,24 +4407,25 @@ function bind(){
     }
   });
   document.body.addEventListener('submit', e=>{
-    if(e.target.id==='svc-form'){ e.preventDefault(); svcSearch(); }
+    if(e.target.id==='svc-form'){
+      e.preventDefault();
+      if(e.target.dataset.signin==='1') state.svcMethod='password';
+      else if(state.lookupMethod) state.svcMethod=state.lookupMethod;
+      svcSearch();
+    }
     if(e.target.id==='co-form'){ e.preventDefault(); submitEcheck(); }
   });
   document.body.addEventListener('input', onSvcInput);
   document.body.addEventListener('change', e=>{
+    if(e.target.name==='lookupType'){
+      const form=e.target.closest('form');
+      if(form) state.q=Object.assign({}, state.q, readForm(form));
+      state.lookupMethod=e.target.value;
+      state.entry='search';
+      state.svcErr='';
+      renderSvc();
+    }
     if(e.target.id==='co-human') state.humanOk=e.target.checked;
-    if(e.target.id==='re-sort'){
-      state.reSort=e.target.value;
-      state.rePage=1;
-      renderSvc();
-    }
-    if(e.target.dataset && e.target.dataset.pick){
-      const rec=recById();
-      dueRows(rec).forEach(b=>{ if(!Object.prototype.hasOwnProperty.call(state.rePick, b.id)) state.rePick[b.id]=true; });
-      state.rePick[e.target.dataset.pick]=e.target.checked;
-      if(!state.reAmtEdited) state.reAmt='';
-      renderSvc();
-    }
   });
   document.getElementById('menu-search').addEventListener('input', e=>{ state.menuQ=e.target.value; renderMenu(); });
   document.getElementById('collapse-btn').addEventListener('click', ()=>{ state.collapsed=!state.collapsed; renderChrome(); });
@@ -4331,12 +4433,10 @@ function bind(){
   document.getElementById('nav-toggle').addEventListener('click', openDrawer);
   document.getElementById('drawer-close').addEventListener('click', closeDrawer);
   document.getElementById('scrim').addEventListener('click', ()=>{
-    if(state.cartOpen) closeCart();
     if(state.drawer) closeDrawer();
   });
-  document.getElementById('cart-btn').addEventListener('click', ()=>{ if(state.cartOpen) closeCart(); else openCart(); });
-  document.getElementById('cart-close').addEventListener('click', closeCart);
-  document.getElementById('cart-drawer').addEventListener('click', onCartClick);
+  document.getElementById('cart-btn').addEventListener('click', ()=>{ if(state.signedIn) show('cart'); });
+  document.getElementById('cart-root').addEventListener('click', onCartClick);
   document.getElementById('theme-btn').addEventListener('click', ()=>{
     setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
   });
@@ -4355,7 +4455,11 @@ function bind(){
   });
   document.getElementById('logout').addEventListener('click', ()=>{
     state.signedIn=false;
-    show('signin');
+    const menu=document.getElementById('profile-menu');
+    if(menu) menu.hidden=true;
+    const btn=document.getElementById('profile-btn');
+    if(btn) btn.setAttribute('aria-expanded','false');
+    show('service');
   });
   document.getElementById('form-signin').addEventListener('submit', e=>{
     e.preventDefault();
@@ -4519,11 +4623,9 @@ function bind(){
       document.getElementById('profile-btn').setAttribute('aria-expanded','false');
       document.getElementById('text-size').hidden=true;
       document.getElementById('a11y-btn').setAttribute('aria-expanded','false');
-      if(state.cartOpen) closeCart();
-      else if(state.drawer) closeDrawer();
+      if(state.drawer) closeDrawer();
     }
-    if(state.cartOpen && e.key==='Tab') trap(document.getElementById('cart-drawer'), e);
-    else if(state.drawer && e.key==='Tab') trap(document.getElementById('sidebar'), e);
+    if(state.drawer && e.key==='Tab') trap(document.getElementById('sidebar'), e);
     const menu=document.getElementById('profile-menu');
     if(!menu.hidden && document.activeElement && menu.contains(document.activeElement) && (e.key==='ArrowDown'||e.key==='ArrowUp')){
       const items=[...menu.querySelectorAll('[role="menuitem"]')];
@@ -4599,35 +4701,10 @@ function shiftText(delta){
 function syncScrim(){
   const scrim=document.getElementById('scrim');
   if(!scrim) return;
-  scrim.hidden=!(state.cartOpen||state.drawer);
-  scrim.setAttribute('aria-label', state.cartOpen?'Close cart':'Close menu');
-}
-function openCart(){
-  if(state.drawer) closeDrawer();
-  state.cartOpen=true;
-  state.clearAsk=false;
-  const drawer=document.getElementById('cart-drawer');
-  if(drawer) drawer.hidden=false;
-  const btn=document.getElementById('cart-btn');
-  if(btn) btn.setAttribute('aria-expanded','true');
-  renderCart();
-  syncScrim();
-  const close=document.getElementById('cart-close');
-  if(close) close.focus();
-}
-function closeCart(restore){
-  const was=state.cartOpen;
-  state.cartOpen=false;
-  state.clearAsk=false;
-  const drawer=document.getElementById('cart-drawer');
-  if(drawer) drawer.hidden=true;
-  const btn=document.getElementById('cart-btn');
-  if(btn) btn.setAttribute('aria-expanded','false');
-  syncScrim();
-  if(restore!==false && was && btn) btn.focus();
+  scrim.hidden=!state.drawer;
+  scrim.setAttribute('aria-label', 'Close menu');
 }
 function openDrawer(){
-  if(state.cartOpen) closeCart(false);
   state.drawer=true;
   document.getElementById('sidebar').classList.add('is-open');
   document.getElementById('nav-toggle').setAttribute('aria-expanded','true');
@@ -4665,7 +4742,6 @@ function bootTheme(){
 }
 applyCounty(new URLSearchParams(location.search).get('county'));
 loadCart();
-loadReceiptEmail();
 seedDemoCart();
 bootTheme();
 buildCodes('reg-codes');
