@@ -198,7 +198,7 @@ textarea.in{height:auto; min-height:84px; padding:10px 12px; resize:vertical}
 .stat small{display:block; margin-top:2px; color:var(--mut); font-size:.75rem}
 .stat.hero{background:var(--brand); border-color:var(--brand)}
 .stat.hero span,.stat.hero small{color:rgba(255,255,255,.8)} .stat.hero b{color:#fff}
-.tabs{display:flex; gap:4px; padding:0 14px; border-bottom:1px solid var(--line); overflow-x:auto}
+.tabs{display:flex; gap:4px; padding:0 14px; border-bottom:1px solid var(--line); overflow-x:auto; overflow-y:hidden}
 .tab{position:relative; height:48px; padding:0 12px; border:0; background:none; cursor:pointer; font-weight:600; font-size:.8125rem; color:var(--mut); white-space:nowrap}
 .tab[aria-selected="true"]{color:var(--brand)}
 .tab[aria-selected="true"]::after{content:""; position:absolute; left:10px; right:10px; bottom:-1px; height:3px; border-radius:3px 3px 0 0; background:var(--brand)}
@@ -288,9 +288,91 @@ body.printing #print-root{display:block}
   .pb{page-break-after:always}
 }
 
+/* Website maintenance */
+.ws-bar{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 22px}
+.ws-bar .sel{width:auto}
+.ws-pick{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px}
+.ws-tile{display:flex; flex-direction:column; align-items:flex-start; gap:6px; padding:22px; text-align:left; cursor:pointer; border:1px solid var(--line); font:inherit; color:var(--ink)}
+.ws-tile:hover{border-color:var(--brand)}
+.ws-tile .ei{width:44px; height:44px; display:grid; place-items:center; border-radius:14px; background:var(--tint); color:var(--brand); margin-bottom:6px}
+.tbl tbody tr.is-sel td{background:var(--calm-soft)}
+.ws-url{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace; font-size:.75rem}
+.num-pg{display:flex; gap:4px; padding:12px 18px; border-top:1px solid var(--line)}
+.num-pg button{min-width:32px; height:32px; border:1px solid var(--line); border-radius:8px; background:var(--panel); cursor:pointer; font-weight:600; font-size:.75rem; color:var(--brand)}
+.num-pg button[aria-current="page"]{background:var(--tint); color:var(--mut); cursor:default}
+.lt-btns{display:flex; gap:6px; flex-wrap:wrap}
+.lt-btn{display:flex; align-items:center; gap:3px; width:96px; height:32px; padding:4px 6px; border:1px solid var(--line-2); border-radius:9px; background:var(--panel); cursor:pointer}
+.lt-btn:hover{border-color:var(--brand)}
+.lt-btn .i{width:13px; height:13px; color:var(--brand); flex:none}
+.lt-btn i{display:block; height:100%; border-radius:3px; background:var(--tint); border:1px solid var(--line-2)}
+.ed-canvas{margin:0 auto; padding:14px; border:1px dashed var(--line-2); border-radius:16px; background:var(--bg); transition:max-width .2s ease}
+.ed-row{border:1px solid var(--line); border-radius:14px; background:var(--panel); margin-bottom:12px}
+.ed-row:last-child{margin-bottom:0}
+.ed-bar{display:flex; align-items:center; gap:2px; padding:4px 6px; background:var(--tint); border-bottom:1px solid var(--line); border-radius:13px 13px 0 0}
+.ed-col .ed-bar{background:var(--calm-soft); border-radius:9px 9px 0 0}
+.ib{width:28px; height:28px; display:grid; place-items:center; border:0; border-radius:7px; background:none; color:var(--mut); cursor:pointer}
+.ib:hover:not(:disabled){background:var(--panel); color:var(--brand)}
+.ib:disabled{opacity:.35; cursor:default}
+.ib .i{width:15px; height:15px}
+.ed-w{margin-left:auto; padding-right:6px; font-size:.6875rem; font-weight:600; color:var(--mut)}
+.ed-cols{display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:10px; padding:10px}
+.ed-col{grid-column:span var(--w); min-width:0; border:1px solid var(--line); border-radius:10px; background:var(--panel)}
+.ed-body{min-height:64px; padding:12px 14px; outline:none; border-radius:0 0 10px 10px}
+.ed-body:focus{box-shadow:inset 0 0 0 2px var(--brand)}
+textarea.ed-src{display:block; width:100%; min-height:140px; padding:12px; border:0; border-radius:0 0 10px 10px; background:#16203A; color:#E6EBF3; font:12px/1.5 ui-monospace,"Cascadia Mono",Consolas,monospace; resize:vertical}
+textarea.ed-full{min-height:460px; border-radius:10px; tab-size:2; white-space:pre}
+.ed-canvas.phone .ed-cols,.site.phone .cms-row{grid-template-columns:minmax(0,1fr)}
+.ed-canvas.phone .ed-col,.site.phone .cms-col{grid-column:auto}
+.cms{color:var(--ink); font-size:.875rem; line-height:1.55}
+.cms h1{font-size:1.625rem; font-weight:700; letter-spacing:-.01em; margin:0 0 10px}
+.cms h2{font-size:1.1875rem; font-weight:600; margin:0 0 8px}
+.cms h3{font-size:1rem; margin:0 0 6px}
+.cms p{margin:0 0 10px} .cms ol,.cms ul{margin:0 0 10px; padding-left:22px} .cms li{margin-bottom:4px}
+.cms a{color:var(--brand)} .cms img{max-width:100%; height:auto}
+.cms table{width:100%; border-collapse:collapse; margin:0 0 10px} .cms th,.cms td{border:1px solid var(--line-2); padding:6px 8px; text-align:left; vertical-align:top}
+.cms .btn-link{display:inline-block; padding:9px 16px; border-radius:10px; background:var(--brand); color:#fff; font-weight:600; text-decoration:none}
+.cms .ta-c{text-align:center} .cms .ta-r{text-align:right}
+.cms-row{display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:18px; margin-bottom:8px}
+.cms-col{grid-column:span var(--w); min-width:0}
+.cms-row.bg-tint{background:var(--tint); padding:16px; border-radius:12px}
+.cms-row.bg-brand{background:var(--calm-soft); padding:16px; border-radius:12px}
+.cms-col.ta-c,.ed-body.ta-c{text-align:center} .cms-col.ta-r,.ed-body.ta-r{text-align:right}
+.ins-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px}
+.ins-grid button{display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px 8px; border:1px solid var(--line); border-radius:12px; background:var(--panel); cursor:pointer; font-weight:600; font-size:.75rem; color:var(--ink)}
+.ins-grid button:hover{border-color:var(--brand); color:var(--brand)}
+.ins-grid img{width:100%; height:64px; object-fit:contain}
+.split.fm{grid-template-columns:260px minmax(0,1fr)}
+.fm-folders{display:flex; flex-direction:column; gap:4px; padding:10px}
+.fm-f{display:flex; align-items:center; gap:10px; height:40px; padding:0 10px; border:0; border-radius:10px; background:none; cursor:pointer; font-weight:600; font-size:.8125rem; color:var(--ink); text-align:left}
+.fm-f .i{width:17px; height:17px; color:var(--brand)}
+.fm-f span:nth-child(2){flex:1}
+.fm-f:hover{background:var(--tint)}
+.fm-f[aria-current="true"]{background:var(--calm-soft); color:var(--brand)}
+.fm-th{width:40px; height:40px; display:grid; place-items:center; border-radius:10px; background:var(--tint); color:var(--brand); overflow:hidden}
+.fm-th img{width:100%; height:100%; object-fit:cover}
+.site{margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden; transition:max-width .2s ease}
+.site-hd{display:grid; grid-template-columns:96px minmax(0,1fr) 96px; align-items:center; gap:16px; padding:20px 24px; border-bottom:1px solid var(--line)}
+.site-hd img{width:88px; height:88px; cursor:pointer}
+.site-hd h2{text-align:center; font-size:1.5rem}
+.site-hd p{text-align:center; color:var(--warn); font-weight:700; margin-top:6px}
+.site-nb{display:flex; gap:4px; flex-wrap:wrap; padding:8px 24px; background:var(--tint); border-bottom:1px solid var(--line)}
+.site-nb button{border:0; background:none; padding:6px 10px; border-radius:8px; color:var(--brand); font-weight:600; cursor:pointer}
+.site-body{display:grid; grid-template-columns:220px minmax(0,1fr); gap:28px; padding:22px 24px 30px}
+.site-side h3{margin:12px 0 6px; padding:5px 10px; border-radius:6px; background:var(--brand); color:#fff; font-size:.8125rem; text-align:center}
+.site-side h3:first-child{margin-top:0}
+.site-side button{display:flex; align-items:center; gap:6px; width:100%; padding:4px 8px; border:0; border-radius:6px; background:none; color:var(--brand); font-size:.8125rem; text-align:left; cursor:pointer}
+.site-side button .i{width:12px; height:12px; flex:none}
+.site-side button:hover{text-decoration:underline}
+.site-side button[aria-current="page"]{background:var(--tint); font-weight:700}
+.site.phone .site-body{grid-template-columns:minmax(0,1fr)}
+.site.phone .site-hd{grid-template-columns:56px minmax(0,1fr)}
+.site.phone .site-hd img{width:52px; height:52px}
+.site.phone .site-hd > span{display:none}
+
 /* Responsive */
 @media (max-width:1180px){
-  .split,.split.l,.split.eq{grid-template-columns:minmax(0,1fr)}
+  .split,.split.l,.split.eq,.split.fm{grid-template-columns:minmax(0,1fr)}
+  .ws-pick{grid-template-columns:minmax(0,1fr)}
   .mod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stats{--c:2 !important}
   .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -309,6 +391,13 @@ body.printing #print-root{display:block}
   .addr-cmp{grid-template-columns:110px 1fr 1fr}
   .co-btn-t{display:none}
   .stats{--c:1 !important}
+  .ed-cols,.cms-row{grid-template-columns:minmax(0,1fr)}
+  .ed-col,.cms-col{grid-column:auto}
+  .site-body{grid-template-columns:minmax(0,1fr)}
+  .site-hd{grid-template-columns:56px minmax(0,1fr)}
+  .site-hd img{width:52px; height:52px}
+  .site-hd > span{display:none}
+  .ins-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 </style>
 </head>
@@ -415,7 +504,16 @@ const ICONS={
   pin:'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
   sliders:'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
   gavel:'<path d="m14 13-7.5 7.5a2.1 2.1 0 0 1-3-3L11 10"/><path d="m16 16 6-6M8 8l6-6M9 7l8 8M21 11l-8-8"/>',
-  dollar:'<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'
+  dollar:'<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+  chevU:'<path d="m18 15-6-6-6 6"/>', minus:'<path d="M5 12h14"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
+  folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5M12 3v12"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+  code:'<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>',
+  link:'<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>'
 };
 const ic=(n,cls='')=>`<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||''}</svg>`;
 function hydrate(root=document){ $$('svg[data-ic]',root).forEach(s=>{ if(s.dataset.done) return; s.setAttribute('viewBox','0 0 24 24'); s.setAttribute('aria-hidden','true'); s.classList.add('i'); s.innerHTML=ICONS[s.dataset.ic]||''; s.dataset.done='1'; }); }
@@ -510,12 +608,13 @@ const MODS=[
   {code:'COM',name:'Commissioner',icon:'landmark',fns:[
     {name:'Personal Property',opts:[{id:'com-addr',name:'PP Address Change Requests',tech:''}]}]},
   {code:'TR',name:'Treasurer',icon:'coins',fns:[
-    {name:'Collections',opts:[{id:'tr-coll',name:'Collection Facility',tech:'TR10'},{id:'tr-docs',name:'Document Center',tech:'TR10 DC'}]},
+    {name:'Collections',opts:[{id:'tr-coll',name:'Collection Facility',tech:'TR_COLLECT'},{id:'tr-inq',name:'Collections Audit Trail Inquiry',tech:'TR_COLINQ'},{id:'tr-adm',name:'Collection Facility Administration',tech:'TR_COLLADM'}]},
     {name:'Reprints',opts:[{id:'tr-rpre',name:'Reprint Real Estate Tax Paid',tech:''},{id:'tr-rppp',name:'Reprint Personal Property Tax Paid',tech:''}]}]},
   {code:'DW',name:'Document Writing',icon:'file',fns:[
-    {name:'Collections Documents',opts:[{id:'dw-assign',name:'Assign Presets to Documents',tech:''},{id:'dw-modify',name:'Modify Presets',tech:''}]}]},
+    {name:'Presets',opts:[{id:'dw-assign',name:'Assign Presets to Documents',tech:''},{id:'dw-modall',name:'Modify Presets for All',tech:''},{id:'dw-modify',name:'Modify Presets for Treasurer',tech:''}]}]},
   {code:'WBADM',name:'Web Administration',icon:'shield',fns:[
-    {name:'Security',opts:[{id:'wa-users',name:'User Maintenance and Security',tech:''}]}]}
+    {name:'Security',opts:[{id:'wa-users',name:'User Maintenance and Security',tech:''}]},
+    {name:'Maintain Website',opts:[{id:'wa-site',name:'Web Pages, Menus, and Applications',tech:''}]}]}
 ];
 const OPT={}; MODS.forEach(m=>m.fns.forEach(f=>f.opts.forEach(o=>{ OPT[o.id]={...o,mod:m.code,modName:m.name,fn:f.name,icon:m.icon}; })));
 const MODNAME=Object.fromEntries(MODS.map(m=>[m.code,m.name]));
@@ -651,42 +750,52 @@ const addrLine=a=>[a.a1,a.a2,`${a.city}, ${a.st} ${a.zip}${a.zip4?'-'+a.zip4:''}
 
 /* ---------- Treasurer: collections ---------- */
 const LIEN_MASTER={B:['First Valley Bank','Blue Ridge Federal Credit Union','Southside Community Bank','Commonwealth Savings Bank'],E:['Demo County Public Schools','Piedmont Manufacturing Co.','Valley Regional Hospital'],D:['Virginia Department of Taxation']};
-const DOC_TYPES={B:'Bank lien',D:'Debt set off',E:'Employer lien',L:'Letter',S:'Statement of account'};
+const DOC_TYPES={B:'Bank lien',D:'Debt set off',E:'Employer lien',L:'Letter',X:'Seize/Distress',S:'Account balance statement',T:'TLIEN'};
+const DT_CODE={B:'BLIEN',D:'DSO',E:'ELIEN',L:'LTR',X:'SEIZE',S:'SOA',T:'TLIEN'};
+const DT_LATER=['X','T'];
 const DOCS=[
-  {id:'BLN01',type:'B',desc:'Bank lien',name:'BankLien.htm',resp:'NL',proc:'New lien'},
-  {id:'BLA01',type:'B',desc:'Bank lien amendment',name:'BankLienAmend.htm',resp:'AM',proc:'Amendment'},
-  {id:'BLR01',type:'B',desc:'Bank lien no reply notice',name:'BankLienNoReply.htm',resp:'NR',proc:'No reply'},
-  {id:'BLX01',type:'B',desc:'Bank lien release',name:'BankLienRelease.htm',resp:'RL',proc:'Release'},
-  {id:'DSO01',type:'D',desc:'Debt set off',name:'DebtSetOff.htm',resp:'DS',proc:'New lien'},
-  {id:'ELN01',type:'E',desc:'Employer lien',name:'EmployerLien.htm',resp:'NL',proc:'New lien'},
-  {id:'ELX01',type:'E',desc:'Employer lien release',name:'EmployerLienRelease.htm',resp:'RL',proc:'Release'},
-  {id:'LTR01',type:'L',desc:'Delinquent tax letter',name:'DelinquentLetter.htm',resp:'LT',proc:'Letter'},
-  {id:'SOA01',type:'S',desc:'Statement of account',name:'StatementOfAccount.htm',resp:'SA',proc:'Statement'}
+  {id:'BLN01',type:'B',desc:'Bank Lien',name:'BankLien.htm',resp:'NL',proc:'New lien'},
+  {id:'BLT01',type:'B',desc:'Bank Lien Taxpayer',name:'BankLienTaxpayer.htm',resp:'TN',proc:'Taxpayer notice'},
+  {id:'BLX01',type:'B',desc:'Bank Lien Release',name:'BankLienRelease.htm',resp:'RL',proc:'Release'},
+  {id:'BLR01',type:'B',desc:'No Reply To Lien',name:'BankLienNoReply.htm',resp:'NR',proc:'No reply'},
+  {id:'BLI02',type:'B',desc:'INSPECTOR 2',name:'Inspector2.htm',resp:'NL',proc:'New lien'},
+  {id:'BLA01',type:'B',desc:'Bank Lien Amendment',name:'BankLienAmend.htm',resp:'AM',proc:'Amendment'},
+  {id:'DSO01',type:'D',desc:'Debt Set Off',name:'DebtSetOff.htm',resp:'DS',proc:'New lien'},
+  {id:'ELN01',type:'E',desc:'Employer Lien',name:'EmployerLien.htm',resp:'NL',proc:'New lien'},
+  {id:'ELX01',type:'E',desc:'Employer Lien Release',name:'EmployerLienRelease.htm',resp:'RL',proc:'Release'},
+  {id:'LTR01',type:'L',desc:'Delinquent Tax Letter',name:'DelinquentLetter.htm',resp:'LT',proc:'Letter'},
+  {id:'SOA01',type:'S',desc:'Account Balance Statement',name:'StatementOfAccount.htm',resp:'SA',proc:'Statement'}
 ];
 const docBy=id=>DOCS.find(d=>d.id===id);
 const PRESETS=[
-  {id:'PIDATE',label:'Penalty and interest date',kind:'date',def:'+30'},
-  {id:'LTRDATE',label:'Letter date',kind:'date',def:'+0'},
-  {id:'RTNDATE',label:'Return date',kind:'date',def:'+30'},
-  {id:'DUEBEG',label:'Due date begin',kind:'date',def:'01/01/1900'},
-  {id:'DUEEND',label:'Due date end',kind:'date',def:'+0'},
-  {id:'SORT1',label:'Sort order',kind:'sel',list:['Name','Account number','Total due'],def:'Name'},
-  {id:'RUNMODE',label:'Edit or update',kind:'sel',list:['Edit','Update'],def:'Edit'},
-  {id:'ADDFEE',label:'Add fees',kind:'sel',list:['Yes','No'],def:'Yes'},
-  {id:'ADMFEE',label:'Administrative fee',kind:'money',def:'30.00'},
-  {id:'CURDLQ',label:'Tickets to include',kind:'sel',list:['Current and delinquent','Delinquent only'],def:'Current and delinquent'},
-  {id:'OMITSTS',label:'Omit status codes',kind:'text',def:''},
-  {id:'FLATFILE',label:'Create flat file',kind:'sel',list:['No','Yes'],def:'No'}
+  {id:'D10',type:'DATES',label:'Letter Date',fld:'date'},
+  {id:'D20',type:'DATES',label:'Penalty & Interest Calculation',fld:'date'},
+  {id:'D30',type:'DATES',label:'Due Date Start',fld:'date'},
+  {id:'D40',type:'DATES',label:'Due Date End',fld:'date'},
+  {id:'D50',type:'DATES',label:'Return Date',fld:'date'},
+  {id:'U50',type:'UPDATE',label:'Permission to update?',fld:'yn'},
+  {id:'U30',type:'UPDATE',label:'Permission to add fees? Y/N',fld:'yn'},
+  {id:'SO10',type:'SORT',label:'Sort Order 1st Sort (N)ame, (L)ien Recipient, (Z)ip, (S)SN#, (M)ap',fld:'chr'},
+  {id:'SO20',type:'SORT',label:'Sort Order 2nd Sort N L Z S M',fld:'chr'},
+  {id:'S60',type:'SELECT',label:'Omit Status Codes (Input up to 8)',fld:'chr'},
+  {id:'S70',type:'SELECT',label:'Include Status Codes (Input up to 8 codes to include)',fld:'chr'},
+  {id:'S160',type:'SELECT',label:'CREATE FLAT FILE (Y/N)',fld:'yn'}
 ];
 const presetBy=id=>PRESETS.find(p=>p.id===id);
-const LIEN_SET=['PIDATE','LTRDATE','RTNDATE','DUEBEG','DUEEND','SORT1','RUNMODE','ADDFEE','ADMFEE'];
-const ASSIGN={BLN01:[...LIEN_SET],BLA01:['LTRDATE','RTNDATE','RUNMODE'],BLR01:['LTRDATE','RTNDATE','RUNMODE'],BLX01:['LTRDATE','RUNMODE'],DSO01:[...LIEN_SET],ELN01:[...LIEN_SET],ELX01:['LTRDATE','RUNMODE'],LTR01:['LTRDATE','PIDATE','RUNMODE'],SOA01:[]};
+const SORTS=[['N','Name'],['L','Lien recipient'],['Z','Zip'],['S','SSN'],['M','Map']];
+const LIEN_SET=['D10','D20','D30','D40','D50','U50','U30','SO10'];
+const ASSIGN={BLN01:[...LIEN_SET],BLI02:[...LIEN_SET],DSO01:[...LIEN_SET],ELN01:[...LIEN_SET],BLT01:['D10','D50','U50'],BLX01:['D10','U50'],BLR01:['D10','D50','U50'],BLA01:['D10','D50','U50'],ELX01:['D10','U50'],LTR01:['D10','D20','U50'],SOA01:[]};
+const ADMIN_FEE=25;
 const UPRE={};
-function presetDefault(p){ if(p.kind==='date'&&p.def.startsWith('+')) return fd(addDays(TODAY,+p.def.slice(1))); return p.def; }
-function userPreset(doc,user,pid){ const p=presetBy(pid); const u=UPRE[doc]&&UPRE[doc][user]&&UPRE[doc][user][pid]; return u?{...u}:{val:presetDefault(p),vis:true,chg:false,mod:false}; }
-function setUserPreset(doc,user,pid,v){ UPRE[doc]=UPRE[doc]||{}; UPRE[doc][user]=UPRE[doc][user]||{}; UPRE[doc][user][pid]={...v,mod:true}; }
-['BLN01','ELN01','DSO01'].forEach(d=>['KEITH','KYLE','JULIA'].forEach(u=>LIEN_SET.forEach(p=>setUserPreset(d,u,p,{val:presetDefault(presetBy(p)),vis:true,chg:true}))));
-['BLA01','BLR01','BLX01','ELX01','LTR01'].forEach(d=>['KEITH','KYLE','JULIA'].forEach(u=>ASSIGN[d].forEach(p=>setUserPreset(d,u,p,{val:presetDefault(presetBy(p)),vis:true,chg:true}))));
+const PV_BLANK={yn:'',date:'',num:'',chr:'',chg:'',show:''};
+function presetVal(doc,user,pid){ const own=UPRE[doc]&&UPRE[doc][user]&&UPRE[doc][user][pid]; if(own) return {...PV_BLANK,...own,src:user}; const m=UPRE[doc]&&UPRE[doc].MASTER&&UPRE[doc].MASTER[pid]; return m?{...PV_BLANK,...m,src:'MASTER'}:{...PV_BLANK,src:'MASTER'}; }
+function setPreset(doc,user,pid,v){ UPRE[doc]=UPRE[doc]||{}; UPRE[doc][user]=UPRE[doc][user]||{}; UPRE[doc][user][pid]={...PV_BLANK,...v}; }
+const ymdToUs=s=>/^\d{8}$/.test(s||'')?`${s.slice(4,6)}/${s.slice(6,8)}/${s.slice(0,4)}`:'';
+const usToYmd=s=>{ const m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(s||''); return m?m[3]+m[1]+m[2]:''; };
+function presetDate(pid,v){ if(v.date) return ymdToUs(v.date); if(pid==='D30') return '01/01/1900'; if(pid==='D40') return fd(new Date(TODAY.getFullYear(),TODAY.getMonth()+1,0)); if(pid==='D50') return fd(addDays(TODAY,30)); return fd(TODAY); }
+['BLN01','BLI02','DSO01','ELN01'].forEach(d=>{ setPreset(d,'MASTER','D30',{date:'19000101',chg:'Y',show:'Y'}); setPreset(d,'MASTER','U50',{yn:'Y',chg:'Y',show:'Y'}); setPreset(d,'MASTER','U30',{yn:'Y',chg:'Y',show:'Y'}); setPreset(d,'MASTER','SO10',{chr:'N'}); });
+['BLT01','BLX01','BLR01','BLA01','ELX01','LTR01'].forEach(d=>setPreset(d,'MASTER','U50',{yn:'Y',chg:'Y',show:'Y'}));
+setPreset('BLN01','KEITH','D30',{date:'19000101',chg:'Y',show:'Y'}); setPreset('BLN01','KEITH','D40',{date:'20261031',chg:'Y',show:'Y'}); setPreset('BLN01','KEITH','U50',{yn:'Y',chg:'Y',show:'Y'}); setPreset('BLN01','KEITH','U30',{yn:'Y',chg:'Y',show:'Y'});
 const RESPONSES={C:['Return mail','Assigned to TACS','Promised to pay','Left message','Payment plan set up','Phone disconnected','Spoke with taxpayer'],B:['New lien','Amendment','No reply','Release'],E:['New lien','Amendment','No reply','Release'],D:['Submitted to state','Release']};
 function tk(dept,year,ticket,half,desc,principal,due,status='D',paidOn=''){ return {dept,year,ticket,half,desc,principal,due,status,paidOn,map:dept==='RE'?'44 87B':''}; }
 const TAXPAYERS=[
@@ -716,6 +825,16 @@ const AUDIT={
   C1001:[{date:'03/14/2025',type:'B',doc:'BLN01',docId:'BLN01-000188',proc:'New lien',recip:'First Valley Bank',lienName:'SNEED GINA',collector:'KEITH',due:5310.75,fee:30,status:'Active',tickets:['4410-1','4410-2','4411-1','4502-1','4502-2','5120-2'],mode:'Update'},
     {date:'08/02/2024',type:'S',doc:'SOA01',docId:'SOA01-000120',proc:'Statement',recip:'',lienName:'SNEED GINA',collector:'JULIA',due:6102.40,fee:0,status:'',tickets:['4410-1','4410-2','4411-1','4502-1','4502-2','5120-2','88120-1','88121-1','90311-1'],mode:'Update'}]
 };
+AUDIT.C1001[0].ret='04/13/2025';
+AUDIT.C1002=[{date:'07/17/2025',type:'D',doc:'DSO01',docId:'DSO01-000201',proc:'New lien',recip:'Virginia Department of Taxation',lienName:'PRUITT DALE E',collector:'JULIA',due:4500.00,fee:0,status:'Active',tickets:['6611-2','7044-1'],mode:'Update'}];
+AUDIT.C1004=[{date:'02/02/2026',type:'L',doc:'LTR01',docId:'LTR01-000214',proc:'Letter',recip:'',lienName:'HARGROVE MILLS LLC',collector:'JULIA',due:7852.00,fee:0,status:'',tickets:['92001-1','93500-1'],mode:'Update'}];
+const TP_SSN={C1001:['900000000','800000000'],C1002:['541101245'],C1003:['540601755'],C1004:['135670050'],C1005:['784456322','784456323'],C1006:['911144442'],C1007:['542044979'],C1008:['136220114'],C1009:['540772210']};
+const tpMap=t=>(t.tickets.find(x=>x.map)||{}).map||'';
+const SYSCTL={25:{co:25,per:50,gen:'',edit:'',view:'C'},777:{co:777,per:50,gen:'',edit:'',view:'C'},999:{co:999,per:50,gen:'',edit:'',view:'C'}};
+const sysctl=()=>SYSCTL[S.co]||(SYSCTL[S.co]={co:S.co,per:50,gen:'',edit:'',view:'C'});
+const COLL_LIST={};
+const DEPTS=[['ADMFEE','ADMFEE',null],['AFADEE','TACS (PERSONAL PROPERTY COLLECTION)',null],['AFAF08','TACS (PERSONAL PROPERTY COLLECTION)',null],['AFCMEE','TACS (PERSONAL PROPERTY COLLECTION)',null],['AFDI','ATTORNEY FEES MASK',null],['AFDMEE','TACS (PERSONAL PROPERTY COLLECTION)',null],['AFMC00','TACS (PERSONAL PROPERTY COLLECTION)',null],['AFPP','ATTORNEY FEES MASK',null],['AFPP01','TAX',null],['AFPP05','TACS (PERSONAL PROPERTY COLLECTION)',null],['AFPP07','ATTORNEY FEES MASK',null],['AFPP09','ATTORNEY FEES MASK',null],['AFPP14','TACS (PERSONAL PROPERTY COLLECTION)',null],['AFRB03','ATTORNEY FEES MASK',null],['PP','PERSONAL PROPERTY',null],['RE','REAL ESTATE',null]].map(([dept,desc,min])=>({dept,desc,min}));
+const DOCVARS=[['CACLID#','Audit Trail Collector ID','TRCOLAUD'],['CADATE','Audit Trail Date','TRCOLAUD'],['CADOC#','Audit Trail Document #','TRCOLAUD'],['CADOCID','Audit Trail PDF ID','TRCOLAUD'],['CALIEN#','Audit Trail Lien Master','TRCOLAUD'],['CAMETH','Audit Trail Coll Method','TRCOLAUD'],['CARSPCD','Audit Trail Response Code','TRCOLAUD'],['CARTNDT','Audit Trail Return Date','TRCOLAUD'],['CATIME','Audit Trail Time','TRCOLAUD'],['CJADR1','ADDRESS LINE 1','TRCOLJUR'],['CJADR2','ADDRESS LINE 2','TRCOLJUR'],['CJADR3','ADDRESS LINE 3','TRCOLJUR'],['CJJURNM','JURISDICTION NAME','TRCOLJUR'],['CJZIP1','ZIP CODE 1','TRCOLJUR']].map(([v,desc,file])=>({v,desc,file,field:v}));
 const LIENQ=[];
 let DOCSEQ=232;
 const tkId=t=>`${t.ticket}-${t.half}`;
@@ -736,7 +855,7 @@ const PP_PAID={acct:'180624',name:'KEATON JANE',pw:'password',pays:{2026:[{date:
 <script>
 /* ---------- Router ---------- */
 const R={};
-const ALIAS={'pr-checks':'pr-stubs','pr-stmt':'pr-stubs','pr-paper':'pr-stubs','pr-w2files':'pr-w2all','gl-acct':'gl-coa','gl-ytd':'gl-coa','gl-ytdd':'gl-coa','gl-sum':'gl-coa','ap-inv':'ap-inq','ap-detail':'ap-inq','com-view':'com-addr','com-hist':'com-addr','tr-tp':'tr-coll','wa-profile':'wa-users','wa-sec':'wa-users','wa-perms':'wa-users'};
+const ALIAS={'pr-checks':'pr-stubs','pr-stmt':'pr-stubs','pr-paper':'pr-stubs','pr-w2files':'pr-w2all','gl-acct':'gl-coa','gl-ytd':'gl-coa','gl-ytdd':'gl-coa','gl-sum':'gl-coa','ap-inv':'ap-inq','ap-detail':'ap-inq','com-view':'com-addr','com-hist':'com-addr','tr-tp':'tr-coll','tr-docs':'tr-coll','dw-pval':'dw-modify','wa-profile':'wa-users','wa-sec':'wa-users','wa-perms':'wa-users','wa-menu':'wa-site','wa-page':'wa-site','wa-files':'wa-site','wa-preview':'wa-site'};
 const navKey=r=>ALIAS[r]||r;
 function go(route,p){ if(p!==undefined) S.p=p; if(location.hash==='#'+route) render(route); else location.hash=route; }
 window.addEventListener('hashchange',()=>render(location.hash.slice(1)||'home'));
@@ -811,7 +930,7 @@ const ACT={
   'print-doc':()=>{ const p=$('#doc-paper'); if(p) printHtml(`<div class="paper">${p.innerHTML}</div>`); },
   export:el=>doExport(el.dataset.key,el.dataset.fmt),
   logoff:()=>{ closePops(); sessionStorage.removeItem('bai-emp'); S.user=null; $('#app').hidden=true; $('#login').hidden=false; $('#login-form').reset(); msgBox($('#lg-msg'),'',''); history.replaceState(null,'','#'); $('#lg-user').focus(); },
-  'set-co':el=>{ S.co=+el.dataset.co; closePops(); saveSess(); paintUser(); toast(`Switched to company ${S.co} · ${coName()}`); render(S.route); },
+  'set-co':el=>{ S.co=+el.dataset.co; closePops(); if(S.ws){ S.ws.mDraft=S.ws.pDraft=null; } saveSess(); paintUser(); toast(`Switched to company ${S.co} · ${coName()}`); render(S.route); },
   chpw:()=>{ closePops(); changePw(); }
 };
 document.addEventListener('click',e=>{
@@ -863,7 +982,7 @@ R.home={html(){
   const todo=[];
   if(canOpt('com-addr')) todo.push(['pin','PP address change requests','Waiting for approval',ADDR_REQS.length,'com-addr']);
   if(canOpt('tr-coll')){ const wk=addDays(TODAY,7); todo.push(['calendar','Collection actions due','Scheduled in the next 7 days',TAXPAYERS.filter(t=>t.action&&D(t.action)<=wk).length,'tr-coll']); todo.push(['flag','Flagged taxpayers','High priority communications',TAXPAYERS.filter(t=>t.flag).length,'tr-coll']); }
-  if(canOpt('tr-docs')) todo.push(['layers','Documents in batch','Waiting in the document center',LIENQ.length,'tr-docs']);
+  if(canOpt('tr-coll')) todo.push(['layers','Documents in batch','Waiting in the document center',LIENQ.length,'tr-docs']);
   if(canOpt('gl-adm')) todo.push(['book','Budget requests to review','Future requests without an admin request',ACCTS.filter(a=>a.next.dept!=null&&a.next.admin==null).length,'gl-adm']);
   return head(`Company ${S.co} · ${coName()}`,`Welcome, ${u.name.split(' ')[0]}`)+
   `<div class="split"><div class="mod-grid">${mods.map(m=>`<article class="card mod-card"><div class="mh"><span class="gi">${ic(m.icon)}</span><h2>${esc(m.name)}</h2></div>${m.fns.map(f=>`<div class="fn">${esc(f.name)}</div>${f.opts.map(o=>`<button type="button" class="opt-link" data-go="${o.id}">${ic('chevR')}${esc(o.name)}${o.tech?`<span class="tc">${esc(o.tech)}</span>`:''}</button>`).join('')}`).join('')}</article>`).join('')||`<div class="card empty">You don't have access to any modules in this company.</div>`}</div>
@@ -1156,15 +1275,17 @@ R['tr-coll']={html(){ const q=S.col.q;
   let rows=TAXPAYERS.filter(t=>principalDue(t)>0||t.tickets.some(x=>x.status==='D'));
   rows=rows.filter(t=>(!q.name||t.names.some(n=>n.includes(q.name.toUpperCase()))||t.acct===q.name)&&(!q.collector||t.collector===q.collector)&&(!q.flag||t.flag)&&(!q.b||(t.action&&D(t.action)>=D(q.b)))&&(!q.e||(t.action&&D(t.action)<=D(q.e))));
   rows.sort((a,b)=>(b.flag-a.flag)||(q.b||q.e?D(a.action)-D(b.action):principalDue(b)-principalDue(a)));
-  const tot=r2(rows.reduce((s,t)=>s+principalDue(t),0));
-  const cols=[{t:'',w:'34px',x:t=>t.flag?'Flagged':'',f:t=>t.flag?`<span class="flag-i" title="High priority">${ic('flag')}</span>`:''},{t:'Taxpayer',x:t=>t.names.join(' & '),f:t=>`<b>${esc(t.names.join(' & '))}</b><div class="sm muted">${esc(t.addr)}</div>`},{t:'Account',k:'acct'},{t:'Collector',k:'collector'},{t:'Scheduled action',x:t=>t.action,f:t=>t.action?(D(t.action)<=addDays(TODAY,7)?pill(t.action,'warn'):t.action):'<span class="muted">None</span>'},{t:'Principal due',num:1,x:t=>principalDue(t).toFixed(2),f:t=>money(principalDue(t))}];
+  const tot=r2(rows.reduce((s,t)=>s+principalDue(t),0)); const own2=sysctl().view==='O';
+  const cols=[{t:'',w:'34px',x:t=>t.flag?'Flagged':'',f:t=>t.flag?`<span class="flag-i" title="High priority">${ic('flag')}</span>`:''},{t:'Taxpayer',x:t=>own2?t.names[0]:t.names.join(' & '),f:t=>`<b>${esc(own2?t.names[0]:t.names.join(' & '))}</b><div class="sm muted">${esc(t.addr)}</div>`},{t:'Account',k:'acct'},own2?{t:'Name 2',x:t=>t.names[1]||'',f:t=>t.names[1]?esc(t.names[1]):'<span class="muted">—</span>'}:{t:'Collector',k:'collector'},{t:'Scheduled action',x:t=>t.action,f:t=>t.action?(D(t.action)<=addDays(TODAY,7)?pill(t.action,'warn'):t.action):'<span class="muted">None</span>'},{t:'Principal due',num:1,x:t=>principalDue(t).toFixed(2),f:t=>money(principalDue(t))}];
   EXPORTS['coll']=()=>({title:'Delinquent taxpayers',cols,rows,foot:['','Total','','','',money(tot)],footX:['','Total','','','',tot.toFixed(2)]});
-  return head('Collection facility','Delinquent taxpayers',pill(`${COLL_ROLES[collRole()]||'No collections access'}`,'calm'))+
-  `<div class="stats" style="--c:4;margin-bottom:18px"><div class="stat hero"><span>Principal due</span><b>${money(tot)}</b><small>${rows.length} taxpayers</small></div><div class="stat"><span>Flagged</span><b>${rows.filter(t=>t.flag).length}</b><small>High priority</small></div><div class="stat"><span>Actions this week</span><b>${rows.filter(t=>t.action&&D(t.action)<=addDays(TODAY,7)).length}</b><small>Through ${fd(addDays(TODAY,7))}</small></div><div class="stat"><span>List refreshed</span><b>${fd(TODAY)}</b><small>Rebuilt nightly</small></div></div>
+  const built=COLL_LIST[S.co]; const pg=pageSlice(rows,String(sysctl().per),S.col.pg||0); S.col.pg=pg.p;
+  return head('Collection facility','Delinquent taxpayers',`<div class="tool">${pill(`${COLL_ROLES[collRole()]||'No collections access'}`,'calm')}<button type="button" class="btn btn-s" data-act="dc-open">${ic('layers')}Produce documents</button></div>`)+
+  `<div class="stats" style="--c:4;margin-bottom:18px"><div class="stat hero"><span>Principal due</span><b>${money(tot)}</b><small>${rows.length} taxpayers</small></div><div class="stat"><span>Flagged</span><b>${rows.filter(t=>t.flag).length}</b><small>High priority</small></div><div class="stat"><span>Actions this week</span><b>${rows.filter(t=>t.action&&D(t.action)<=addDays(TODAY,7)).length}</b><small>Through ${fd(addDays(TODAY,7))}</small></div><div class="stat"><span>List generated</span><b>${built?built.date:fd(TODAY)}</b><small>${built?`${built.time} by ${esc(built.by)}`:'Rebuilt nightly'}</small></div></div>
   <div class="stack"><div class="card"><form class="pad grid g4" id="cl-form" style="align-items:end"><div class="f"><label for="cl-name">Name or account</label><input class="in" id="cl-name" value="${esc(q.name)}"></div><div class="f"><label for="cl-col">Collector</label><select class="sel" id="cl-col"><option value="">All collectors</option>${opts(['KEITH','JULIA'],q.collector)}</select></div><div class="f"><label for="cl-b">Scheduled action from</label><input class="in" type="date" id="cl-b" value="${usToIso(q.b)}"></div><div class="f"><label for="cl-e">Scheduled action to</label><input class="in" type="date" id="cl-e" value="${usToIso(q.e)}"></div><label class="chk"><input type="checkbox" id="cl-flag" ${q.flag?'checked':''}>Flagged only</label><span class="span2"></span><div class="tool" style="justify-content:flex-end"><button type="button" class="btn btn-s" id="cl-reset">Clear</button><button class="btn btn-p" type="submit">${ic('search')}Search</button></div></form></div>
-  <div class="card"><div class="card-h"><h2>${rows.length} delinquent taxpayer${rows.length===1?'':'s'}</h2>${exportBar('coll')}</div>${table(cols,rows,{empty:'No delinquent taxpayers match your search.',rowCls:t=>'click'+(t.flag?' flag':''),rowAttr:t=>`tabindex="0" data-act="tp-open" data-id="${t.id}"`,foot:['','Total','','','',money(tot)]})}<div class="card-f"><span class="sm muted">${ic('info')} Amounts are principal only. Penalty and interest are calculated when you open a taxpayer.</span></div></div></div>`; },
-  init(){ on('#cl-form','submit',e=>{ e.preventDefault(); S.col.q={name:$('#cl-name').value.trim(),collector:$('#cl-col').value,b:isoToUs($('#cl-b').value),e:isoToUs($('#cl-e').value),flag:$('#cl-flag').checked}; render('tr-coll'); });
+  <div class="card"><div class="card-h"><h2>${rows.length} delinquent taxpayer${rows.length===1?'':'s'}</h2>${exportBar('coll')}</div>${table(cols,pg.slice,{empty:'No delinquent taxpayers match your search.',rowCls:t=>'click'+(t.flag?' flag':''),rowAttr:t=>`tabindex="0" data-act="tp-open" data-id="${t.id}"`,foot:['','Total','','','',money(tot)]})}<div class="card-f"><span class="sm muted">${ic('info')} Amounts are principal only. Penalty and interest are calculated when you open a taxpayer.</span><span class="sp"></span>${pagerHtml(pg.p,pg.pages,'cl-pg')}</div></div></div>`; },
+  init(){ on('#cl-form','submit',e=>{ e.preventDefault(); S.col.pg=0; S.col.q={name:$('#cl-name').value.trim(),collector:$('#cl-col').value,b:isoToUs($('#cl-b').value),e:isoToUs($('#cl-e').value),flag:$('#cl-flag').checked}; render('tr-coll'); });
     on('#cl-reset','click',()=>{ S.col.q={name:'',collector:'',b:'',e:'',flag:false}; render('tr-coll'); }); }};
+ACT['cl-pg']=el=>{ S.col.pg=(S.col.pg||0)+(+el.dataset.d); render('tr-coll'); };
 ACT['tp-open']=el=>{ S.col.tp=el.dataset.id; S.col.tab='tk'; S.col.open=null; S.col.proj=fd(TODAY); go('tr-tp'); };
 R['tr-tp']={crumb:()=>{ const t=tpBy(S.col.tp); return t?t.names.join(' & '):'Taxpayer record'; },need:()=>!!tpBy(S.col.tp),back:'tr-coll',html(){ const t=tpBy(S.col.tp); const tab=S.col.tab; const proj=D(S.col.proj);
   const dlq=t.tickets.filter(x=>x.status==='D'); const cur=t.tickets.filter(x=>x.status==='C');
@@ -1208,7 +1329,7 @@ const TPTAB={
     <div class="f"><label for="ln-names">Names on the lien</label><select class="sel" id="ln-names">${opts(nameOpts)}</select></div><div class="f"><label for="ln-nm">Name as it should print</label><input class="in" id="ln-nm" value="${esc(nameOpts[0][0])}"><span class="hint">Edit to match the name the ${ty==='E'?'employer':'bank'} has on file.</span></div>
     <div class="f span2"><label for="ln-rcp">${ty==='B'?'Bank':ty==='E'?'Employer':'Agency'}</label><select class="sel" id="ln-rcp">${opts(LIEN_MASTER[ty])}</select></div></div>
     <div id="ln-msg" hidden style="margin-top:14px"></div>
-    <div class="tool" style="margin-top:16px;justify-content:flex-end"><button type="button" class="btn btn-s" id="ln-batch">${ic('layers')}Submit to batch</button><button class="btn btn-p" type="submit">${ic('gavel')}Produce on demand</button></div></form>
+    <div class="tool" style="margin-top:16px;justify-content:flex-end"><button type="button" class="btn btn-g" disabled title="Not in this phase">${ic('lock')}Seize/Distress</button><span class="sp"></span><button type="button" class="btn btn-s" id="ln-batch">${ic('layers')}Submit to batch</button><button class="btn btn-p" type="submit">${ic('gavel')}Produce on demand</button></div></form>
     <div class="pad" style="border-top:1px solid var(--line)"><p class="sec-t">Active liens</p>${active.length?table([{t:'Date',k:'date'},{t:'Type',f:a=>DOC_TYPES[a.type]},{t:'Recipient',k:'recip'},{t:'Name',k:'lienName'},{t:'Document',k:'docId'},{t:'Amount',num:1,f:a=>money(a.due)}],active,{cls:'compact'}):'<p class="muted">No active liens.</p>'}
     ${queued.length?`<p class="sec-t" style="margin-top:16px">Waiting in batch</p>${table([{t:'Document',f:q=>esc(docBy(q.doc).desc)},{t:'Recipient',k:'recip'},{t:'Name',k:'lienName'},{t:'Submitted',k:'when'}],queued,{cls:'compact'})}<div style="margin-top:10px"><button type="button" class="btn btn-s btn-sm" data-go="tr-docs">Open document center ${ic('arrowR')}</button></div>`:''}</div>`; },
   st(t){ const nameOpts=t.names.length>1?[[t.names[0],`${cap(t.names[0])} only`],[t.names[1],`${cap(t.names[1])} only`],['BOTH',`${cap(t.names[0])} and ${cap(t.names[1])}`]]:[[t.names[0],cap(t.names[0])]];
@@ -1268,48 +1389,78 @@ function letterHtml({doc,tp,recip,lienName,docId,letterDate,tickets,fee,asOf,cur
 /* =========================================================
    TREASURER · DOCUMENT CENTER
    ========================================================= */
-S.docs={doc:'BLN01',only:null,out:null,rtab:'edit'};
-R['tr-docs']={html(){ const d=docBy(S.docs.doc)||DOCS[0]; const u=S.user.u; const assigned=ASSIGN[d.id]||[];
-  const q=LIENQ.filter(x=>x.doc===d.id&&(!S.docs.only||x.tp===S.docs.only));
-  const docSel=`<div class="f"><label for="dc-doc">Document</label><select class="sel" id="dc-doc">${Object.entries(DOC_TYPES).map(([k,l])=>`<optgroup label="${l}">${opts(DOCS.filter(x=>x.type===k).map(x=>[x.id,`${x.desc} · ${x.id}`]),d.id)}</optgroup>`).join('')}</select></div>`;
-  if(!assigned.length) return head('Document center',d.desc)+`<div class="card" style="max-width:760px"><div class="pad grid">${docSel}<div class="msg err">${ic('lock')}<span>You are not allowed to run <b>${esc(d.desc)}</b> yet. A document needs at least one preset before it can run.</span></div><div class="tool">${canOpt('dw-assign')?`<button type="button" class="btn btn-p" data-act="dw-jump" data-doc="${d.id}">${ic('sliders')}Assign presets to this document</button>`:'<span class="muted sm">Ask an administrator to assign presets in Document writing.</span>'}</div></div></div>`;
-  const ps=assigned.map(pid=>({p:presetBy(pid),v:userPreset(d.id,u,pid)})).filter(x=>x.v.vis);
-  const runP=ps.find(x=>x.p.id==='RUNMODE'); const mode=S.docs.mode||(runP?runP.v.val:'Edit'); const fee=ps.find(x=>x.p.id==='ADDFEE');
-  const field=({p,v})=>{ if(p.id==='RUNMODE'||p.id==='ADDFEE') return ''; const dis=v.chg?'':'disabled'; let inp;
-    if(p.kind==='date') inp=`<input class="in" type="date" id="pv-${p.id}" value="${usToIso(v.val)}" ${dis}>`; else if(p.kind==='sel') inp=`<select class="sel" id="pv-${p.id}" ${dis}>${opts(p.list,v.val)}</select>`; else inp=`<input class="in" id="pv-${p.id}" value="${esc(v.val)}" ${dis}>`;
-    return `<div class="f"><label for="pv-${p.id}">${esc(p.label)}</label>${inp}${v.chg?'':'<span class="hint">Set by your administrator</span>'}</div>`; };
+S.docs={doc:'BLN01',only:null,out:null,rtab:'edit',mode:null};
+const docOpts=sel=>Object.entries(DOC_TYPES).filter(([k])=>DOCS.some(x=>x.type===k)).map(([k,l])=>`<optgroup label="${DT_CODE[k]} · ${l}">${opts(DOCS.filter(x=>x.type===k).map(x=>[x.id,x.desc]),sel)}</optgroup>`).join('');
+const isLien=d=>['B','E','D'].includes(d.type);
+R['tr-docs']={crumb:()=>(docBy(S.docs.doc)||DOCS[0]).desc,back:'tr-coll',html(){ const d=docBy(S.docs.doc)||DOCS[0]; const u=S.user.u; const A=ASSIGN[d.id]||[]; const code=DT_CODE[d.type]; const lien=isLien(d);
+  const pool=LIENQ.filter(x=>x.doc===d.id&&(!S.docs.only||x.tp===S.docs.only));
+  const docSel=`<div class="f"><label for="dc-doc">Document</label><select class="sel" id="dc-doc">${docOpts(d.id)}</select></div>`;
+  const back=S.docs.only?`<button type="button" class="btn btn-s" data-act="tp-back">${ic('arrowL')}Back to taxpayer</button>`:`<button type="button" class="btn btn-s" data-go="tr-coll">${ic('arrowL')}Return to collection facility</button>`;
+  if(!A.length) return head('Document center',d.desc,back)+`<div class="card" style="max-width:760px"><div class="pad grid">${docSel}<div class="msg err">${ic('lock')}<span>You are not allowed to run <b>${esc(d.desc)}</b> yet. A document needs at least one preset before it can run.</span></div><div class="tool">${canOpt('dw-assign')?`<button type="button" class="btn btn-p" data-act="dw-jump" data-doc="${d.id}">${ic('sliders')}Assign presets to this document</button>`:'<span class="muted sm">Ask an administrator to assign presets in Document writing.</span>'}</div></div></div>`;
+  const pv=pid=>A.includes(pid)?presetVal(d.id,u,pid):null;
+  const shown=pid=>{ const v=pv(pid); return !!v&&v.show!=='N'; };
+  const dis=pid=>pv(pid).chg==='N'?'disabled':'';
+  const hint=pid=>pv(pid).chg==='N'?'<span class="hint">Set by your administrator</span>':'';
+  const dateF=(pid,l)=>shown(pid)?`<div class="f"><label for="pv-${pid}">${l}</label><input class="in" type="date" id="pv-${pid}" value="${usToIso(presetDate(pid,pv(pid)))}" ${dis(pid)}>${hint(pid)}</div>`:'';
+  const sortF=(pid,l)=>shown(pid)?`<div class="f"><label for="pv-${pid}">${l}</label><select class="sel" id="pv-${pid}" ${dis(pid)}><option value="">None</option>${opts(SORTS,pv(pid).chr)}</select>${hint(pid)}</div>`:'';
+  const upd=!!pv('U50')&&pv('U50').yn==='Y'; const mode=upd?(S.docs.mode||'Edit'):'Edit';
+  const feeOn=A.includes('U30')&&d.type!=='S'; const feeOk=feeOn&&pv('U30').yn==='Y';
+  const collectors=[...new Set(pool.map(x=>x.collector))].sort();
+  const seg=(name,list,val,disabledFor=[])=>`<div class="seg" data-seg="${name}">${list.map(([v,l])=>`<button type="button" aria-pressed="${v===val}" data-v="${v}" ${disabledFor.includes(v)?'disabled':''}>${l}</button>`).join('')}</div>`;
+  const btnTxt=m=>m==='Update'?`${ic('check')}Produce ${esc(code)}S · update`:`${ic('eye')}Generate edit report`;
   const out=S.docs.out;
-  return head('Document center',d.desc,S.docs.only?`<button type="button" class="btn btn-s" data-act="tp-back">${ic('arrowL')}Back to taxpayer</button>`:'')+
-  `<div class="stack"><div class="split"><div class="card"><div class="card-h"><h2>${q.length} record${q.length===1?'':'s'} to process</h2>${S.docs.only?`<button type="button" class="btn btn-g btn-sm" id="dc-all">Show the whole batch</button>`:''}</div>
-   ${table([{t:'Taxpayer',f:x=>`<b>${esc(tpBy(x.tp).names.join(' & '))}</b><div class="sm muted">Account ${tpBy(x.tp).acct}</div>`},{t:'Name on document',k:'lienName'},{t:'Recipient',f:x=>esc(x.recip)||'<span class="muted">—</span>'},{t:'Collector',k:'collector'},{t:'Submitted',k:'when'},{t:'',f:x=>`<button type="button" class="btn btn-s btn-xs" data-act="dc-rm" data-i="${LIENQ.indexOf(x)}">${ic('trash')}Remove</button>`}],q,{empty:'Nothing is waiting for this document. Submit records from a taxpayer record.',emptyIc:'layers'})}</div>
-   <div class="card"><div class="card-h"><h2>Settings</h2>${pill(u,'calm')}</div><form class="pad grid" id="dc-form">${docSel}${ps.map(field).join('')}
-    ${runP?`<div class="f"><span class="lbl">Run as</span><div class="seg" data-seg="dc-mode">${['Edit','Update'].map(x=>`<button type="button" aria-pressed="${x===mode}" data-v="${x}" ${runP.v.chg?'':'disabled'}>${x}</button>`).join('')}</div><span class="hint">${mode==='Edit'?'Edit produces reports and documents without writing to the audit trail.':'Update writes the audit trail and removes records from the batch.'}</span></div>`:''}
-    ${fee?`<label class="chk"><input type="checkbox" id="dc-fee" ${fee.v.val==='Yes'?'checked':''} ${fee.v.chg?'':'disabled'}>Add fees</label>`:''}
+  return head('Document center',d.desc,back)+
+  `<div class="stack"><div class="split"><div class="card"><div class="card-h"><h2>${pool.length} record${pool.length===1?'':'s'} to process</h2>${S.docs.only?`<button type="button" class="btn btn-g btn-sm" id="dc-all">Show the whole batch</button>`:''}</div>
+   ${table([{t:'Recipient name',f:x=>esc(x.recip)||'<span class="muted">—</span>'},{t:'Taxpayer name',f:x=>`<b>${esc(x.lienName)}</b><div class="sm muted">Account ${tpBy(x.tp).acct}</div>`},{t:'SSN',f:x=>(TP_SSN[x.tp]||[])[0]||''},{t:'SSN 2',f:x=>(TP_SSN[x.tp]||[])[1]||''},{t:'Map ID',f:x=>tpMap(tpBy(x.tp))},{t:'Collector',k:'collector'},{t:'Date',f:x=>x.when.split(' ')[0]},{t:'',f:x=>`<button type="button" class="btn btn-s btn-xs" data-act="dc-rm" data-i="${LIENQ.indexOf(x)}">${ic('trash')}Remove</button>`}],pool,{cls:'compact',empty:'Nothing is waiting for this document. Submit records from a taxpayer record.',emptyIc:'layers'})}</div>
+   <div class="card"><div class="card-h"><h2>${esc(code)} · ${esc(d.desc)}</h2>${pill(u,'calm')}</div><form class="pad grid" id="dc-form" novalidate>${docSel}
+    <div class="grid g2">${lien?`<div class="f"><label for="dc-col">Collector to process</label><select class="sel" id="dc-col"><option value="ALL">ALL</option>${opts(collectors)}</select></div>`:''}
+    ${dateF('D20','Penalty & interest date')}${dateF('D10','Letter date')}${dateF('D50','Return date')}${dateF('D30','Due date start')}${dateF('D40','Due date end')}${sortF('SO10','1st sort order')}${sortF('SO20','2nd sort order')}</div>
+    <div class="f"><span class="lbl">Edit or update</span>${seg('dc-mode',[['Edit','Edit'],['Update','Update']],mode,upd?[]:['Update'])}<span class="hint" id="dc-mode-h">${upd?(mode==='Edit'?'Edit produces reports and documents without writing to the audit trail.':'Update writes the audit trail and removes records from the batch.'):`Permission to update is off for ${esc(u)} on this document.`}</span></div>
+    ${feeOn?`<div class="f"><span class="lbl">Add fees</span>${seg('dc-fee',[['Yes','Yes'],['No','No']],'No',feeOk?[]:['Yes'])}<span class="hint">${feeOk?`Adds a ${money(ADMIN_FEE)} ADMFEE ticket to each record on update.`:`Permission to add fees is off for ${esc(u)} on this document.`}</span></div>`:''}
+    ${lien?`<div class="f"><span class="lbl">Maximum ${esc(code)}S</span><div class="tool">${seg('dc-max',[['All','All'],['Limit','Limit']],'All')}<input class="in" id="dc-lim" inputmode="numeric" style="max-width:110px" aria-label="Maximum number to produce" disabled></div></div>`:''}
+    ${d.type==='S'?`<div class="f"><span class="lbl">Tickets to include</span>${seg('dc-incl',[['CD','Current/Delq.'],['D','Delinquent only']],'CD')}</div><div class="f"><span class="lbl">Use COR master info</span>${seg('dc-cor',[['Y','Yes'],['N','No']],'N')}</div>`:''}
     <div id="dc-msg" hidden></div>
-    <button class="btn ${mode==='Update'?'btn-d':'btn-p'} btn-w" type="submit" ${q.length?'':'disabled'}>${mode==='Update'?`${ic('check')}Produce ${esc(d.desc.toLowerCase())} · update`:`${ic('eye')}Generate edit report`}</button></form></div></div>
+    <button class="btn ${mode==='Update'?'btn-d':'btn-p'} btn-w" id="dc-go" type="submit" ${pool.length?'':'disabled'}>${btnTxt(mode)}</button></form></div></div>
    ${out?resultsHtml(out):''}</div>`; },
   init(){ segBind();
     on('#dc-doc','change',e=>{ S.docs.doc=e.target.value; S.docs.out=null; S.docs.mode=null; render('tr-docs'); });
-    on('[data-seg="dc-mode"]','change',()=>{ S.docs.mode=segVal('dc-mode'); render('tr-docs'); });
+    on('[data-seg="dc-mode"]','change',()=>{ const m=segVal('dc-mode'); S.docs.mode=m; const b=$('#dc-go'); const code=DT_CODE[docBy(S.docs.doc).type]; b.className=`btn ${m==='Update'?'btn-d':'btn-p'} btn-w`; b.innerHTML=m==='Update'?`${ic('check')}Produce ${esc(code)}S · update`:`${ic('eye')}Generate edit report`; $('#dc-mode-h').textContent=m==='Edit'?'Edit produces reports and documents without writing to the audit trail.':'Update writes the audit trail and removes records from the batch.'; });
+    on('[data-seg="dc-max"]','change',()=>{ const l=segVal('dc-max')==='Limit'; $('#dc-lim').disabled=!l; if(l) $('#dc-lim').focus(); else $('#dc-lim').value=''; });
     on('#dc-all','click',()=>{ S.docs.only=null; render('tr-docs'); });
     on('#dc-form','submit',e=>{ e.preventDefault(); runDocs(); });
   }};
+ACT['dc-open']=()=>{ S.docs.only=null; S.docs.out=null; S.docs.mode=null; go('tr-docs'); };
 ACT['tp-back']=()=>{ S.col.tp=S.docs.only; S.col.tab='au'; go('tr-tp'); };
 ACT['dc-rm']=el=>{ LIENQ.splice(+el.dataset.i,1); toast('Record removed from the batch'); render('tr-docs'); };
-ACT['dw-jump']=el=>{ S.dw.doc=el.dataset.doc; S.dw.type=docBy(el.dataset.doc).type; S.dw.open[S.dw.type]=true; go('dw-assign'); };
-function runDocs(){ const d=docBy(S.docs.doc); const u=S.user.u; const val=pid=>{ const el=$('#pv-'+pid); if(el) return el.type==='date'?isoToUs(el.value):el.value; return (ASSIGN[d.id]||[]).includes(pid)?userPreset(d.id,u,pid).val:presetDefault(presetBy(pid)); };
-  const mode=$('[data-seg="dc-mode"]')?segVal('dc-mode'):((ASSIGN[d.id]||[]).includes('RUNMODE')?userPreset(d.id,u,'RUNMODE').val:'Edit'); const addFee=$('#dc-fee')?$('#dc-fee').checked:false; const feeAmt=addFee?(+val('ADMFEE')||0):0;
-  const asOf=val('PIDATE')?D(val('PIDATE')):TODAY; const b=val('DUEBEG')?D(val('DUEBEG')):new Date(1900,0,1), e=val('DUEEND')?D(val('DUEEND')):TODAY; const incl=(ASSIGN[d.id]||[]).includes('CURDLQ')?val('CURDLQ'):(d.type==='S'?'Current and delinquent':'Delinquent only');
-  const q=LIENQ.filter(x=>x.doc===d.id&&(!S.docs.only||x.tp===S.docs.only)); if(!q.length) return;
-  const letterDate=val('LTRDATE')||fd(TODAY);
-  const recs=q.map(x=>{ const tp=tpBy(x.tp); const tks=tp.tickets.filter(t=>(t.status==='D'||(incl==='Current and delinquent'&&t.status==='C'))&&D(t.due)>=b&&D(t.due)<=e); const due=r2(tks.reduce((s,t)=>{ const p=pAndI(t,asOf); return s+t.principal+p.pen+p.int; },0)); const docId=mode==='Update'?`${d.id}-${String(++DOCSEQ).padStart(6,'0')}`:'N/A'; return {x,tp,tks,due,fee:d.type==='S'?0:feeAmt,docId}; });
-  const sort=val('SORT1'); if(sort==='Total due') recs.sort((a,b)=>b.due-a.due); else if(sort==='Account number') recs.sort((a,b)=>a.tp.acct.localeCompare(b.tp.acct)); else recs.sort((a,b)=>a.x.lienName.localeCompare(b.x.lienName));
-  S.docs.out={doc:d.id,mode,recs,asOf:fd(asOf),letterDate,incl}; S.docs.rtab='edit';
-  if(mode==='Update'){ recs.forEach(r=>{ AUDIT[r.tp.id]=AUDIT[r.tp.id]||[]; AUDIT[r.tp.id].push({date:fd(TODAY),type:d.type,doc:d.id,docId:r.docId,proc:d.proc,recip:r.x.recip,lienName:r.x.lienName,collector:S.user.u,due:r.due,fee:r.fee,status:['New lien'].includes(d.proc)&&d.type!=='S'?'Active':'',tickets:r.tks.map(tkId),mode:'Update'});
+ACT['dw-jump']=el=>{ const d=docBy(el.dataset.doc); S.dw.type=d.type; S.dw.doc=d.id; S.dw.adding=false; go('dw-assign'); };
+function runDocs(){ const d=docBy(S.docs.doc); const u=S.user.u; const A=ASSIGN[d.id]||[]; const m=$('#dc-msg');
+  const pv=pid=>A.includes(pid)?presetVal(d.id,u,pid):{...PV_BLANK};
+  const dv=pid=>{ const el=$('#pv-'+pid); if(el) return isoToUs(el.value); return presetDate(pid,pv(pid)); };
+  const sv=pid=>{ const el=$('#pv-'+pid); return el?el.value:(pv(pid).chr||'').trim().toUpperCase().slice(0,1); };
+  const upd=pv('U50').yn==='Y'; const mode=upd&&$('[data-seg="dc-mode"]')?segVal('dc-mode'):'Edit';
+  const addFee=!!$('[data-seg="dc-fee"]')&&segVal('dc-fee')==='Yes'&&pv('U30').yn==='Y'; const feeAmt=addFee?ADMIN_FEE:0;
+  for(const pid of ['D20','D10','D50','D30','D40']){ const el=$('#pv-'+pid); if(el&&!el.disabled&&!el.value) return msgBox(m,'err',`Enter the ${el.closest('.f').querySelector('label').textContent.toLowerCase()}.`); }
+  const asOf=D(dv('D20')); const b=D(dv('D30')), e=D(dv('D40'));
+  if(b>e) return msgBox(m,'err','Due date start must be on or before due date end.');
+  let limit=0; if($('[data-seg="dc-max"]')&&segVal('dc-max')==='Limit'){ limit=+$('#dc-lim').value; if(!Number.isInteger(limit)||limit<1) return msgBox(m,'err','Enter how many to produce, or choose All.'); }
+  const col=$('#dc-col')?$('#dc-col').value:'ALL';
+  const incl=d.type==='S'?(segVal('dc-incl')==='CD'?'Current and delinquent':'Delinquent only'):'Delinquent only';
+  const codes=pid=>(pv(pid).chr||'').toUpperCase().split(/[\s,]+/).filter(Boolean).slice(0,8); const omit=codes('S60'), only=codes('S70');
+  const q=LIENQ.filter(x=>x.doc===d.id&&(!S.docs.only||x.tp===S.docs.only)&&(col==='ALL'||x.collector===col)); if(!q.length) return msgBox(m,'err',`No records for collector ${esc(col)}.`);
+  const letterDate=dv('D10'), retDate=isLien(d)||A.includes('D50')?dv('D50'):'';
+  const recs=q.map(x=>{ const tp=tpBy(x.tp); const tks=tp.tickets.filter(t=>(t.status==='D'||(incl==='Current and delinquent'&&t.status==='C'))&&!omit.includes(t.status)&&(!only.length||only.includes(t.status))&&D(t.due)>=b&&D(t.due)<=e); const due=r2(tks.reduce((s,t)=>{ const p=pAndI(t,asOf); return s+t.principal+p.pen+p.int; },0)); return {x,tp,tks,due,fee:d.type==='S'?0:feeAmt,docId:'N/A'}; });
+  const key={N:r=>r.x.lienName,L:r=>r.x.recip||'',Z:r=>(r.tp.addr.match(/\d{5}(?!.*\d{5})/)||[''])[0],S:r=>(TP_SSN[r.tp.id]||[''])[0],M:r=>tpMap(r.tp)};
+  const s1=key[sv('SO10')]||key.N, s2=key[sv('SO20')]; recs.sort((a,c)=>s1(a).localeCompare(s1(c))||(s2?s2(a).localeCompare(s2(c)):0));
+  const run=limit?recs.slice(0,limit):recs;
+  if(mode==='Update') run.forEach(r=>{ r.docId=`${d.id}-${String(++DOCSEQ).padStart(6,'0')}`; });
+  const ymd=usToYmd(fd(TODAY)); const flatOn=A.includes('S160')&&pv('S160').yn==='Y';
+  const flat=flatOn?(sysctl().gen?`${sysctl().gen.replace(/[\\/]+$/,'')}\\${DT_CODE[d.type]}_${ymd}.txt`:'N/A · no file path in system control'):'N/A';
+  S.docs.out={doc:d.id,mode,recs:run,asOf:fd(asOf),letterDate,retDate,incl,flat,cor:d.type==='S'?segVal('dc-cor'):'',at:nowStamp()}; S.docs.rtab='edit';
+  if(mode==='Update'){ run.forEach(r=>{ AUDIT[r.tp.id]=AUDIT[r.tp.id]||[]; AUDIT[r.tp.id].push({date:fd(TODAY),type:d.type,doc:d.id,docId:r.docId,proc:d.proc,recip:r.x.recip,lienName:r.x.lienName,collector:S.user.u,due:r.due,fee:r.fee,status:d.proc==='New lien'&&d.type!=='S'?'Active':'',tickets:r.tks.map(tkId),mode:'Update',ret:retDate});
       if(d.proc==='Release'&&r.x.ref){ const a=AUDIT[r.tp.id].find(z=>z.docId===r.x.ref); if(a) a.status='Released'; }
       if(r.fee) r.tp.tickets.push(tk('ADM',2026,`F${DOCSEQ}`,1,`Administrative fee · ${d.desc}`,r.fee,fd(addDays(TODAY,30)),'C'));
       LIENQ.splice(LIENQ.indexOf(r.x),1); });
-    toast(`${recs.length} document${recs.length===1?'':'s'} produced and written to the audit trail`); }
+    toast(`${run.length} document${run.length===1?'':'s'} produced and written to the audit trail`); }
   else toast('Edit report generated');
   render('tr-docs'); setTimeout(()=>{ const el=$('#dc-out'); el&&el.scrollIntoView({behavior:'smooth',block:'start'}); },60);
 }
@@ -1330,10 +1481,63 @@ function resultsHtml(o){ const d=docBy(o.doc); const t=S.docs.rtab;
   if(t==='doc') body=`<div class="pad">${table([{t:'Name on document',f:r=>esc(r.x.lienName)},{t:'Recipient',f:r=>esc(r.x.recip)||'—'},{t:'Document ID',k:'docId'},{t:'',f:r=>`<button type="button" class="btn btn-s btn-sm" data-act="dc-view" data-i="${o.recs.indexOf(r)}">${ic('eye')}View document</button>`}],o.recs)}</div>`;
   else if(t==='gl') body=`<div class="empty"><div class="ei">${ic('book')}</div>No general ledger account is assigned to collection fees, so nothing was posted.</div>`;
   else body=`<div class="card-h" style="border-top:0"><span class="sm muted">${o.mode==='Update'?'Written to the audit trail':'Edit only. Nothing was written to the audit trail.'} · Penalty and interest as of ${o.asOf}</span>${exportBar('dc-'+t)}</div>`+table(sets[t].cols,sets[t].rows,{foot:sets[t].foot,empty:'Nothing to show.',maxH:'480px'});
-  return `<div class="card" id="dc-out"><div class="card-h"><h2>${o.mode==='Update'?'Update results':'Edit results'}</h2>${o.mode==='Update'?pill('Update','dang'):pill('Edit','calm')}</div><div class="tabs">${tabs.map(([k,l])=>`<button type="button" class="tab" aria-selected="${k===t}" data-act="rtab" data-k="${k}">${l}</button>`).join('')}</div>${body}</div>`;
+  return `<div class="card" id="dc-out"><div class="card-h"><h2>${o.mode==='Update'?'Update results':'Edit results'}</h2>${o.mode==='Update'?pill('Update','dang'):pill('Edit','calm')}</div><div class="pad" style="border-bottom:1px solid var(--line)">${kv([['Penalty & interest date',o.asOf],['Letter date',o.letterDate]].concat(o.retDate?[['Return date',o.retDate]]:[]).concat([[isLien(d)?'Liens produced':'Documents produced',String(o.recs.length)],['Flat file path',esc(o.flat)],['Report date/time',`${o.at.date} ${o.at.time}`]]).concat(d.type==='S'?[['Tickets to include',o.incl],['Use COR master info',o.cor==='Y'?'Yes':'No']]:[]),3)}</div><div class="tabs">${tabs.map(([k,l])=>`<button type="button" class="tab" aria-selected="${k===t}" data-act="rtab" data-k="${k}">${l}</button>`).join('')}</div>${body}</div>`;
 }
 ACT.rtab=el=>{ S.docs.rtab=el.dataset.k; render('tr-docs'); };
 ACT['dc-view']=el=>{ const o=S.docs.out; const r=o.recs[+el.dataset.i]; showDoc(`${docBy(o.doc).desc} · ${r.x.lienName}`,letterHtml({doc:docBy(o.doc),tp:r.tp,recip:r.x.recip,lienName:r.x.lienName,docId:r.docId,letterDate:o.letterDate,tickets:r.tks,fee:r.fee,asOf:D(o.asOf),curDlq:docBy(o.doc).type==='S'?o.incl:''})); };
+
+/* =========================================================
+   TREASURER · COLLECTIONS AUDIT TRAIL INQUIRY
+   ========================================================= */
+S.inq={q:null};
+const auDesc=a=>/^Release/.test(a.proc)?'Release Issued':a.status==='Released'?'Released':a.type==='D'?'Submitted to DSO':a.status==='Active'?'Active Lien':a.type==='S'?'Account Balance Statement':a.type==='L'?'Letter Sent':a.proc;
+function inqRows(q){ const out=[]; const n=s=>String(s||'').replace(/\s+/g,'').toUpperCase();
+  Object.entries(AUDIT).forEach(([id,list])=>{ const t=tpBy(id); if(!t) return; const ssn=TP_SSN[id]||[];
+    if(q.ssn&&!ssn.includes(q.ssn)) return; if(q.acct&&!t.acct.includes(q.acct)) return; if(q.map&&!n(tpMap(t)).includes(n(q.map))) return;
+    list.forEach((a,i)=>{ if(q.doc&&!n(a.docId).includes(n(q.doc))) return; out.push({t,a,i}); }); });
+  return out.sort((x,y)=>D(y.a.date)-D(x.a.date)); }
+R['tr-inq']={html(){ const q=S.inq.q||{ssn:'',doc:'',acct:'',map:''}; const rows=S.inq.q?inqRows(q):null;
+  const cols=[{t:'Option',x:()=>'',f:r=>`<button type="button" class="link" data-act="inq-view" data-id="${r.t.id}" data-i="${r.i}">View</button>`},{t:'Name',x:r=>r.t.names.join(' & '),f:r=>esc(r.t.names.join(' & '))},{t:'Date',x:r=>r.a.date,f:r=>r.a.date},{t:'Method',x:r=>DT_CODE[r.a.type],f:r=>`<span class="mono">${DT_CODE[r.a.type]}</span>`},{t:'Dept/Ticket no.',x:r=>r.a.tickets.length>1?'Multiple':(r.a.tickets[0]||''),f:r=>r.a.tickets.length>1?'Multiple':esc(r.a.tickets[0]||'')},{t:'Collector',x:r=>r.a.collector,f:r=>esc(r.a.collector)},{t:'Doc. no.',x:r=>docBy(r.a.doc).desc,f:r=>`<button type="button" class="link" data-act="inq-doc" data-id="${r.t.id}" data-i="${r.i}">${esc(docBy(r.a.doc).desc)}</button>`},{t:'Description',x:r=>auDesc(r.a),f:r=>{ const d=auDesc(r.a); return d==='Active Lien'?pill(d,'warn'):/Release/.test(d)?pill(d,'ok'):esc(d); }},{t:'Lien ID',x:r=>r.a.docId,f:r=>`<span class="mono">${esc(r.a.docId)}</span>`},{t:'Return date',x:r=>r.a.ret||'',f:r=>r.a.ret||''}];
+  if(rows) EXPORTS['inq']=()=>({title:'Collections audit trail',meta:[q.ssn&&`SSN ${q.ssn}`,q.doc&&`Document ID ${q.doc}`,q.acct&&`Account ${q.acct}`,q.map&&`Map ID ${q.map}`].filter(Boolean).join(' · '),cols,rows});
+  return head('Collections inquiry','Audit trail search')+
+  `<div class="stack"><div class="card"><form class="pad grid g4" id="inq-form" style="align-items:end" novalidate><div class="f"><label for="inq-ssn">Social security no.</label><input class="in" id="inq-ssn" inputmode="numeric" maxlength="9" value="${esc(q.ssn)}"></div><div class="f"><label for="inq-doc">Document ID</label><input class="in" id="inq-doc" value="${esc(q.doc)}"></div><div class="f"><label for="inq-acct">Account no.</label><input class="in" id="inq-acct" inputmode="numeric" value="${esc(q.acct)}"></div><div class="f"><label for="inq-map">Map ID</label><input class="in" id="inq-map" value="${esc(q.map)}" placeholder="PPPIIDDBBLLLLS"></div><div class="span-all"><div id="inq-msg" hidden></div></div><div class="tool span-all" style="justify-content:flex-end">${rows?`<button type="button" class="btn btn-s" id="inq-new">New search</button>`:''}<button class="btn btn-p" type="submit">${ic('search')}Find records</button></div></form></div>
+  ${rows?`<div class="card"><div class="card-h"><h2>Audit trail · ${rows.length} record${rows.length===1?'':'s'}</h2>${rows.length?exportBar('inq'):''}</div>${table(cols,rows,{empty:'No audit trail records match your search.',emptyIc:'history'})}</div>`:''}</div>`; },
+  init(){ on('#inq-form','submit',e=>{ e.preventDefault(); const q={ssn:$('#inq-ssn').value.replace(/\D/g,''),doc:$('#inq-doc').value.trim(),acct:$('#inq-acct').value.trim(),map:$('#inq-map').value.trim()}; const m=$('#inq-msg');
+      if(!q.ssn&&!q.doc&&!q.acct&&!q.map) return msgBox(m,'err','Enter a social security number, document ID, account number, or map ID.');
+      if(q.ssn&&q.ssn.length!==9) return msgBox(m,'err','Social security number must be 9 digits.');
+      S.inq.q=q; render('tr-inq'); });
+    on('#inq-new','click',()=>{ S.inq.q=null; render('tr-inq'); }); }};
+ACT['inq-doc']=el=>{ const t=tpBy(el.dataset.id), a=AUDIT[t.id][+el.dataset.i]; showDoc(a.docId,letterHtml({doc:docBy(a.doc),tp:t,recip:a.recip,lienName:a.lienName,docId:a.docId,letterDate:a.date,tickets:t.tickets.filter(x=>a.tickets.includes(tkId(x))),fee:a.fee,asOf:D(a.date)})); };
+ACT['inq-view']=el=>{ const t=tpBy(el.dataset.id), a=AUDIT[t.id][+el.dataset.i]; const list=t.tickets.filter(x=>a.tickets.includes(tkId(x)));
+  openModal({title:`${DT_CODE[a.type]} · ${a.docId}`,size:'wide',body:`${kv([['Name',t.names.map(esc).join('<br>')],['Account',t.acct],['Social security no.',(TP_SSN[t.id]||[]).join(' / ')],['Date',a.date],['Method',DT_CODE[a.type]],['Document',esc(docBy(a.doc).desc)],['Description',auDesc(a)],['Recipient',esc(a.recip)],['Name on document',esc(a.lienName)],['Collector',esc(a.collector)],['Amount',money(a.due)],['Return date',a.ret||'']],3)}<div style="margin-top:18px">${table([{t:'Dept',k:'dept'},{t:'Year',k:'year'},{t:'Ticket',f:x=>tkId(x)},{t:'Description',k:'desc'},{t:'Principal',num:1,f:x=>money(x.principal)}],list,{cls:'compact',empty:'No tickets.'})}</div>`,
+    foot:`<button type="button" class="btn btn-s" data-act="inq-doc" data-id="${t.id}" data-i="${el.dataset.i}">${ic('file')}View document</button>${canOpt('tr-coll')?`<button type="button" class="btn btn-s" data-act="inq-tp" data-id="${t.id}">Open taxpayer record ${ic('arrowR')}</button>`:''}<button type="button" class="btn btn-p" data-act="close-modal">Close</button>`}); };
+ACT['inq-tp']=el=>{ closeModal(); S.col.tp=el.dataset.id; S.col.tab='au'; S.col.open=null; S.col.proj=fd(TODAY); go('tr-tp'); };
+
+/* =========================================================
+   TREASURER · COLLECTION FACILITY ADMINISTRATION
+   ========================================================= */
+S.adm={view:'sys'};
+R['tr-adm']={html(){ const v=S.adm.view, c=sysctl();
+  const tabs=[['sys','Edit system control'],['gen','Generate collection list'],['dept','View departments'],['vars','View document variables']];
+  let body='';
+  if(v==='sys') body=`<form class="pad grid g2" id="sc-form" novalidate style="max-width:860px"><div class="f"><label for="sc-co">Collections company number</label><input class="in" id="sc-co" inputmode="numeric" value="${c.co}"></div><div class="f"><label for="sc-per">Number of records to display per page</label><input class="in" id="sc-per" inputmode="numeric" value="${c.per}"></div><div class="f"><label for="sc-gen">File path to generated documents</label><input class="in mono" id="sc-gen" value="${esc(c.gen)}" placeholder="\\\\server\\share\\collections"></div><div class="f"><label for="sc-edit">File path to edit documents</label><input class="in mono" id="sc-edit" value="${esc(c.edit)}"></div><div class="f span2"><span class="lbl">Collections search default view</span><div class="seg" data-seg="sc-view"><button type="button" aria-pressed="${c.view==='C'}" data-v="C">Show collector info</button><button type="button" aria-pressed="${c.view==='O'}" data-v="O">Show owner 2 info</button></div></div><div class="span2"><div id="sc-msg" hidden></div></div><div class="tool span2" style="justify-content:flex-end"><button class="btn btn-p" type="submit">${ic('check')}Update</button></div></form>`;
+  else if(v==='gen'){ const g=COLL_LIST[S.co]; const dl=TAXPAYERS.filter(t=>t.tickets.some(x=>x.status==='D')); const tot=r2(dl.reduce((s,t)=>s+principalDue(t),0));
+    body=`<div class="pad">${kv([['Last generated',g?`${g.date} ${g.time}`:'Nightly'],['Generated by',g?esc(g.by):'System'],['Taxpayers on the list',String(g?g.count:dl.length)],['Principal due',money(g?g.total:tot)]],4)}<div class="tool" style="margin-top:18px"><button type="button" class="btn btn-p" data-act="adm-gen">${ic('refresh')}Generate collection list</button></div></div>`; }
+  else if(v==='dept'){ EXPORTS['adm-dept']=()=>({title:'Collections departments',cols:[{t:'Department',k:'dept'},{t:'Description',k:'desc'},{t:'Min. amount',x:r=>r.min==null?'None':r.min.toFixed(2)}],rows:DEPTS});
+    body=`<div class="card-h" style="border-top:0"><input class="in sm-in" id="adm-q" placeholder="Search departments" aria-label="Search departments" style="max-width:280px">${exportBar('adm-dept')}</div>${table([{t:'Department',f:r=>`<span class="mono">${esc(r.dept)}</span>`},{t:'Description',k:'desc'},{t:'Min. amount',num:1,f:r=>r.min==null?'<span class="muted">None</span>':money(r.min)}],DEPTS,{rowAttr:r=>`data-s="${esc((r.dept+' '+r.desc).toUpperCase())}"`,maxH:'560px'})}`; }
+  else { EXPORTS['adm-vars']=()=>({title:'Document variables',cols:[{t:'Variable name',k:'v'},{t:'Description',k:'desc'},{t:'File name',k:'file'},{t:'Field name',k:'field'}],rows:DOCVARS});
+    body=`<div class="card-h" style="border-top:0"><input class="in sm-in" id="adm-q" placeholder="Search variables" aria-label="Search document variables" style="max-width:280px">${exportBar('adm-vars')}</div>${table([{t:'Variable name',f:r=>`<span class="mono">${esc(r.v)}</span>`},{t:'Description',k:'desc'},{t:'File name',f:r=>`<span class="mono">${esc(r.file)}</span>`},{t:'Field name',f:r=>`<span class="mono">${esc(r.field)}</span>`}],DOCVARS,{rowAttr:r=>`data-s="${esc((r.v+' '+r.desc+' '+r.file).toUpperCase())}"`,maxH:'560px'})}`; }
+  return head(`Company ${S.co} · ${coName()}`,'Collection facility administration')+
+  `<div class="card"><div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button type="button" class="tab" role="tab" aria-selected="${k===v}" data-act="adm-tab" data-k="${k}">${l}</button>`).join('')}</div>${body}</div>`; },
+  init(){ segBind();
+    on('#adm-q','input',e=>{ const q=e.target.value.trim().toUpperCase(); $$('#main tbody tr[data-s]').forEach(r=>{ r.hidden=!!q&&!r.dataset.s.includes(q); }); });
+    on('#sc-form','submit',e=>{ e.preventDefault(); const m=$('#sc-msg'); const co=$('#sc-co').value.trim(), per=$('#sc-per').value.trim(), gen=$('#sc-gen').value.trim(), ed=$('#sc-edit').value.trim();
+      if(!/^\d+$/.test(co)||!COMPANIES[+co]) return msgBox(m,'err',`Company ${esc(co)||'(blank)'} was not found.`);
+      if(!/^\d+$/.test(per)||+per<1||+per>500) return msgBox(m,'err','Records per page must be a whole number from 1 to 500.');
+      for(const [p,l] of [[gen,'generated documents'],[ed,'edit documents']]) if(p&&!/[\\/]/.test(p)) return msgBox(m,'err',`The file path to ${l} must be a folder path, for example \\\\server\\share\\collections.`);
+      Object.assign(sysctl(),{co:+co,per:+per,gen,edit:ed,view:segVal('sc-view')||'C'}); S.col.pg=0; msgBox(m,'',''); toast('System control updated'); }); }};
+ACT['adm-tab']=el=>{ S.adm.view=el.dataset.k; render('tr-adm'); };
+ACT['adm-gen']=()=>{ const dl=TAXPAYERS.filter(t=>t.tickets.some(x=>x.status==='D')); const st=nowStamp(); COLL_LIST[S.co]={date:st.date,time:st.time,by:S.user.u,count:dl.length,total:r2(dl.reduce((s,t)=>s+principalDue(t),0))}; toast(`Collection list generated · ${dl.length} taxpayers`); render('tr-adm'); };
 
 /* =========================================================
    TREASURER · REPRINTS
@@ -1362,29 +1566,66 @@ R['tr-rppp']={html(){ const s=S.rpp; const pays=s.ok?(PP_PAID.pays[s.year]||[]):
 /* =========================================================
    DOCUMENT WRITING
    ========================================================= */
-S.dw={type:'B',doc:'BLN01',open:{B:true},mDoc:'BLN01',mUser:'KEITH'};
-R['dw-assign']={html(){ const d=docBy(S.dw.doc); const list=ASSIGN[d.id]||[];
-  return head('Document writing','Assign presets to documents')+
-  `<div class="split l"><div class="card"><div class="card-h"><h2>Documents</h2></div><ul class="tree">${Object.entries(DOC_TYPES).map(([k,l])=>{ const open=!!S.dw.open[k]; return `<li><button type="button" class="tree-t" aria-expanded="${open}" data-act="dw-type" data-k="${k}">${ic('file')}${l}${ic('chevD','chev')}</button>${open?`<ul>${DOCS.filter(x=>x.type===k).map(x=>`<li><button type="button" class="tree-d" aria-current="${x.id===d.id}" data-act="dw-doc" data-id="${x.id}"><b>${esc(x.desc)}</b><span>${x.id} · ${(ASSIGN[x.id]||[]).length} presets</span></button></li>`).join('')}</ul>`:''}</li>`; }).join('')}</ul></div>
-  <div class="card"><div class="card-h"><div><h2>${esc(d.desc)}</h2><span class="sm muted">${DOC_TYPES[d.type]} · ${d.id} · ${esc(d.name)} · ${esc(d.proc)}</span></div><div class="rel"><button type="button" class="btn btn-p btn-sm" id="dw-add">${ic('plus')}Add preset</button><div class="add-pop" id="dw-pop" hidden>${PRESETS.map(p=>`<button type="button" data-act="dw-addp" data-p="${p.id}" ${list.includes(p.id)?'disabled':''}>${esc(p.label)}<span>${p.id}</span></button>`).join('')}</div></div></div>
-  ${list.length?table([{t:'Preset ID',f:id=>`<span class="mono">${id}</span>`},{t:'Description',f:id=>esc(presetBy(id).label)},{t:'Default',f:id=>esc(presetDefault(presetBy(id))||'Blank')},{t:'',f:id=>`<button type="button" class="btn btn-s btn-xs" data-act="dw-rmp" data-p="${id}">${ic('trash')}Remove</button>`}],list):`<div class="empty"><div class="ei">${ic('sliders')}</div>No presets yet. This document can't run in the document center until it has at least one preset.</div>`}
-  <div class="card-f"><span class="sm muted">Presets already on this document are grayed out in the list.</span><span class="sp"></span><button type="button" class="btn btn-s btn-sm" data-act="dw-tomod">${ic('users')}Modify presets for a user</button></div></div></div>`; },
-  init(){ on('#dw-add','click',e=>{ e.stopPropagation(); $('#dw-pop').hidden=!$('#dw-pop').hidden; }); document.addEventListener('click',function h(ev){ const p=$('#dw-pop'); if(!p){ document.removeEventListener('click',h); return; } if(!ev.target.closest('#dw-pop')&&!ev.target.closest('#dw-add')) p.hidden=true; }); }};
-ACT['dw-type']=el=>{ const k=el.dataset.k; S.dw.open[k]=!S.dw.open[k]; render('dw-assign'); };
-ACT['dw-doc']=el=>{ S.dw.doc=el.dataset.id; render('dw-assign'); };
-ACT['dw-addp']=el=>{ const d=S.dw.doc; ASSIGN[d]=ASSIGN[d]||[]; ASSIGN[d].push(el.dataset.p); toast(`${presetBy(el.dataset.p).label} added to ${docBy(d).desc}`); render('dw-assign'); };
-ACT['dw-rmp']=el=>{ const d=S.dw.doc; ASSIGN[d]=ASSIGN[d].filter(x=>x!==el.dataset.p); toast('Preset removed'); render('dw-assign'); };
-ACT['dw-tomod']=()=>{ S.dw.mDoc=S.dw.doc; go('dw-modify'); };
-(function(){ const k=docBy(S.dw.doc).type; S.dw.open[k]=true; })();
-R['dw-modify']={html(){ const d=docBy(S.dw.mDoc); const u=S.dw.mUser; const list=ASSIGN[d.id]||[];
-  const users=USERS.filter(x=>x.status==='Enabled'&&x.perms.some(p=>p.mod==='TR')).map(x=>x.u);
-  return head('Document writing','Modify presets')+
-  `<div class="stack"><div class="card"><div class="pad grid g2"><div class="f"><label for="dm-doc">Document</label><select class="sel" id="dm-doc">${Object.entries(DOC_TYPES).map(([k,l])=>`<optgroup label="${l}">${opts(DOCS.filter(x=>x.type===k).map(x=>[x.id,`${x.desc} · ${x.id}`]),d.id)}</optgroup>`).join('')}</select></div><div class="f"><label for="dm-user">User</label><select class="sel" id="dm-user">${opts(users,u)}</select></div></div></div>
-  <div class="card"><div class="card-h"><h2>${esc(d.desc)} · ${esc(u)}</h2><span class="sm muted">Visible shows the setting in the document center. Changeable lets the user edit it.</span></div>
-  ${list.length?`<form id="dm-form">${table([{t:'Preset',f:id=>`<b>${esc(presetBy(id).label)}</b><div class="mono muted">${id}</div>`},{t:'Default value',f:id=>{ const p=presetBy(id), v=userPreset(d.id,u,id); return p.kind==='date'?`<input class="in sm-in" type="date" data-p="${id}" data-f="val" value="${usToIso(v.val)}" style="max-width:190px">`:p.kind==='sel'?`<select class="sel sm-in" data-p="${id}" data-f="val" style="max-width:230px;height:36px">${opts(p.list,v.val)}</select>`:`<input class="in sm-in" data-p="${id}" data-f="val" value="${esc(v.val)}" style="max-width:190px">`; }},{t:'Visible',f:id=>`<label class="chk"><input type="checkbox" data-p="${id}" data-f="vis" ${userPreset(d.id,u,id).vis?'checked':''}>Visible</label>`},{t:'Changeable',f:id=>`<label class="chk"><input type="checkbox" data-p="${id}" data-f="chg" ${userPreset(d.id,u,id).chg?'checked':''}>Changeable</label>`},{t:'Status',f:id=>userPreset(d.id,u,id).mod?pill('Modified','ok'):pill('Default')}],list)}
-  <div class="card-f"><span class="sp"></span><button class="btn btn-p" type="submit">${ic('check')}Update</button></div></form>`:`<div class="empty"><div class="ei">${ic('sliders')}</div>This document has no presets. <button type="button" class="link" data-act="dw-jump" data-doc="${d.id}">Assign presets first</button>.</div>`}</div></div>`; },
-  init(){ on('#dm-doc','change',e=>{ S.dw.mDoc=e.target.value; render('dw-modify'); }); on('#dm-user','change',e=>{ S.dw.mUser=e.target.value; render('dw-modify'); });
-    on('#dm-form','submit',e=>{ e.preventDefault(); const d=S.dw.mDoc,u=S.dw.mUser; (ASSIGN[d]||[]).forEach(pid=>{ const g=f=>$(`#dm-form [data-p="${pid}"][data-f="${f}"]`); const p=presetBy(pid); const vi=g('val'); setUserPreset(d,u,pid,{val:p.kind==='date'?isoToUs(vi.value):vi.value,vis:g('vis').checked,chg:g('chg').checked}); }); toast(`Presets updated for ${u}`); render('dw-modify'); }); }};
+S.dw={type:'B',doc:'BLN01',adding:false,mType:'B',mDoc:'BLN01',mUser:'MASTER',pv:null};
+const dwUsers=()=>['MASTER',...USERS.filter(x=>x.status==='Enabled'&&x.perms.some(p=>p.mod==='TR'||p.mod==='DW')).map(x=>x.u)];
+const typeOpts=sel=>opts(Object.keys(DOC_TYPES).map(k=>[k,DT_CODE[k]]),sel);
+const laterMsg=k=>`<div class="empty"><div class="ei">${ic('lock')}</div>No documents are set up for ${DT_CODE[k]}.${DT_LATER.includes(k)?` ${pill('Not in this phase')}`:''}</div>`;
+const modSel=id=>`<div class="f"><label for="${id}">Select module</label><select class="sel" id="${id}">${opts([['TR','TR · Treasurer']],'TR')}</select></div>`;
+R['dw-assign']={html(){ const k=S.dw.type; const docs=DOCS.filter(x=>x.type===k); if(docs.length&&!docs.some(x=>x.id===S.dw.doc)) S.dw.doc=docs[0].id; const d=docs.length?docBy(S.dw.doc):null; const list=d?(ASSIGN[d.id]||[]):[];
+  const sel=`<div class="card"><div class="pad grid g3">${modSel('da-mod')}<div class="f"><label for="da-type">Select document</label><select class="sel" id="da-type">${typeOpts(k)}</select></div><div class="f"><label for="da-doc">Select document no.</label><select class="sel" id="da-doc" ${docs.length?'':'disabled'}>${docs.length?opts(docs.map(x=>[x.id,x.desc]),d.id):'<option>None</option>'}</select></div></div></div>`;
+  const h=head('Document writing','Assign document presets');
+  if(!d) return h+`<div class="stack">${sel}<div class="card">${laterMsg(k)}</div></div>`;
+  if(S.dw.adding) return h+`<div class="stack"><div class="card"><div class="pad">${kv([['Module','TR'],['Document type',DT_CODE[k]],['Document',esc(d.desc)]],3)}</div></div>
+    <form class="card" id="da-add" novalidate><div class="card-h"><h2>Select document presets to add</h2></div>${table([{t:'',w:'44px',f:p=>`<input type="checkbox" name="pa" value="${p.id}" aria-label="Select ${p.id}" ${list.includes(p.id)?'checked disabled':''}>`},{t:'Preset ID',f:p=>`<span class="mono">${p.id}</span>`},{t:'Preset type',k:'type'},{t:'Description',k:'label'}],PRESETS)}
+    <div class="pad" style="padding-top:0;padding-bottom:0"><div id="da-msg" hidden></div></div><div class="card-f"><span class="sm muted">Presets already on this document are checked and locked.</span><span class="sp"></span><button type="button" class="btn btn-s" data-act="da-prev">Previous</button><button class="btn btn-p" type="submit">${ic('check')}Update</button></div></form></div>`;
+  return h+`<div class="stack">${sel}<div class="card"><div class="card-h"><h2>Active presets · ${esc(d.desc)}</h2><button type="button" class="btn btn-p btn-sm" data-act="da-addv">${ic('plus')}Add presets</button></div>
+  ${list.length?table([{t:'',w:'100px',f:id=>`<button type="button" class="btn btn-s btn-xs" data-act="dw-rmp" data-p="${id}">${ic('trash')}Remove</button>`},{t:'Preset ID',f:id=>`<span class="mono">${id}</span>`},{t:'Preset type',f:id=>presetBy(id).type},{t:'Description',f:id=>esc(presetBy(id).label)}],list):`<div class="empty"><div class="ei">${ic('sliders')}</div>No presets yet. This document can't run in the document center until it has at least one preset.</div>`}
+  <div class="card-f"><span class="sp"></span><button type="button" class="btn btn-s btn-sm" data-act="dw-tomod">${ic('users')}Modify preset values</button></div></div></div>`; },
+  init(){ on('#da-type','change',e=>{ S.dw.type=e.target.value; S.dw.adding=false; const f=DOCS.find(x=>x.type===S.dw.type); if(f) S.dw.doc=f.id; render('dw-assign'); });
+    on('#da-doc','change',e=>{ S.dw.doc=e.target.value; S.dw.adding=false; render('dw-assign'); });
+    on('#da-add','submit',e=>{ e.preventDefault(); const ids=$$('#da-add input[name="pa"]').filter(i=>i.checked&&!i.disabled).map(i=>i.value); if(!ids.length) return msgBox($('#da-msg'),'err','Select at least one preset to add.');
+      const d=S.dw.doc; const cur=ASSIGN[d]||[]; ASSIGN[d]=PRESETS.map(p=>p.id).filter(id=>cur.includes(id)||ids.includes(id)); S.dw.adding=false; toast(`${ids.length} preset${ids.length===1?'':'s'} added to ${docBy(d).desc}`); render('dw-assign'); }); }};
+ACT['da-addv']=()=>{ S.dw.adding=true; render('dw-assign'); };
+ACT['da-prev']=()=>{ S.dw.adding=false; render('dw-assign'); };
+ACT['dw-rmp']=el=>{ const d=S.dw.doc; ASSIGN[d]=(ASSIGN[d]||[]).filter(x=>x!==el.dataset.p); toast(`${el.dataset.p} removed from ${docBy(d).desc}`); render('dw-assign'); };
+ACT['dw-tomod']=()=>{ S.dw.mType=S.dw.type; S.dw.mDoc=S.dw.doc; go('dw-modify'); };
+
+function dwModView(all){ const k=S.dw.mType; const docs=DOCS.filter(x=>x.type===k); if(docs.length&&!docs.some(x=>x.id===S.dw.mDoc)) S.dw.mDoc=docs[0].id; const d=docs.length?docBy(S.dw.mDoc):null; const u=S.dw.mUser; const route=all?'dw-modall':'dw-modify';
+  const sel=`<div class="card"><div class="pad grid ${all?'g4':'g3'}">${all?modSel('dm-mod'):''}<div class="f"><label for="dm-type">Select document type</label><select class="sel" id="dm-type">${typeOpts(k)}</select></div><div class="f"><label for="dm-doc">Select document</label><select class="sel" id="dm-doc" ${docs.length?'':'disabled'}>${docs.length?opts(docs.map(x=>[x.id,x.desc]),d.id):'<option>None</option>'}</select></div><div class="f"><label for="dm-user">Select user</label><select class="sel" id="dm-user">${opts(dwUsers(),u)}</select></div></div></div>`;
+  const h=head('Document writing',all?'Modify user preset values':'Modify user preset values for TR');
+  if(!d) return h+`<div class="stack">${sel}<div class="card">${laterMsg(k)}</div></div>`;
+  const list=ASSIGN[d.id]||[]; const yc=v=>v==='Y'||v==='N'?v:'';
+  const rows=list.map(pid=>({pid,p:presetBy(pid),v:presetVal(d.id,u,pid)}));
+  return h+`<div class="stack">${sel}<div class="card"><div class="card-h"><h2>Current document parameters</h2><button type="button" class="btn btn-s btn-sm" data-act="dm-copy">${ic('copy')}Copy user settings</button></div>
+  ${list.length?table([{t:'',w:'70px',f:r=>`<button type="button" class="link" data-act="dm-edit" data-p="${r.pid}" data-from="${route}">Modify</button>`},{t:'User',f:r=>r.v.src===u?esc(u):`<span class="muted" title="No values saved for ${esc(u)}">${esc(r.v.src)}</span>`},{t:'Doc type',f:()=>DT_CODE[k]},{t:'Parm type',f:r=>r.p.type},{t:'Description',f:r=>`<span style="display:block;min-width:220px">${esc(r.p.label)}</span>`},{t:'Yes/No',f:r=>yc(r.v.yn)},{t:'Date',f:r=>`<span class="mono">${esc(r.v.date)}</span>`},{t:'Numeric',num:1,f:r=>esc(r.v.num)},{t:'Character',f:r=>esc(r.v.chr)},{t:'Change?',f:r=>yc(r.v.chg)},{t:'Show',f:r=>yc(r.v.show)}],rows,{cls:'compact'})+`<div class="card-f"><span class="sm muted">Gray user names mean ${esc(u)} has no saved value for that preset and the MASTER value is used.</span></div>`
+    :`<div class="empty"><div class="ei">${ic('sliders')}</div>This document has no presets. ${canOpt('dw-assign')?`<button type="button" class="link" data-act="dw-jump" data-doc="${d.id}">Assign presets first</button>.`:''}</div>`}</div></div>`; }
+function dwModInit(route){ on('#dm-type','change',e=>{ S.dw.mType=e.target.value; const f=DOCS.find(x=>x.type===S.dw.mType); if(f) S.dw.mDoc=f.id; render(route); }); on('#dm-doc','change',e=>{ S.dw.mDoc=e.target.value; render(route); }); on('#dm-user','change',e=>{ S.dw.mUser=e.target.value; render(route); }); }
+R['dw-modify']={html:()=>dwModView(false),init:()=>dwModInit('dw-modify')};
+R['dw-modall']={html:()=>dwModView(true),init:()=>dwModInit('dw-modall')};
+ACT['dm-edit']=el=>{ S.dw.pv={doc:S.dw.mDoc,user:S.dw.mUser,pid:el.dataset.p,from:el.dataset.from}; go('dw-pval'); };
+ACT['dm-copy']=()=>{ const us=dwUsers();
+  openModal({title:'Copy user settings',body:`<form id="cp-form" class="grid" novalidate><div class="grid g2"><div class="f"><label for="cp-from">Copy from</label><select class="sel" id="cp-from"><option value="">Select</option>${opts(us,S.dw.mUser)}</select></div><div class="f"><label for="cp-to">Copy to</label><select class="sel" id="cp-to"><option value="">Select</option>${opts(us.filter(x=>x!=='MASTER'))}</select></div></div><p class="sm muted">Copies the preset values on every TR document. Values already saved for the user you copy to are replaced.</p><div id="cp-msg" hidden></div></form>`,foot:`<button type="button" class="btn btn-s" data-act="close-modal">Cancel</button><button type="submit" form="cp-form" class="btn btn-p">Continue</button>`});
+  on('#cp-form','submit',e=>{ e.preventDefault(); const f=$('#cp-from').value, t=$('#cp-to').value, m=$('#cp-msg');
+    if(!f||!t) return msgBox(m,'err','Choose who to copy from and who to copy to.');
+    if(f===t) return msgBox(m,'err','Choose two different users.');
+    let n=0; DOCS.forEach(d=>(ASSIGN[d.id]||[]).forEach(pid=>{ const v=presetVal(d.id,f,pid); const {src,...vals}=v; setPreset(d.id,t,pid,vals); n++; }));
+    closeModal(); S.dw.mUser=t; toast(`${n} preset values copied from ${f} to ${t}`); render(S.route); }); };
+R['dw-pval']={crumb:'Modify preset values',need:()=>!!S.dw.pv,back:'dw-modify',html(){ const o=S.dw.pv, d=docBy(o.doc), p=presetBy(o.pid), v=presetVal(o.doc,o.user,o.pid);
+  const rad=(name,val)=>`<div class="seg" data-seg="${name}">${[['Y','Yes'],['N','No']].map(([x,l])=>`<button type="button" aria-pressed="${val===x}" data-v="${x}">${l}</button>`).join('')}</div>`;
+  return head('Modify preset values',`For user ${o.user}`,`<button type="button" class="btn btn-s" data-act="pv-prev">${ic('arrowL')}Previous</button>`)+
+  `<div class="card" style="max-width:860px"><div class="pad" style="border-bottom:1px solid var(--line)">${kv([['Module','TR'],['Document type',DT_CODE[d.type]],['Document',esc(d.desc)],['Parameter type',p.type],['Preset ID',p.id],['Parameter description',esc(p.label)]],3)}${v.src!==o.user?`<div class="msg info" style="margin-top:14px">${ic('info')}<span>No values are saved for ${esc(o.user)} yet, so the MASTER values are shown. Update saves them for ${esc(o.user)}.</span></div>`:''}</div>
+  <form class="pad grid g2" id="pv-form" novalidate><div class="f"><span class="lbl">Yes/No value</span>${rad('pv-yn',v.yn)}</div><div class="f"><label for="pv-date">Date value</label><input class="in mono" id="pv-date" inputmode="numeric" maxlength="8" placeholder="yyyymmdd" value="${esc(v.date)}"><span class="hint">yyyymmdd</span></div>
+  <div class="f"><label for="pv-num">Numeric value</label><input class="in" id="pv-num" inputmode="decimal" value="${esc(v.num)}"></div><div class="f"><label for="pv-chr">Character value</label><input class="in" id="pv-chr" maxlength="40" value="${esc(v.chr)}"></div>
+  <div class="f"><span class="lbl">Allow user to change?</span>${rad('pv-chg',v.chg)}</div><div class="f"><span class="lbl">Visible to user?</span>${rad('pv-show',v.show)}</div>
+  <div class="span2"><div id="pv-msg" hidden></div></div><div class="tool span2" style="justify-content:flex-end"><button type="button" class="btn btn-s" data-act="pv-prev">Previous</button><button class="btn btn-p" type="submit">${ic('check')}Update</button></div></form></div>`; },
+  init(){ segBind(); on('#pv-form','submit',e=>{ e.preventDefault(); const o=S.dw.pv, p=presetBy(o.pid), m=$('#pv-msg');
+    const date=$('#pv-date').value.trim(), num=$('#pv-num').value.trim(), chr=$('#pv-chr').value.trim().toUpperCase();
+    if(date){ if(!/^\d{8}$/.test(date)) return msgBox(m,'err','Enter the date as yyyymmdd, for example 20261031.'); const dt=new Date(+date.slice(0,4),+date.slice(4,6)-1,+date.slice(6,8)); if(dt.getMonth()!==+date.slice(4,6)-1||dt.getDate()!==+date.slice(6,8)) return msgBox(m,'err',`${date} is not a real date.`); }
+    if(num&&!/^-?\d+(\.\d+)?$/.test(num)) return msgBox(m,'err','Numeric value must be a number.');
+    if(p.type==='SORT'&&chr&&!/^[NLZSM]$/.test(chr)) return msgBox(m,'err','Sort order must be one letter: N, L, Z, S, or M.');
+    if((p.id==='S60'||p.id==='S70')&&chr.split(/[\s,]+/).filter(Boolean).length>8) return msgBox(m,'err','Enter up to 8 status codes.');
+    setPreset(o.doc,o.user,o.pid,{yn:segVal('pv-yn'),date,num,chr,chg:segVal('pv-chg'),show:segVal('pv-show')}); toast(`${p.id} saved for ${o.user}`); go(o.from); }); }};
+ACT['pv-prev']=()=>go(S.dw.pv?S.dw.pv.from:'dw-modify');
 
 /* =========================================================
    WEB ADMINISTRATION
@@ -1456,6 +1697,330 @@ R['wa-perms']={crumb:'View permissions',need:()=>!!userBy(S.wa.user||''),back:'w
   EXPORTS['wa-perms']=()=>({title:`Permissions for ${u.u}`,cols:[{t:'CO#',k:'co'},{t:'Module',k:'mod'},{t:'Function',k:'fn'},{t:'Option',k:'opt'},{t:'Tech code',k:'tech'}],rows});
   return head('View permissions for user',u.u,`<button type="button" class="btn btn-s" data-go="wa-sec">${ic('pencil')}Edit security</button><button type="button" class="btn btn-s" data-go="wa-users">${ic('arrowL')}Previous</button>`)+
   `<div class="card"><div class="card-h"><h2>${rows.length} permissions</h2>${exportBar('wa-perms')}</div>${table(EXPORTS['wa-perms']().cols,rows)}</div>`; }};
+
+/* =========================================================
+   WEB ADMINISTRATION · MAINTAIN WEBSITE
+   ========================================================= */
+const SITE_DB={25:'bainetw',777:'baidemo',999:'baibright'};
+const SITE_HOST={25:'eservices.bai-map.com',777:'demo.bai-map.com',999:'bright.bai-map.com'};
+const PKGS={TR:'Treasurer',CR:'Commissioner of the Revenue'};
+const MENU_TYPES={DH:'Department Header',NB:'Navigation Bar',CH:'Column Header',MI:'Menu Item'};
+const TOP_TGT=['Same Window','New Window/Tab'], SIDE_TGT=['Full Window','Content Area'], LOCS=['applications','BAI_Software','root'];
+const MOD_POS=['none','Position 1','Position 2','Position 3','Position 4'];
+const PERS=['10','25','50','100','All'];
+const WEB_APPS={TR:[['repay','Real estate tax payment'],['pppay','Personal property tax payment'],['reprepay','Prepay real estate'],['ppprepay','Prepay personal property'],['blpay','Business license payment'],['utpay','Utility payment'],['multipay','Multiple payments'],['reinq','Real estate public inquiry'],['ppinq','Personal property public inquiry'],['repaid','Real estate taxes paid'],['pppaid','Personal property taxes paid'],['utinq','Utilities inquiry'],['pettags','Pet tags'],['decal','Vehicle decal'],['parking','Parking citation']],
+  CR:[['blrenew','Business license renewal'],['blnew','New business license'],['ctax','Consumer tax returns'],['vehreg','Vehicle registration'],['addrchg','Mailing address change'],['propcard','Property cards']]};
+const appName=(pkg,code)=>((WEB_APPS[pkg]||[]).find(a=>a[0]===code)||[code,code])[1];
+const siteTitle=(co=S.co)=>co===25?'Demo County, Virginia':coName(co);
+const sealSvg=name=>'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#fff" stroke="#2F5FE0" stroke-width="6"/><circle cx="60" cy="60" r="44" fill="none" stroke="#2F5FE0" stroke-width="2"/><text x="60" y="69" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="700" fill="#2F5FE0">${initials(name)}</text></svg>`);
+const bannerSvg=name=>'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#2F5FE0"/><stop offset="1" stop-color="#1A1D26"/></linearGradient></defs><rect width="600" height="160" fill="url(#g)"/><text x="30" y="92" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#fff">${name} Treasurer</text></svg>`);
+const clone=o=>JSON.parse(JSON.stringify(o));
+const nextId=list=>list.reduce((m,x)=>Math.max(m,x.id||0),0)+1;
+const stampNow=()=>{ const s=nowStamp(); return `${s.date} ${s.time}`; };
+
+function seedSite(co,pkg){
+  const county=coName(co), slug=county.toLowerCase().replace(/[^a-z0-9]+/g,''), setup={by:'BAI Menu SQL Setup Script',at:'7/27/2017 4:14:10 PM'};
+  const M=[], P=[];
+  const page=id=>({type:'page',page:id,url:'',app:''}), app=c=>({type:'app',page:null,url:'',app:c}), lnk=u=>({type:'link',page:null,url:u,app:''}), none={type:'',page:null,url:'',app:''};
+  const m=(id,parent,type,order,title,link=none,o={})=>M.push({id,parent,type,order,title,ena:o.ena!==false,hidden:!!o.hidden,pkg,app:'',loc:'applications',top:o.top||'Same Window',side:'Full Window',alias:'',note:o.note||'',created:{...setup},mod:o.mod||null,link:clone(link)});
+  const row=(...cols)=>({cls:'',cols:cols.map(([w,html])=>({w,html,cls:''}))});
+  const pg=(id,title,rows,o={})=>P.push({id,title,ena:o.ena!==false,pkg,parentAp:'cpage',parentPg:'',type:o.type||'page',module:o.module||'none',order:0,alias:'',rows,mod:null});
+  const info=(h,t)=>[row([12,`<h1>${h}</h1><p>${t}</p>`])];
+  if(pkg==='TR'){
+    pg(1,'default',[row([12,`<h1>Welcome to ${esc(county)} Tax Payments &amp; Billing Information</h1>`]),
+      row([12,`<h2>Payment Methods</h2><p>You can make the following payments online:</p><ol><li>Personal Property (cars, trucks, boats, trailers, business property)</li><li>Real Estate (land, home)</li></ol><p>You have the option to pay by electronic check, credit card, or debit card. There is a convenience fee for credit card and debit card transactions. Any payment is on time if made by midnight on a due date.</p>`]),
+      row([12,`<h2>Inquire Online</h2><p>You can research, view, and print all tax billing information using our inquiry options.</p><p>If you want to view or print a list of principal amounts paid in a calendar year, please select from the options below:</p><ol><li>Look up yearly personal property tax paid - car, truck, boats, trailers, business property taxes paid in a given year</li><li>Look up yearly real estate tax paid - land and home tax paid in a given year</li></ol>`])]);
+    [[38,'epettags','Pet Tags','Purchase pet tags online. Enter by Dept/Ticket Number or Password.'],[41,'multiplepayments','Multiple Payments','Pay more than one tax ticket in a single payment.'],[42,'paydecal','Vehicle Decal','Pay vehicle decal fees online. Enter by Dept/Ticket Number or Password.'],[43,'payparkingcitation','Parking Citation','Pay parking citations online. Enter by Citation Number.'],
+     [44,'paypersonalpropertytax','Personal Property Tax','Pay Personal Property Taxes online. Enter by Dept/Ticket Number or Password.'],[45,'payretax','Real Estate Tax','Pay Real Estate Taxes online. Enter by Dept/Ticket Number, Parcel Number, Name or Account Number.'],[46,'payutilities','Utilities','Pay utility bills online. Enter by Account Number.'],[47,'ppinquiry','Personal Property Inquiry','Look up personal property tax tickets by Dept/Ticket Number or Password.'],
+     [48,'ppprepay','Prepay Personal Property','Prepay Personal Property taxes before bills are issued by Last Name and Password.'],[49,'reinquiry','Real Estate Inquiry','Look up real estate tax tickets by Parcel Number, Name or Account Number.'],[50,'reprepay','Prepay Real Estate','Prepay Real Estate taxes before bills are issued by Parcel Number or Name.'],[51,'retaxespaid','Real Estate Taxes Paid','Look up real estate taxes paid in a calendar year.'],
+     [52,'pptaxespaid','Personal Property Taxes Paid','Look up personal property taxes paid in a calendar year.'],[53,'utilitiesinquiry','Utilities Inquiry','Look up utility bills and payments by Account Number.'],[54,'paybusinesslicense','Business License','Pay business license taxes online. Enter by Account Number.']]
+     .forEach(([id,t,h,d])=>pg(id,t,info(h,d),{ena:false}));
+    pg(57,'msgposition2',[row([12,'<p class="ta-c">Assign a message on any screen in Module Position 2 and it will show above the buttons as shown.</p>'])],{ena:false,type:'module',module:'Position 2'});
+    pg(60,'paymentoptions',[row([12,`<h1>Payment Options</h1><table><tr><th>Option</th><th>How to pay</th></tr><tr><td>Real Estate Tax</td><td>Pay Real Estate Taxes online. Enter by Dept/Ticket Number, Parcel Number, Name or Account Number.</td></tr><tr><td>Personal Property Tax</td><td>Pay Personal Property Taxes online. Enter by Dept/Ticket Number or Password.</td></tr><tr><td>Prepay Real Estate Tax</td><td>Prepay Real Estate taxes before bills are issued by Parcel Number or Name.</td></tr><tr><td>Prepay Personal Property Tax</td><td>Prepay Personal Property taxes before bills are issued by Last Name and Password.</td></tr></table>`])]);
+    pg(61,'multiplepaymentshelp',info('Multiple Payments','Add each tax ticket to your cart, then pay them together in one transaction.'));
+    m(1,0,'DH',0,'Treasurer'); m(26,0,'NB',0,county,page(1),{ena:false});
+    m(9,1,'CH',10,'Payments');
+    m(10,9,'MI',10,'Pay Personal Property Tax',app('pppay')); m(11,9,'MI',20,'Pay Real Estate Tax',app('repay')); m(12,9,'MI',30,'Prepay Personal Property',app('ppprepay')); m(13,9,'MI',40,'Prepay Real Estate',app('reprepay')); m(14,9,'MI',50,'Public Service',app('utpay')); m(15,9,'MI',60,'Pay Business License',app('blpay'));
+    m(2,1,'CH',20,'Payment Options - OLD',none,{hidden:true});
+    m(3,2,'MI',30,'Real Estate Tax',page(45),{top:'New Window/Tab',note:'Payment Option',mod:{by:'KEITH',at:'9/22/2025 9:19:25 AM'}}); m(4,2,'MI',40,'Personal Property Tax',page(44)); m(5,2,'MI',50,'Prepay Real Estate Tax',page(50)); m(6,2,'MI',60,'Prepay Personal Property Tax',page(48)); m(7,2,'MI',70,'Pay Business License',page(54)); m(8,2,'MI',80,'Pay Utilities',page(46));
+    m(16,1,'CH',30,'Payment Help'); m(17,16,'MI',10,'Payment Options',page(60)); m(18,16,'MI',20,'Multiple Payments',page(61));
+    m(19,1,'CH',40,'Inquiry Options'); m(20,19,'MI',10,'Unpaid Real Estate Tax',app('reinq')); m(21,19,'MI',20,'Unpaid Personal Property Tax',app('ppinq')); m(22,19,'MI',30,'Paid Real Estate Tax',app('repaid')); m(23,19,'MI',40,'Paid Personal Property Tax',app('pppaid'));
+    m(24,1,'CH',50,'Other Options'); m(25,24,'MI',10,'County Home Page',lnk(`https://www.${slug}.gov`),{top:'New Window/Tab'}); m(27,24,'MI',20,'Treasurer Home Page',lnk(`https://www.${slug}.gov/treasurer`),{top:'New Window/Tab'}); m(28,24,'MI',30,'Email Us About Payments and Billing',lnk(`mailto:treasurer@${slug}.gov`));
+  } else {
+    pg(1,'default',[row([12,`<h1>Welcome to ${esc(county)} e-Commissioner</h1>`]),row([6,'<h2>Businesses</h2><ul><li>Renew a business license</li><li>Apply for a new business license</li><li>File consumer tax returns</li></ul>'],[6,'<h2>Residents and property owners</h2><ul><li>Register or remove a vehicle</li><li>Change your mailing address</li><li>Look up property cards</li></ul>'])]);
+    m(1,0,'DH',0,'Commissioner of the Revenue');
+    m(2,1,'CH',10,'Businesses'); m(3,2,'MI',10,'Business License Renewal',app('blrenew')); m(4,2,'MI',20,'New Business License',app('blnew')); m(5,2,'MI',30,'Consumer Tax Returns',app('ctax'));
+    m(6,1,'CH',20,'Residents'); m(7,6,'MI',10,'Register a Vehicle',app('vehreg')); m(8,6,'MI',20,'Change Mailing Address',app('addrchg')); m(9,6,'MI',30,'Property Cards',app('propcard'));
+    m(10,1,'CH',30,'Other Options'); m(11,10,'MI',10,'County Home Page',lnk(`https://www.${slug}.gov`),{top:'New Window/Tab'});
+  }
+  return {co,pkg,menus:M,pages:P};
+}
+const SITES={}, FM={};
+const site=()=>{ const k=`${S.co}-${S.ws.pkg}`; return SITES[k]||(SITES[k]=seedSite(S.co,S.ws.pkg)); };
+const fm=()=>FM[S.co]||(FM[S.co]={folders:['images','documents','css'],files:[
+  {folder:'images',name:'county-seal.svg',size:1840,at:'03/14/2025 10:02 AM',by:'KEITH',data:sealSvg(coName())},
+  {folder:'images',name:'treasurer-banner.svg',size:2310,at:'03/14/2025 10:05 AM',by:'KEITH',data:bannerSvg(coName())},
+  {folder:'documents',name:'refund-request-form.pdf',size:86210,at:'08/02/2025 2:41 PM',by:'KYLE'},
+  {folder:'documents',name:'payment-plan-agreement.pdf',size:114688,at:'08/02/2025 2:44 PM',by:'KYLE'},
+  {folder:'css',name:'site.css',size:6144,at:'07/27/2017 4:14 PM',by:'BAI'}]});
+const pageUrl=(id,loc='applications')=>`https://${SITE_HOST[S.co]}/${loc}/cpage/Default.aspx?ctid=${id}`;
+const appUrl=(code,loc='applications')=>`https://${SITE_HOST[S.co]}/${loc}/${code}/Default.aspx`;
+const fileUrl=f=>`https://${SITE_HOST[S.co]}/files/${f.folder}/${f.name}`;
+const fmtSize=n=>n>=1048576?`${(n/1048576).toFixed(1)} MB`:n>=1024?`${Math.round(n/1024)} KB`:`${n} B`;
+function menuUrl(m){ const l=m.link||{}; return l.type==='page'&&l.page?pageUrl(l.page,m.loc):l.type==='app'&&l.app?appUrl(l.app,m.loc):l.type==='link'?l.url:''; }
+function linkLabel(s,m){ const l=m.link||{}; if(l.type==='page'){ const p=s.pages.find(x=>x.id===l.page); return p?`Page ${p.id} · ${p.title}`:''; } if(l.type==='app') return `Application · ${appName(s.pkg,l.app)}`; if(l.type==='link') return l.url; return ''; }
+const parentName=(s,m)=>m.parent===0?'Main':((s.menus.find(x=>x.id===m.parent)||{}).title||'Main');
+function menuTree(s){ const out=[]; const walk=(pid,d)=>s.menus.filter(m=>m.parent===pid).sort((a,b)=>a.order-b.order||a.id-b.id).forEach(m=>{ out.push({m,d}); walk(m.id,d+1); }); walk(0,0); s.menus.filter(m=>!out.some(x=>x.m===m)).forEach(m=>out.push({m,d:0})); return out; }
+function pageSlice(rows,per,page){ const n=per==='All'?Math.max(rows.length,1):+per; const pages=Math.max(1,Math.ceil(rows.length/n)); const p=Math.min(Math.max(page,0),pages-1); return {slice:rows.slice(p*n,p*n+n),pages,p}; }
+const pagerHtml=(p,pages,act)=>pages>1?`<div class="pager"><span>Page ${p+1} of ${pages}</span><button type="button" class="btn btn-s btn-xs" data-act="${act}" data-d="-1" aria-label="Previous page" ${p===0?'disabled':''}>${ic('chevL')}</button><button type="button" class="btn btn-s btn-xs" data-act="${act}" data-d="1" aria-label="Next page" ${p>=pages-1?'disabled':''}>${ic('chevR')}</button></div>`:'';
+const yn=b=>b?'Y':'N';
+const ynCell=(b,warn)=>b?(warn?pill('Y','warn'):pill('Y','ok')):'<span class="muted">N</span>';
+function pageHtml(p){ return p.rows.map(r=>`<div class="cms-row ${esc(r.cls)}">${r.cols.map(c=>`<div class="cms-col ${esc(c.cls)}" style="--w:${c.w}">${c.html}</div>`).join('')}</div>`).join(''); }
+
+S.ws={pkg:'TR',comp:'',mPer:'50',mPage:0,pPer:'50',pPage:0,menu:null,mDraft:null,lp:0,page:null,pDraft:null,ed:{mode:'design',dev:'Desktop',set:false},files:{folder:'images',q:''},pv:null};
+
+/* ---------- Main ---------- */
+R['wa-site']={html(){ const s=site(), w=S.ws, f=fm();
+  const bar=`<div class="card"><div class="ws-bar"><div class="tool"><button type="button" class="btn btn-p" data-act="ws-newpage">${ic('plus')}New web page</button><button type="button" class="btn btn-s" data-act="ws-newmenu">${ic('plus')}New menu item</button><button type="button" class="btn btn-s" data-go="wa-files">${ic('folder')}File manager</button><button type="button" class="btn btn-s" data-act="ws-preview">${ic('globe')}View public site</button></div>
+    <div class="tool"><label class="lbl" for="ws-pkg">Application</label><select class="sel sm-in" id="ws-pkg">${opts(Object.entries(PKGS).map(([k,v])=>[k,`${k} · ${v}`]),w.pkg)}</select><label class="lbl" for="ws-comp">Component to edit</label><select class="sel sm-in" id="ws-comp">${opts([['','Select'],['menus','Menus'],['pages','Web Pages/Content']],w.comp)}</select></div></div></div>`;
+  let body;
+  if(w.comp==='menus') body=menusHtml(s);
+  else if(w.comp==='pages') body=pagesHtml(s);
+  else body=`<div class="ws-pick">${[['menus','menu','Menus',`${s.menus.length} menu records`],['pages','file','Web Pages/Content',`${s.pages.length} pages`],['files','folder','File Manager',`${f.files.length} files`]].map(([k,i,t,n])=>`<button type="button" class="card ws-tile" data-act="ws-comp" data-k="${k}"><span class="ei">${ic(i)}</span><b>${t}</b><span class="sm muted">${n}</span></button>`).join('')}</div>`;
+  return head('Maintain website',`Web Administration (${SITE_DB[S.co]} - Application: ${w.pkg})`)+`<div class="stack">${bar}${body}</div>`; },
+  init(){ on('#ws-pkg','change',e=>{ S.ws.pkg=e.target.value; S.ws.mPage=S.ws.pPage=0; render('wa-site'); }); on('#ws-comp','change',e=>{ S.ws.comp=e.target.value; render('wa-site'); });
+    on('#ws-mper','change',e=>{ S.ws.mPer=e.target.value; S.ws.mPage=0; render('wa-site'); }); on('#ws-pper','change',e=>{ S.ws.pPer=e.target.value; S.ws.pPage=0; render('wa-site'); }); }};
+ACT['ws-comp']=el=>{ if(el.dataset.k==='files') return go('wa-files'); S.ws.comp=el.dataset.k; render('wa-site'); };
+ACT['ws-mpg']=el=>{ S.ws.mPage+= +el.dataset.d; render('wa-site'); };
+ACT['ws-ppg']=el=>{ S.ws.pPage+= +el.dataset.d; render('wa-site'); };
+ACT['ws-back']=()=>go('wa-site');
+
+function menusHtml(s){ const w=S.ws, rows=menuTree(s), {slice,pages,p}=pageSlice(rows,w.mPer,w.mPage); w.mPage=p;
+  EXPORTS['ws-menus']=()=>({title:`Menus · ${SITE_DB[S.co]} ${w.pkg}`,cols:[{t:'ID',x:r=>r.m.id},{t:'Ena',x:r=>yn(r.m.ena)},{t:'Hidden',x:r=>yn(r.m.hidden)},{t:'Parent',x:r=>parentName(s,r.m)},{t:'Pkg',x:r=>r.m.pkg},{t:'Type',x:r=>r.m.type},{t:'Order',x:r=>r.m.order},{t:'Title',x:r=>r.m.title},{t:'Opens',x:r=>linkLabel(s,r.m)}].map(c=>({...c,f:r=>esc(c.x(r))})),rows});
+  return `<div class="card"><div class="card-h"><div class="tool"><h2>Edit menus</h2><label class="lbl" for="ws-mper">Records to display</label><select class="sel sm-in" id="ws-mper" style="width:auto">${opts(PERS,w.mPer)}</select></div>${exportBar('ws-menus')}</div>
+  ${table([{t:'',w:'92px',f:r=>`<div class="tool" style="flex-wrap:nowrap"><button type="button" class="btn btn-s btn-xs" data-act="ws-medit" data-id="${r.m.id}" aria-label="Edit ${esc(r.m.title)}" title="Edit">${ic('pencil')}</button><button type="button" class="btn btn-s btn-xs" data-act="ws-mdel" data-id="${r.m.id}" aria-label="Delete ${esc(r.m.title)}" title="Delete">${ic('trash')}</button></div>`},
+    {t:'ID',f:r=>r.m.id},{t:'Ena',f:r=>ynCell(r.m.ena)},{t:'Hidden',f:r=>ynCell(r.m.hidden,true)},{t:'Parent',f:r=>esc(parentName(s,r.m))},{t:'Pkg',f:r=>r.m.pkg},{t:'Type',f:r=>`<span class="mono" title="${MENU_TYPES[r.m.type]}">${r.m.type}</span>`},{t:'Order',num:1,f:r=>r.m.order},
+    {t:'Title',f:r=>`<span style="display:inline-block;padding-left:${r.d*16}px">${r.m.type==='MI'?esc(r.m.title):`<b>${esc(r.m.title)}</b>`}</span>`},{t:'Opens',f:r=>`<span class="sm muted">${esc(linkLabel(s,r.m))}</span>`}],slice,{empty:'No menu records yet.',emptyIc:'menu'})}${pagerHtml(p,pages,'ws-mpg')}</div>`; }
+
+function pagesHtml(s){ const w=S.ws, rows=[...s.pages].sort((a,b)=>a.id-b.id), {slice,pages,p}=pageSlice(rows,w.pPer,w.pPage); w.pPage=p;
+  const used=pg=>s.menus.filter(m=>m.link&&m.link.type==='page'&&m.link.page===pg.id).length;
+  const cols=[{t:'ID',k:'id'},{t:'Ena',x:r=>yn(r.ena)},{t:'Pkg',k:'pkg'},{t:'ParentAp',k:'parentAp'},{t:'ParentPg',x:r=>r.parentPg?((s.pages.find(x=>x.id===+r.parentPg)||{}).title||''):''},{t:'Type',k:'type'},{t:'Module',k:'module'},{t:'Order',k:'order'},{t:'Title',k:'title'}];
+  EXPORTS['ws-pages']=()=>({title:`Web pages · ${SITE_DB[S.co]} ${w.pkg}`,cols:cols.map(c=>{ const x=c.x||(r=>r[c.k]); return {t:c.t,x,f:r=>esc(x(r))}; }),rows});
+  return `<div class="card"><div class="card-h"><div class="tool"><h2>Edit web pages/content</h2><label class="lbl" for="ws-pper">Records to display</label><select class="sel sm-in" id="ws-pper" style="width:auto">${opts(PERS,w.pPer)}</select></div>${exportBar('ws-pages')}</div>
+  ${table([{t:'',w:'92px',f:r=>`<div class="tool" style="flex-wrap:nowrap"><button type="button" class="btn btn-s btn-xs" data-act="ws-pedit" data-id="${r.id}" aria-label="Edit ${esc(r.title)}" title="Edit">${ic('pencil')}</button><button type="button" class="btn btn-s btn-xs" data-act="ws-pdel" data-id="${r.id}" aria-label="Delete ${esc(r.title)}" title="Delete">${ic('trash')}</button></div>`},
+    {t:'ID',k:'id'},{t:'Ena',f:r=>ynCell(r.ena)},{t:'Pkg',k:'pkg'},{t:'ParentAp',k:'parentAp'},{t:'ParentPg',f:r=>esc(cols[4].x(r))},{t:'Type',k:'type'},{t:'Module',k:'module'},{t:'Order',num:1,k:'order'},{t:'Title',f:r=>`<b>${esc(r.title)}</b>`},{t:'Menu links',num:1,f:r=>used(r)||'<span class="muted">0</span>'}],slice,{empty:'No pages yet.',emptyIc:'file'})}${pagerHtml(p,pages,'ws-ppg')}</div>`; }
+
+/* ---------- Menu item ---------- */
+function newMenuDraft(){ const s=site(); const ch=menuTree(s).find(r=>r.m.type==='CH'&&!r.m.hidden); const sibs=s.menus.filter(m=>m.parent===(ch?ch.m.id:0));
+  return {id:null,parent:ch?ch.m.id:0,type:'MI',order:(sibs.reduce((a,m)=>Math.max(a,m.order),0)+10),title:'',ena:true,hidden:false,pkg:s.pkg,app:'',loc:'applications',top:'Same Window',side:'Full Window',alias:'',note:'',created:null,mod:null,link:{type:'page',page:null,url:'',app:''}}; }
+ACT['ws-newmenu']=()=>{ S.ws.menu='new'; S.ws.mDraft=newMenuDraft(); S.ws.lp=0; go('wa-menu'); };
+ACT['ws-medit']=el=>{ const s=site(), m=s.menus.find(x=>x.id===+el.dataset.id); if(!m) return; S.ws.menu=m.id; S.ws.mDraft=clone(m);
+  const list=[...s.pages].sort((a,b)=>a.id-b.id); const i=list.findIndex(p=>p.id===m.link.page); S.ws.lp=i>0?Math.floor(i/8):0; go('wa-menu'); };
+function wmSync(){ const d=S.ws.mDraft; if(!d||!$('#wm-form')) return; const v=id=>{ const el=$('#'+id); return el?el.value:null; };
+  d.ena=$('#wm-ena').checked; d.hidden=$('#wm-hid').checked; d.parent=+v('wm-par'); d.app=v('wm-app'); d.loc=v('wm-loc'); d.type=v('wm-type'); d.top=v('wm-top'); d.side=v('wm-side'); d.order=v('wm-ord').trim(); d.title=v('wm-title'); d.alias=v('wm-alias'); d.note=v('wm-note');
+  const lt=$('input[name="wm-lt"]:checked'); if(lt) d.link.type=lt.value;
+  if(d.link.type==='link'&&$('#wm-url')) d.link.url=$('#wm-url').value.trim();
+  if(d.link.type==='app'&&$('#wm-lapp')) d.link.app=$('#wm-lapp').value; }
+R['wa-menu']={crumb:()=>S.ws.menu==='new'?'New menu item':'Edit menu item',need:()=>!!S.ws.mDraft,back:'wa-site',html(){ const s=site(), d=S.ws.mDraft, isNew=S.ws.menu==='new';
+  const parents=[[0,'Main']].concat(menuTree(s).filter(r=>r.m.type!=='MI'&&r.m.id!==d.id).map(r=>[r.m.id,`${r.m.type} | ${r.m.title}`]));
+  const linkable=d.type==='MI'||d.type==='NB';
+  let link='';
+  if(linkable){ const lt=d.link.type; let inner='';
+    if(lt==='page'){ const list=[...s.pages].sort((a,b)=>a.id-b.id); const per=8, pages=Math.max(1,Math.ceil(list.length/per)); const lp=Math.min(S.ws.lp,pages-1); S.ws.lp=lp;
+      inner=table([{t:'',w:'44px',f:p=>`<input type="radio" name="wm-pg" aria-label="Link to ${esc(p.title)}" ${d.link.page===p.id?'checked':''} tabindex="-1">`},{t:'ID',k:'id'},{t:'Ena',f:p=>ynCell(p.ena)},{t:'Pkg',k:'pkg'},{t:'Title',f:p=>esc(p.title)},{t:'Alias',k:'alias'}],list.slice(lp*per,lp*per+per),{cls:'compact',rowCls:p=>'click'+(d.link.page===p.id?' is-sel':''),rowAttr:p=>`tabindex="0" data-act="wm-pick" data-id="${p.id}"`})+
+        (pages>1?`<div class="num-pg">${Array.from({length:pages},(_,i)=>`<button type="button" data-act="wm-lp" data-p="${i}" ${i===lp?'aria-current="page"':''}>${i+1}</button>`).join('')}</div>`:'');
+    } else if(lt==='app'){ inner=`<div class="pad"><div class="f" style="max-width:420px"><label for="wm-lapp">Application to open</label><select class="sel" id="wm-lapp"><option value="">Select</option>${opts(WEB_APPS[s.pkg],d.link.app)}</select></div></div>`; }
+    const url=lt==='link'?d.link.url:menuUrl(d);
+    const sel=lt==='page'&&d.link.page?s.pages.find(p=>p.id===d.link.page):null;
+    link=`<div class="card-h" style="border-top:1px solid var(--line)"><div class="tool"><span class="lbl">Link type</span>${[['page','Custom Page'],['link','Custom Link'],['app','Application']].map(([k,l])=>`<label class="rad"><input type="radio" name="wm-lt" value="${k}" ${lt===k?'checked':''}>${l}</label>`).join('')}</div>${sel?`<span class="sm muted">Opens page ${sel.id} · ${esc(sel.title)}${sel.ena?'':' '+pill('Page disabled','warn')}</span>`:''}</div>${inner}
+    <div class="pad grid"><div class="f"><label for="wm-url">URI/URL</label><textarea class="in ws-url" id="wm-url" rows="2" ${lt==='link'?'':'readonly'} placeholder="${lt==='link'?'https://':'Choose what this menu item opens'}">${esc(url)}</textarea></div>
+    <div class="f"><span class="lbl">Test URL</span>${url?`<button type="button" class="link ws-url" style="text-align:left;word-break:break-all" data-act="wm-test">${esc(url)}</button>`:'<span class="muted sm">Nothing to test yet</span>'}</div></div>`; }
+  const fld=(id,label,ctl,cls='')=>`<div class="f ${cls}"><label for="${id}">${label}</label>${ctl}</div>`;
+  return head('Web administration',isNew?'New menu item':'Edit menu item')+
+  `<form class="card" id="wm-form" novalidate>
+   <div class="card-h"><div class="tool"><span class="lbl">ID</span><b>${isNew?'New':d.id}</b><label class="chk" style="margin-left:12px"><input type="checkbox" id="wm-ena" ${d.ena?'checked':''}>Enabled</label><label class="chk"><input type="checkbox" id="wm-hid" ${d.hidden?'checked':''}>Hidden</label></div>
+    <div class="tool"><button type="submit" class="btn btn-p">${ic('check')}Save record</button>${isNew?'':`<button type="button" class="btn btn-d" data-act="ws-mdel" data-id="${d.id}">${ic('trash')}Delete record</button>`}<button type="button" class="btn btn-s" data-act="wm-leave" data-k="main">Return to main</button><button type="button" class="btn btn-s" data-act="wm-leave">Cancel</button></div></div>
+   <div class="pad grid g3">
+    ${fld('wm-pkg','Package',`<select class="sel" id="wm-pkg" disabled>${opts(Object.entries(PKGS),d.pkg)}</select>`)}
+    ${fld('wm-par','Parent menu section',`<select class="sel" id="wm-par">${opts(parents,d.parent)}</select>`)}
+    ${fld('wm-app','Application',`<select class="sel" id="wm-app"><option value="">None</option>${opts(WEB_APPS[s.pkg],d.app)}</select>`)}
+    ${fld('wm-loc','Location',`<select class="sel" id="wm-loc">${opts(LOCS,d.loc)}</select>`)}
+    ${fld('wm-type','Menu type',`<select class="sel" id="wm-type">${opts(Object.entries(MENU_TYPES),d.type)}</select>`)}
+    ${fld('wm-top','Top menu target',`<select class="sel" id="wm-top">${opts(TOP_TGT,d.top)}</select>`)}
+    ${fld('wm-side','Side menu target',`<select class="sel" id="wm-side">${opts(SIDE_TGT,d.side)}</select>`)}
+    ${fld('wm-ord','Order',`<input class="in" id="wm-ord" inputmode="numeric" value="${esc(d.order)}" style="max-width:120px">`)}
+    ${fld('wm-title','Title',`<input class="in" id="wm-title" value="${esc(d.title)}" maxlength="60">`)}
+    ${fld('wm-alias','Alias',`<input class="in" id="wm-alias" value="${esc(d.alias)}" maxlength="40">`)}
+    <div class="f"><span class="lbl">Created by</span><span class="sm">${d.created?`${esc(d.created.by)} - ${esc(d.created.at)}`:'<span class="muted">Set when saved</span>'}</span></div>
+    <div class="f"><span class="lbl">Last modified by</span><span class="sm">${d.mod?`${esc(d.mod.by)} - ${esc(d.mod.at)}`:'<span class="muted">Not modified</span>'}</span></div>
+    ${fld('wm-note','Note',`<textarea class="in" id="wm-note" rows="2">${esc(d.note)}</textarea>`,'span-all')}
+    <div id="wm-msg" class="span-all" hidden></div>
+   </div>${link}</form>`; },
+  init(){ const re=()=>{ wmSync(); render('wa-menu'); };
+    on('#wm-type','change',re); $$('input[name="wm-lt"]').forEach(r=>r.addEventListener('change',re)); on('#wm-lapp','change',re); on('#wm-loc','change',re);
+    on('#wm-url','input',e=>{ if(S.ws.mDraft.link.type==='link') S.ws.mDraft.link.url=e.target.value.trim(); });
+    on('#wm-form','submit',e=>{ e.preventDefault(); wmSync(); const d=S.ws.mDraft, s=site(), m=$('#wm-msg');
+      if(!d.title.trim()) return msgBox(m,'err','Enter a title.');
+      if(!/^\d+$/.test(String(d.order))) return msgBox(m,'err','Order must be a whole number.');
+      if(d.type==='MI'&&d.parent===0) return msgBox(m,'err','A menu item needs a parent menu section.');
+      if(d.type==='MI'||d.type==='NB'){ const l=d.link;
+        if(!l.type) return msgBox(m,'err','Choose a link type.');
+        if(l.type==='page'&&!l.page) return msgBox(m,'err','Select the page this menu item opens.');
+        if(l.type==='link'&&!l.url) return msgBox(m,'err','Enter the address this menu item opens.');
+        if(l.type==='app'&&!l.app) return msgBox(m,'err','Select the application this menu item opens.'); }
+      d.order=+d.order; d.title=d.title.trim(); d.mod={by:S.user.u,at:stampNow()};
+      if(S.ws.menu==='new'){ d.id=nextId(s.menus); d.created={by:S.user.u,at:d.mod.at}; d.mod=null; s.menus.push(clone(d)); }
+      else s.menus[s.menus.findIndex(x=>x.id===d.id)]=clone(d);
+      S.ws.menu=d.id; toast(`Menu record ${d.id} saved`); render('wa-menu'); }); }};
+ACT['wm-pick']=el=>{ wmSync(); S.ws.mDraft.link.page=+el.dataset.id; render('wa-menu'); };
+ACT['wm-lp']=el=>{ wmSync(); S.ws.lp=+el.dataset.p; render('wa-menu'); };
+ACT['wm-leave']=el=>{ S.ws.mDraft=null; S.ws.comp=el.dataset.k==='main'?'':'menus'; go('wa-site'); };
+ACT['wm-test']=()=>{ wmSync(); const d=S.ws.mDraft; S.ws.pv={...pvFor(d),from:'wa-menu'}; go('wa-preview'); };
+ACT['ws-mdel']=el=>{ const s=site(), m=s.menus.find(x=>x.id===+el.dataset.id); if(!m) return; const kids=s.menus.filter(x=>x.parent===m.id);
+  if(kids.length) return openModal({title:'Delete menu record',body:`<div class="msg warn">${ic('alert')}<span><b>${esc(m.title)}</b> has ${kids.length} menu record${kids.length===1?'':'s'} under it. Move or delete ${kids.length===1?'it':'them'} first.</span></div>`,foot:`<button type="button" class="btn btn-p" data-act="close-modal">Close</button>`});
+  openModal({title:'Delete menu record',body:`<p>Delete <b>${esc(m.title)}</b> (ID ${m.id})? It will be removed from the public site.</p>`,foot:`<button type="button" class="btn btn-s" data-act="close-modal">Cancel</button><button type="button" class="btn btn-d" data-act="ws-mdel-ok" data-id="${m.id}">${ic('trash')}Delete record</button>`}); };
+ACT['ws-mdel-ok']=el=>{ const s=site(); s.menus=s.menus.filter(x=>x.id!==+el.dataset.id); closeModal(); toast('Menu record deleted'); S.ws.mDraft=null; S.ws.comp='menus'; if(S.route==='wa-site') render('wa-site'); else go('wa-site'); };
+
+/* ---------- Web page editor ---------- */
+const LAYOUTS=[[12],[6,6],[4,4,4],[3,3,3,3],[8,4],[4,8]];
+const mkRow=ws=>({cls:'',cols:ws.map(w=>({w,html:'<p>Type here.</p>',cls:''}))});
+ACT['ws-newpage']=()=>{ const s=site(); S.ws.page='new'; S.ws.pDraft={id:null,title:'',ena:true,pkg:s.pkg,parentAp:'cpage',parentPg:'',type:'page',module:'none',order:0,alias:'',rows:[{cls:'',cols:[{w:12,html:'<h1>New page</h1><p>Type here.</p>',cls:''}]}],mod:null}; S.ws.ed={mode:'design',dev:'Desktop',set:true}; go('wa-page'); };
+ACT['ws-pedit']=el=>{ const p=site().pages.find(x=>x.id===+el.dataset.id); if(!p) return; S.ws.page=p.id; S.ws.pDraft=clone(p); S.ws.ed={mode:'design',dev:'Desktop',set:false}; go('wa-page'); };
+function edRow(r,ri,n,src){ const used=r.cols.reduce((a,c)=>a+c.w,0); const b=(op,icn,t,dis)=>`<button type="button" class="ib" data-act="pe-row" data-op="${op}" data-r="${ri}" title="${t}" aria-label="${t} (row ${ri+1})" ${dis?'disabled':''}>${ic(icn)}</button>`;
+  return `<div class="ed-row"><div class="ed-bar">${b('up','chevU','Move row up',ri===0)}${b('down','chevD','Move row down',ri===n-1)}${b('set','gear','Row settings')}${b('del','trash','Delete row')}${b('addcol','plus','Add a column',used>=12)}<span class="ed-w">Row ${ri+1}${r.cls?` · ${esc(r.cls)}`:''}</span></div>
+  <div class="ed-cols">${r.cols.map((c,ci)=>{ const cb=(op,icn,t,dis)=>`<button type="button" class="ib" data-act="pe-col" data-op="${op}" data-r="${ri}" data-c="${ci}" title="${t}" aria-label="${t} (row ${ri+1}, column ${ci+1})" ${dis?'disabled':''}>${ic(icn)}</button>`;
+    return `<div class="ed-col" style="--w:${c.w}"><div class="ed-bar">${cb('left','chevL','Move column left',ci===0)}${cb('right','chevR','Move column right',ci===r.cols.length-1)}${cb('narrow','minus','Make narrower',c.w<=2)}${cb('wide','plus','Make wider',used>=12)}${cb('set','gear','Column settings')}${cb('del','trash','Delete column')}${cb('insert','image','Insert content')}<span class="ed-w">${c.w}/12</span></div>
+    ${src?`<textarea class="ed-src" data-r="${ri}" data-c="${ci}" spellcheck="false" aria-label="HTML for row ${ri+1}, column ${ci+1}">${esc(c.html)}</textarea>`:`<div class="ed-body cms ${esc(c.cls)}" contenteditable="true" role="textbox" aria-multiline="true" data-r="${ri}" data-c="${ci}" aria-label="Content for row ${ri+1}, column ${ci+1}">${c.html}</div>`}</div>`; }).join('')}</div></div>`; }
+R['wa-page']={crumb:()=>S.ws.page==='new'?'New web page':'Edit page',need:()=>!!S.ws.pDraft,back:'wa-site',html(){ const p=S.ws.pDraft, e=S.ws.ed, s=site(), isNew=S.ws.page==='new';
+  const w={Desktop:'100%',Tablet:'768px',Phone:'390px'}[e.dev];
+  const tools=`<div class="card"><div class="ws-bar"><div class="tool"><span class="lbl">Add row</span><div class="lt-btns">${LAYOUTS.map((l,i)=>`<button type="button" class="lt-btn" data-act="pe-addrow" data-i="${i}" title="Add a row with ${l.length} column${l.length>1?'s':''} (${l.join(' / ')})" aria-label="Add a row with ${l.length} column${l.length>1?'s':''}" ${e.mode==='view'?'disabled':''}>${ic('plus')}${l.map(x=>`<i style="flex:${x}"></i>`).join('')}</button>`).join('')}</div></div>
+     <div class="tool"><div class="seg" role="group" aria-label="Editor view">${[['design','Design'],['src','HTML'],['page','Full page HTML'],['view','Preview']].map(([k,l])=>`<button type="button" aria-pressed="${e.mode===k}" data-act="pe-mode" data-k="${k}">${l}</button>`).join('')}</div><select class="sel sm-in" id="pe-dev" aria-label="Screen size">${opts(['Desktop','Tablet','Phone'],e.dev)}</select></div></div>
+    <div class="ws-bar" style="border-top:1px solid var(--line)"><div class="tool"><button type="button" class="btn btn-s" data-act="pe-set">${ic('sliders')}${e.set?'Hide settings':'Show settings'}</button><button type="button" class="btn btn-p" data-act="pe-save">${ic('check')}Save record</button>${isNew?'':`<button type="button" class="btn btn-d" data-act="ws-pdel" data-id="${p.id}">${ic('trash')}Delete record</button>`}<button type="button" class="btn btn-s" data-act="pe-leave" data-k="main">Return to main</button><button type="button" class="btn btn-s" data-act="pe-leave">Cancel</button></div>
+     ${isNew?'':`<button type="button" class="link ws-url" data-act="pe-test">${esc(pageUrl(p.id))}</button>`}</div></div>`;
+  const others=s.pages.filter(x=>x.id!==p.id).sort((a,b)=>a.id-b.id).map(x=>[x.id,`${x.id} · ${x.title}`]);
+  const set=e.set?`<div class="card"><div class="card-h"><h2>Page settings · ${isNew?'New':'ID '+p.id}</h2><label class="chk"><input type="checkbox" id="pe-ena" ${p.ena?'checked':''}>Enabled</label></div><div class="pad grid g4">
+    <div class="f"><label for="pe-title">Title</label><input class="in" id="pe-title" value="${esc(p.title)}" maxlength="40" placeholder="lowercase, no spaces"></div>
+    <div class="f"><label for="pe-pkg">Package</label><select class="sel" id="pe-pkg" disabled>${opts(Object.entries(PKGS),p.pkg)}</select></div>
+    <div class="f"><label for="pe-pap">Parent application</label><select class="sel" id="pe-pap">${opts(['cpage'],p.parentAp)}</select></div>
+    <div class="f"><label for="pe-ppg">Parent page</label><select class="sel" id="pe-ppg"><option value="">None</option>${opts(others,p.parentPg)}</select></div>
+    <div class="f"><label for="pe-type">Type</label><select class="sel" id="pe-type">${opts(['page','module'],p.type)}</select></div>
+    <div class="f"><label for="pe-mod">Module position</label><select class="sel" id="pe-mod">${opts(MOD_POS,p.module)}</select></div>
+    <div class="f"><label for="pe-ord">Order</label><input class="in" id="pe-ord" inputmode="numeric" value="${esc(p.order)}"></div>
+    <div class="f"><label for="pe-alias">Alias</label><input class="in" id="pe-alias" value="${esc(p.alias)}" maxlength="40"></div>
+    <div id="pe-msg" class="span-all" hidden></div></div></div>`:'<div id="pe-msg" hidden></div>';
+  const canvas=e.mode==='view'?`<div class="site ${e.dev.toLowerCase()}" style="max-width:${w};padding:22px 24px"><div class="cms">${pageHtml(p)}</div></div>`
+    :e.mode==='page'?`<div class="card"><div class="card-h"><h2>Full page HTML</h2><div class="tool"><button type="button" class="btn btn-s btn-sm" data-act="pe-copyall">${ic('copy')}Copy</button><button type="button" class="btn btn-s btn-sm" data-act="pe-clear">${ic('trash')}Clear</button></div></div><div class="pad"><textarea class="ed-src ed-full" id="pe-full" spellcheck="false" aria-label="HTML for the whole page">${esc(pageSrc(p))}</textarea><div id="pe-full-msg" hidden style="margin-top:10px"></div><span class="hint">Paste a complete page or edit the rows here. Each cms-row and cms-col becomes a row and column in Design view. Anything else becomes one full-width row. Style, script, and link tags are removed.</span></div></div>`
+    :`<div class="ed-canvas ${e.dev.toLowerCase()}" style="max-width:${w}">${p.rows.length?p.rows.map((r,ri)=>edRow(r,ri,p.rows.length,e.mode==='src')).join(''):`<div class="empty"><div class="ei">${ic('layers')}</div>This page is empty. Use Add row to start building it.</div>`}</div>`;
+  return head('Web administration',isNew?'New web page':`Edit page · ${p.title}`)+`<div class="stack">${tools}${set}${canvas}</div>`; },
+  init(){ const p=S.ws.pDraft;
+    $$('.ed-body').forEach(el=>el.addEventListener('input',()=>{ p.rows[+el.dataset.r].cols[+el.dataset.c].html=el.innerHTML; }));
+    $$('.ed-src[data-r]').forEach(el=>el.addEventListener('input',()=>{ p.rows[+el.dataset.r].cols[+el.dataset.c].html=el.value; }));
+    on('#pe-full','input',e=>{ const r=parseFullHtml(e.target.value); p.rows=r.rows; msgBox($('#pe-full-msg'),r.removed?'warn':'',r.removed?`${r.removed} style, script, or link tag${r.removed===1?' was':'s were'} removed.`:''); });
+    on('#pe-dev','change',e=>{ S.ws.ed.dev=e.target.value; render('wa-page'); });
+    const bind=(id,k,fn=v=>v)=>on('#'+id,'input',e=>{ p[k]=fn(e.target.value); });
+    bind('pe-title','title',v=>v.trim()); bind('pe-ord','order',v=>v.trim()); bind('pe-alias','alias');
+    ['pe-pap','pe-ppg','pe-type','pe-mod'].forEach((id,i)=>on('#'+id,'change',e=>{ p[['parentAp','parentPg','type','module'][i]]=e.target.value; }));
+    on('#pe-ena','change',e=>{ p.ena=e.target.checked; }); }};
+const pageSrc=p=>p.rows.map(r=>`<div class="cms-row${r.cls?' '+r.cls:''}">\n${r.cols.map(c=>`  <div class="cms-col${c.cls?' '+c.cls:''}" style="--w:${c.w}">\n    ${c.html.trim()}\n  </div>`).join('\n')}\n</div>`).join('\n\n');
+function parseFullHtml(src){ const dp=new DOMParser(); const full=/<body[\s>]/i.test(src); const doc=dp.parseFromString(full?src:`<!doctype html><body>${src}`,'text/html'); const root=doc.body;
+  const junk=[...doc.querySelectorAll('style,script,link,meta,title,base')]; const removed=junk.filter(n=>['STYLE','SCRIPT','LINK'].includes(n.tagName)).length; junk.forEach(n=>n.remove());
+  const els=[...root.children]; const cls=(el,base)=>[...el.classList].filter(c=>c!==base).join(' ');
+  if(els.length&&els.every(el=>el.classList.contains('cms-row'))) return {removed,rows:els.map(r=>{ const cs=[...r.children].filter(c=>c.classList.contains('cms-col')); const cols=cs.length?cs.map(c=>({w:Math.min(12,Math.max(1,parseInt(c.style.getPropertyValue('--w'))||Math.floor(12/cs.length))),html:c.innerHTML.trim(),cls:cls(c,'cms-col')})):[{w:12,html:r.innerHTML.trim(),cls:''}]; let used=0; cols.forEach(c=>{ c.w=Math.max(1,Math.min(c.w,12-used-(cols.length-1-cols.indexOf(c)))); used+=c.w; }); return {cls:cls(r,'cms-row'),cols}; })};
+  const html=root.innerHTML.trim(); return {removed,rows:html?[{cls:'',cols:[{w:12,html,cls:''}]}]:[]}; }
+ACT['pe-copyall']=()=>{ const v=$('#pe-full').value; const ok=()=>toast('Page HTML copied'); if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(v).then(ok,()=>{ $('#pe-full').select(); toast('Press Ctrl+C to copy the selected HTML'); }); else { $('#pe-full').select(); toast('Press Ctrl+C to copy the selected HTML'); } };
+ACT['pe-clear']=()=>{ S.ws.pDraft.rows=[]; render('wa-page'); setTimeout(()=>{ const t=$('#pe-full'); t&&t.focus(); },30); };
+ACT['pe-mode']=el=>{ S.ws.ed.mode=el.dataset.k; render('wa-page'); };
+ACT['pe-set']=()=>{ S.ws.ed.set=!S.ws.ed.set; render('wa-page'); };
+ACT['pe-addrow']=el=>{ S.ws.pDraft.rows.push(mkRow(LAYOUTS[+el.dataset.i])); render('wa-page'); setTimeout(()=>{ const r=$$('.ed-row').pop(); r&&r.scrollIntoView({block:'center',behavior:'smooth'}); },30); };
+ACT['pe-row']=el=>{ const p=S.ws.pDraft, ri=+el.dataset.r, r=p.rows[ri], op=el.dataset.op;
+  if(op==='up'||op==='down'){ const j=op==='up'?ri-1:ri+1; [p.rows[ri],p.rows[j]]=[p.rows[j],p.rows[ri]]; }
+  else if(op==='del'){ p.rows.splice(ri,1); toast(`Row ${ri+1} deleted`); }
+  else if(op==='addcol'){ const used=r.cols.reduce((a,c)=>a+c.w,0); r.cols.push({w:Math.min(12-used,4),html:'<p>Type here.</p>',cls:''}); }
+  else if(op==='set'){ return openModal({title:`Row ${ri+1} settings`,body:`<form id="rs-form" class="grid"><div class="f"><label for="rs-bg">Background</label><select class="sel" id="rs-bg">${opts([['','None'],['bg-tint','Light gray'],['bg-brand','Light blue']],(r.cls.match(/bg-\w+/)||[''])[0])}</select></div></form>`,foot:`<button type="button" class="btn btn-s" data-act="close-modal">Cancel</button><button type="submit" form="rs-form" class="btn btn-p">Apply</button>`}), on('#rs-form','submit',e=>{ e.preventDefault(); r.cls=$('#rs-bg').value; closeModal(); render('wa-page'); }); }
+  render('wa-page'); };
+ACT['pe-col']=el=>{ const p=S.ws.pDraft, ri=+el.dataset.r, ci=+el.dataset.c, r=p.rows[ri], c=r.cols[ci], op=el.dataset.op;
+  if(op==='left'||op==='right'){ const j=op==='left'?ci-1:ci+1; [r.cols[ci],r.cols[j]]=[r.cols[j],r.cols[ci]]; }
+  else if(op==='narrow') c.w--; else if(op==='wide') c.w++;
+  else if(op==='del'){ r.cols.splice(ci,1); if(!r.cols.length) p.rows.splice(ri,1); toast('Column deleted'); }
+  else if(op==='set'){ return openModal({title:`Column settings`,body:`<form id="cs-form" class="grid"><div class="f"><label for="cs-al">Text alignment</label><select class="sel" id="cs-al">${opts([['','Left'],['ta-c','Center'],['ta-r','Right']],c.cls)}</select></div><div class="f"><label for="cs-w">Width</label><select class="sel" id="cs-w">${opts(Array.from({length:12},(_,i)=>[i+1,`${i+1} of 12`]),c.w)}</select></div><div id="cs-msg" hidden></div></form>`,foot:`<button type="button" class="btn btn-s" data-act="close-modal">Cancel</button><button type="submit" form="cs-form" class="btn btn-p">Apply</button>`}), on('#cs-form','submit',e=>{ e.preventDefault(); const nw=+$('#cs-w').value, rest=r.cols.reduce((a,x,i)=>i===ci?a:a+x.w,0); if(rest+nw>12) return msgBox($('#cs-msg'),'err',`The other columns use ${rest} of 12. Choose ${12-rest} or less.`); c.w=nw; c.cls=$('#cs-al').value; closeModal(); render('wa-page'); }); }
+  else if(op==='insert') return insertContent(c);
+  render('wa-page'); };
+function insertContent(c){ const imgs=fm().files.filter(f=>f.folder==='images');
+  const SN={heading:'<h2>Heading</h2>',para:'<p>Paragraph text.</p>',list:'<ul><li>First item</li><li>Second item</li></ul>',button:`<p><a class="btn-link" href="${pageUrl(1)}">Button text</a></p>`,table:'<table><tr><th>Heading</th><th>Heading</th></tr><tr><td>Cell</td><td>Cell</td></tr></table>'};
+  openModal({title:'Insert content',size:'lg',body:`<p class="lbl" style="margin-bottom:8px">Blocks</p><div class="ins-grid">${[['heading','Heading','pencil'],['para','Paragraph','file'],['list','Bulleted list','menu'],['button','Button link','link'],['table','Table','sheet']].map(([k,l,i])=>`<button type="button" data-act="ins-snip" data-k="${k}">${ic(i)}${l}</button>`).join('')}</div>
+    <p class="lbl" style="margin:18px 0 8px">Images from the file manager</p>${imgs.length?`<div class="ins-grid">${imgs.map(f=>`<button type="button" data-act="ins-img" data-n="${esc(f.name)}"><img src="${f.data||''}" alt="">${esc(f.name)}</button>`).join('')}</div>`:'<p class="muted sm">No images yet. Upload them in the file manager.</p>'}`});
+  ACT['ins-snip']=el=>{ c.html+=SN[el.dataset.k]; closeModal(); render('wa-page'); };
+  ACT['ins-img']=el=>{ const f=imgs.find(x=>x.name===el.dataset.n); c.html+=`<p><img src="${f.data||fileUrl(f)}" alt="${esc(f.name.replace(/\.\w+$/,'').replace(/[-_]/g,' '))}"></p>`; closeModal(); render('wa-page'); }; }
+ACT['pe-save']=()=>{ const p=S.ws.pDraft, s=site();
+  const fail=t=>{ if(!S.ws.ed.set){ S.ws.ed.set=true; render('wa-page'); } msgBox($('#pe-msg'),'err',t); $('#pe-msg').scrollIntoView({block:'center'}); };
+  if(!p.title) return fail('Enter a page title.');
+  if(!/^[a-z0-9_-]+$/.test(p.title)) return fail('Use lowercase letters, numbers, dashes, or underscores in the title, with no spaces.');
+  if(s.pages.some(x=>x.title===p.title&&x.id!==p.id)) return fail(`Another page is already named ${esc(p.title)}.`);
+  if(!/^\d+$/.test(String(p.order))) return fail('Order must be a whole number.');
+  p.order=+p.order; p.mod={by:S.user.u,at:stampNow()};
+  if(S.ws.page==='new'){ p.id=nextId(s.pages); s.pages.push(clone(p)); S.ws.page=p.id; } else s.pages[s.pages.findIndex(x=>x.id===p.id)]=clone(p);
+  toast(`Page ${p.id} saved`); render('wa-page'); };
+ACT['pe-leave']=el=>{ S.ws.pDraft=null; S.ws.comp=el.dataset.k==='main'?'':'pages'; go('wa-site'); };
+ACT['pe-test']=()=>{ S.ws.pv={kind:'page',id:S.ws.pDraft.id,menu:null,from:'wa-page'}; go('wa-preview'); };
+ACT['ws-pdel']=el=>{ const s=site(), p=s.pages.find(x=>x.id===+el.dataset.id); if(!p) return; const refs=s.menus.filter(m=>m.link&&m.link.type==='page'&&m.link.page===p.id);
+  if(p.id===1) return openModal({title:'Delete page',body:`<div class="msg warn">${ic('alert')}<span>Page 1 is the home page of the public site and can't be deleted.</span></div>`,foot:`<button type="button" class="btn btn-p" data-act="close-modal">Close</button>`});
+  if(refs.length) return openModal({title:'Delete page',body:`<div class="msg warn">${ic('alert')}<span><b>${esc(p.title)}</b> is opened by ${refs.length} menu record${refs.length===1?'':'s'}: ${refs.map(m=>`${esc(m.title)} (ID ${m.id})`).join(', ')}. Change ${refs.length===1?'that menu record':'those menu records'} first.</span></div>`,foot:`<button type="button" class="btn btn-p" data-act="close-modal">Close</button>`});
+  openModal({title:'Delete page',body:`<p>Delete page <b>${esc(p.title)}</b> (ID ${p.id})?</p>`,foot:`<button type="button" class="btn btn-s" data-act="close-modal">Cancel</button><button type="button" class="btn btn-d" data-act="ws-pdel-ok" data-id="${p.id}">${ic('trash')}Delete record</button>`}); };
+ACT['ws-pdel-ok']=el=>{ const s=site(); s.pages=s.pages.filter(x=>x.id!==+el.dataset.id); closeModal(); toast('Page deleted'); S.ws.pDraft=null; S.ws.comp='pages'; if(S.route==='wa-site') render('wa-site'); else go('wa-site'); };
+
+/* ---------- File manager ---------- */
+R['wa-files']={crumb:'File manager',back:'wa-site',html(){ const st=S.ws.files, F=fm(); if(!F.folders.includes(st.folder)) st.folder=F.folders[0]; const q=st.q.toLowerCase();
+  const rows=F.files.filter(x=>x.folder===st.folder&&(!q||x.name.toLowerCase().includes(q)));
+  const thumb=x=>`<span class="fm-th">${x.data?`<img src="${x.data}" alt="">`:ic(x.folder==='images'?'image':'file')}</span>`;
+  return head('Web administration','File manager',`<button type="button" class="btn btn-s" data-act="ws-back">${ic('arrowL')}Return to main</button>`)+
+  `<div class="split fm"><div class="card"><div class="card-h"><h2>Folders</h2><button type="button" class="btn btn-s btn-xs" data-act="fm-newf">${ic('plus')}New folder</button></div><div class="fm-folders">${F.folders.map(n=>`<button type="button" class="fm-f" aria-current="${n===st.folder}" data-act="fm-folder" data-k="${esc(n)}">${ic('folder')}<span>${esc(n)}</span><span class="pill">${F.files.filter(x=>x.folder===n).length}</span></button>`).join('')}</div></div>
+   <div class="card"><div class="card-h"><div class="tool"><h2>/${esc(st.folder)}</h2><input class="in sm-in" id="fm-q" placeholder="Search files" aria-label="Search files" value="${esc(st.q)}" style="width:200px"></div><div class="tool"><label class="btn btn-p btn-sm" for="fm-up" tabindex="0">${ic('upload')}Upload files</label><input type="file" id="fm-up" multiple hidden></div></div>
+   ${table([{t:'',w:'60px',f:thumb},{t:'Name',f:x=>`<b>${esc(x.name)}</b><div class="mono muted" style="word-break:break-all">${esc(fileUrl(x))}</div>`},{t:'Size',num:1,f:x=>fmtSize(x.size)},{t:'Modified',f:x=>`${esc(x.at)}<div class="sm muted">${esc(x.by)}</div>`},
+     {t:'',w:'230px',f:x=>`<div class="tool" style="flex-wrap:nowrap;justify-content:flex-end">${x.data?`<button type="button" class="btn btn-s btn-xs" data-act="fm-view" data-n="${esc(x.name)}">${ic('eye')}View</button>`:''}<button type="button" class="btn btn-s btn-xs" data-act="fm-copy" data-n="${esc(x.name)}">${ic('copy')}Copy URL</button><button type="button" class="btn btn-s btn-xs" data-act="fm-del" data-n="${esc(x.name)}" aria-label="Delete ${esc(x.name)}" title="Delete">${ic('trash')}</button></div>`}],rows,{empty:q?'No files match your search.':'This folder is empty.',emptyIc:'folder'})}</div></div>`; },
+  init(){ on('#fm-q','input',e=>{ S.ws.files.q=e.target.value; const pos=e.target.selectionStart; render('wa-files'); const i=$('#fm-q'); i.focus(); i.setSelectionRange(pos,pos); });
+    on('label[for="fm-up"]','keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); $('#fm-up').click(); } });
+    on('#fm-up','change',e=>{ const F=fm(), folder=S.ws.files.folder, list=[...e.target.files]; if(!list.length) return; let left=list.length;
+      list.forEach(file=>{ let name=file.name.replace(/\s+/g,'-'); const base=name.replace(/(\.\w+)?$/,''), ext=(name.match(/\.\w+$/)||[''])[0]; let n=1; while(F.files.some(x=>x.folder===folder&&x.name===name)) name=`${base}-${n++}${ext}`;
+        const add=data=>{ F.files.push({folder,name,size:file.size,at:stampNow(),by:S.user.u,data}); if(--left===0){ toast(`${list.length} file${list.length===1?'':'s'} uploaded to /${folder}`); render('wa-files'); } };
+        if(file.type.startsWith('image/')){ const rd=new FileReader(); rd.onload=()=>add(rd.result); rd.readAsDataURL(file); } else add(null); }); }); }};
+const fmFile=n=>fm().files.find(x=>x.folder===S.ws.files.folder&&x.name===n);
+ACT['fm-folder']=el=>{ S.ws.files.folder=el.dataset.k; S.ws.files.q=''; render('wa-files'); };
+ACT['fm-view']=el=>{ const f=fmFile(el.dataset.n); openModal({title:f.name,size:'lg',body:`<div style="display:grid;place-items:center;background:var(--tint);border-radius:14px;padding:18px"><img src="${f.data}" alt="${esc(f.name)}" style="max-width:100%;max-height:60vh"></div><p class="mono muted" style="margin-top:10px;word-break:break-all">${esc(fileUrl(f))}</p>`,foot:`<button type="button" class="btn btn-p" data-act="close-modal">Close</button>`}); };
+ACT['fm-copy']=el=>{ const u=fileUrl(fmFile(el.dataset.n)); const ok=()=>toast('File address copied'); const fail=()=>openModal({title:'File address',body:`<div class="f"><label for="fm-addr">Copy this address</label><input class="in mono" id="fm-addr" readonly value="${esc(u)}"></div>`,foot:`<button type="button" class="btn btn-p" data-act="close-modal">Done</button>`}); if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(u).then(ok,fail); else fail(); };
+ACT['fm-del']=el=>{ const f=fmFile(el.dataset.n); openModal({title:'Delete file',body:`<p>Delete <b>${esc(f.name)}</b> from /${esc(f.folder)}? Pages that use it will show a broken link.</p>`,foot:`<button type="button" class="btn btn-s" data-act="close-modal">Cancel</button><button type="button" class="btn btn-d" data-act="fm-del-ok" data-n="${esc(f.name)}">${ic('trash')}Delete file</button>`}); };
+ACT['fm-del-ok']=el=>{ const F=fm(), f=fmFile(el.dataset.n); F.files=F.files.filter(x=>x!==f); closeModal(); toast('File deleted'); render('wa-files'); };
+ACT['fm-newf']=()=>{ openModal({title:'New folder',body:`<form id="nf-form" class="grid" novalidate><div class="f"><label for="nf-n">Folder name</label><input class="in" id="nf-n" maxlength="30" placeholder="forms"></div><div id="nf-msg" hidden></div></form>`,foot:`<button type="button" class="btn btn-s" data-act="close-modal">Cancel</button><button type="submit" form="nf-form" class="btn btn-p">Create folder</button>`});
+  on('#nf-form','submit',e=>{ e.preventDefault(); const n=$('#nf-n').value.trim().toLowerCase(), F=fm(); if(!/^[a-z0-9_-]+$/.test(n)) return msgBox($('#nf-msg'),'err','Use lowercase letters, numbers, dashes, or underscores.'); if(F.folders.includes(n)) return msgBox($('#nf-msg'),'err','That folder already exists.'); F.folders.push(n); S.ws.files.folder=n; closeModal(); toast(`Folder /${n} created`); render('wa-files'); }); };
+
+/* ---------- Public site preview ---------- */
+function pvFor(m){ const l=m.link||{}; if(l.type==='page') return {kind:'page',id:l.page,menu:m.id}; if(l.type==='app') return {kind:'app',app:l.app,menu:m.id,title:m.title}; if(l.type==='link') return {kind:'link',url:l.url,menu:m.id,title:m.title,top:m.top}; return {kind:'page',id:1,menu:null}; }
+ACT['ws-preview']=()=>{ S.ws.pv={kind:'page',id:1,menu:null,from:'wa-site'}; go('wa-preview'); };
+R['wa-preview']={crumb:'Public site preview',need:()=>!!S.ws.pv,back:'wa-site',html(){ const s=site(), v=S.ws.pv, dev=v.dev||'Desktop'; const vis=m=>m.ena&&!m.hidden;
+  const kids=pid=>s.menus.filter(m=>m.parent===pid&&vis(m)).sort((a,b)=>a.order-b.order||a.id-b.id);
+  const dh=kids(0).filter(m=>m.type==='DH'), nb=kids(0).filter(m=>m.type==='NB');
+  const item=m=>`<button type="button" data-act="pv-go" data-id="${m.id}" ${v.menu===m.id?'aria-current="page"':''}>${esc(m.title)}${m.top==='New Window/Tab'?ic('ext'):''}</button>`;
+  const side=dh.map(d=>kids(d.id).map(c=>c.type==='CH'?`<h3>${esc(c.title)}</h3>${kids(c.id).filter(x=>x.type==='MI').map(item).join('')}`:c.type==='MI'?item(c):'').join('')).join('');
+  const mods=s.pages.filter(p=>p.ena&&p.type==='module'&&p.module==='Position 2').map(p=>`<div class="msg info" style="margin-bottom:14px">${ic('info')}<div class="cms">${pageHtml(p)}</div></div>`).join('');
+  let content;
+  if(v.kind==='page'){ const p=s.pages.find(x=>x.id===v.id); content=!p?`<div class="msg err">${ic('alert')}<span>Page ${v.id} was not found.</span></div>`:(p.ena?'':`<div class="msg warn" style="margin-bottom:14px">${ic('alert')}<span>This page is disabled, so the public can't see it. Turn on Enabled in the page settings to publish it.</span></div>`)+`<div class="cms">${pageHtml(p)}</div>`; }
+  else if(v.kind==='app') content=`<div class="cms"><h1>${esc(appName(s.pkg,v.app))}</h1></div><div class="msg info" style="margin-bottom:12px">${ic('info')}<span>This menu item opens the ${esc(appName(s.pkg,v.app))} application.</span></div><p class="mono muted" style="word-break:break-all">${esc(appUrl(v.app))}</p>`;
+  else content=`<div class="cms"><h1>${esc(v.title||'Outside link')}</h1></div><div class="msg info" style="margin-bottom:12px">${ic('ext')}<span>This menu item opens an outside address${v.top==='New Window/Tab'?' in a new window':''}.</span></div><p class="mono muted" style="word-break:break-all">${esc(v.url)}</p>`;
+  const w={Desktop:'100%',Tablet:'768px',Phone:'390px'}[dev];
+  const url=v.kind==='page'?pageUrl(v.id):v.kind==='app'?appUrl(v.app):v.url;
+  return head('Web administration','Public site preview',`<select class="sel sm-in" id="pv-dev" aria-label="Screen size" style="width:auto">${opts(['Desktop','Tablet','Phone'],dev)}</select>${v.kind==='page'&&s.pages.some(p=>p.id===v.id)?`<button type="button" class="btn btn-s" data-act="pv-edit">${ic('pencil')}Edit this page</button>`:''}<button type="button" class="btn btn-s" data-act="pv-back">${ic('arrowL')}${v.from==='wa-menu'?'Back to menu item':v.from==='wa-page'?'Back to page':'Return to main'}</button>`)+
+  `<div class="stack"><div class="card"><div class="ws-bar"><span class="mono" style="word-break:break-all">${esc(url)}</span><span class="sm muted">${esc(SITE_DB[S.co])} · ${esc(PKGS[s.pkg])}</span></div></div>
+   <div class="site ${dev.toLowerCase()}" style="max-width:${w}"><div class="site-hd"><img src="${sealSvg(coName())}" alt="${esc(coName())} seal" data-act="pv-home" title="Home page"><div><h2>${esc(siteTitle())}</h2>${dh[0]?`<p>${esc(dh[0].title)}</p>`:''}</div><span></span></div>
+    ${nb.length?`<div class="site-nb">${nb.map(m=>`<button type="button" data-act="pv-go" data-id="${m.id}">${esc(m.title)}</button>`).join('')}</div>`:''}
+    <div class="site-body"><nav class="site-side" aria-label="Public site menu">${side||'<p class="muted sm">No enabled menu items.</p>'}</nav><div>${mods}${content}</div></div></div></div>`; },
+  init(){ on('#pv-dev','change',e=>{ S.ws.pv.dev=e.target.value; render('wa-preview'); }); }};
+document.addEventListener('click',e=>{ const a=e.target.closest('.site a[href],.ed-body a[href]'); if(!a) return; e.preventDefault();
+  const id=(a.getAttribute('href').match(/[?&]ctid=(\d+)/)||[])[1];
+  if(id&&S.route==='wa-preview'){ S.ws.pv={kind:'page',id:+id,menu:null,from:S.ws.pv.from,dev:S.ws.pv.dev}; render('wa-preview'); }
+  else toast(`Link opens ${a.getAttribute('href')}`); });
+ACT['pv-go']=el=>{ const m=site().menus.find(x=>x.id===+el.dataset.id); S.ws.pv={...pvFor(m),from:S.ws.pv.from,dev:S.ws.pv.dev}; render('wa-preview'); };
+ACT['pv-home']=()=>{ S.ws.pv={kind:'page',id:1,menu:null,from:S.ws.pv.from,dev:S.ws.pv.dev}; render('wa-preview'); };
+ACT['pv-back']=()=>{ const f=S.ws.pv.from; go(f==='wa-menu'&&S.ws.mDraft?'wa-menu':f==='wa-page'&&S.ws.pDraft?'wa-page':'wa-site'); };
+ACT['pv-edit']=()=>{ const p=site().pages.find(x=>x.id===S.ws.pv.id); S.ws.page=p.id; S.ws.pDraft=clone(p); S.ws.ed={mode:'design',dev:'Desktop',set:false}; go('wa-page'); };
 
 /* ---------- Boot ---------- */
 (function boot(){ hydrate(); const s=JSON.parse(sessionStorage.getItem('bai-emp')||'null'); const u=s&&userBy(s.u); if(u&&u.status==='Enabled') startApp(u,s.co); else $('#lg-user').focus(); })();
